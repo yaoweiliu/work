@@ -1,7 +1,6 @@
 KVERS = $(shell uname -r)
 
-#obj-m += test.o
-obj-m += wq.o test.o
+obj-m += wq.o
 
 build: kernel_modules
 kernel_modules:
