@@ -4,8 +4,8 @@
 #include <linux/workqueue.h>
 
 static struct workqueue_struct *wq = NULL;
-static struct work_struct wk; //如果此处定义为指针，必须要为他申请内存，不然就是野指针。\
-                              就像create_singlethread_workqueue()一样，会为指针wq创建内存
+static struct work_struct wk; /*如果此处定义为指针，必须要为他申请内存，不然就是野指针。\
+                              就像create_singlethread_workqueue()一样，会为指针wq创建内存*/
 
 static void work_func(struct work_struct *work)
 {
