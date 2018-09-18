@@ -1,0 +1,1 @@
+cmd_/home/lyw/test/plat/char_driver_test/test.ko := ld -r -m elf_i386 -T /usr/src/linux-headers-3.5.0-23-generic/scripts/module-common.lds --build-id  -o /home/lyw/test/plat/char_driver_test/test.ko /home/lyw/test/plat/char_driver_test/test.o /home/lyw/test/plat/char_driver_test/test.mod.o
