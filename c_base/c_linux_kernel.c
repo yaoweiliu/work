@@ -6,6 +6,9 @@
 	const typeof( ((type *)0)->member ) *__mptr = (ptr);	\
 	(type *)( (char *)__mptr - offsetof(type,member) );})
 
+#define swap(a,b) \
+	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while(0)
+
 typedef struct
 {
 	int a;
@@ -18,6 +21,13 @@ static void test_view(int a, char c)
 	printf("a = %d, c = %c\n", a, c);
 
 	return ;
+}
+
+static void change_value(int a, int b)
+{
+	printf("before: a = %d, b = %d\n", a, b);
+	swap(a, b);
+	printf("after: a = %d, b = %d\n", a, b);
 }
 
 int main(int argc, char const *argv[])
@@ -43,6 +53,8 @@ int main(int argc, char const *argv[])
 	data->b = 'l';
 	data->con = test_view;
 	test_view(data->a, data->b);
+
+	change_value(21, 24);
 
 	return 0;
 }
