@@ -32,9 +32,12 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 
+	/*a is first member of DATA_T*/
 	printf("before data's address is: %p\n", data);
+	printf("before cc's address is: %p\n", cc);
 	data = container_of(cc, DATA_T, a);
 	printf("after data's address is: %p\n", data);
+	printf("after cc's address is: %p\n", cc);
 	
 	data->a = 5;
 	data->b = 'l';
