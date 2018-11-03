@@ -3,6 +3,7 @@
 #include <linux/sched.h>
 #include <linux/netdevice.h>
 #include <linux/errno.h>
+#include <linux/etherdevice.h>
 
 static struct net_device *sg_dev;
 
@@ -34,9 +35,15 @@ static const struct net_device_ops sg_ops =
 
 static int __init virnet_init(void)
 {
-	sg_dev = alloc_netdev(0, "virnet%d", ether_setup);
+	u8 address;
+
+	//sg_dev = alloc_netdev(0, "virnet%d", ether_setup);
+	sg_dev =  alloc_etherdev(0);
 	sg_dev->netdev_ops = &sg_ops;
-	memcpy(sg_dev->dev_addr, "\x01\x02\x03\x04\x05\x06", 6);
+
+	random_ether_addr(&address);
+	memcpy(sg_dev->dev_addr, &address, sizeof(address));
+	//memcpy(sg_dev->dev_addr, "\x01\x02\x03\x04\x05\x06", 6);
 
 	register_netdev(sg_dev);
 	return 0;
