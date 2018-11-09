@@ -15,7 +15,16 @@ int list_insert_after(list_head *head, list_head *node)
 	head->next = node;
 }
 
-int list_delete(list_head *node)
+int list_insert_before(list_head *head, list_head *node)
+{
+	head->prev->next = node;
+	node->prev = head->prev;
+
+	node->next = head;
+	head->prev = node;
+}
+
+int list_delete_init(list_head *node)
 {
 	node->next->prev = node->prev;
 	node->prev->next = node->next;
