@@ -38,6 +38,7 @@ class MyWindow(QDialog,QWidget):
     def __init__(self,parent = None):
         super(MyWindow,self).__init__(parent)
         self.resize(400,400)
+        QMessageBox.warning(None, u"注意", QString(u"数据库错误: %1").arg(u"连接服务器失败"))
         self.mainlayout = QGridLayout(self)
         self.myButton = QPushButton()
         self.myButton.setText(u"点击弹出警告子窗口")
