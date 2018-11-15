@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-   
 from PyQt4.QtGui import *  
 from PyQt4.QtCore import *  
-import sys  , time
+import sys, time
   
 QTextCodec.setCodecForTr(QTextCodec.codecForName("utf8"))  
   
