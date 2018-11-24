@@ -27,4 +27,8 @@ if __name__ == "__main__":
 		a = getattr(data, "pr")
 		print a, type(a)
 
+	lt = [1,1,10,0,0,0,1,5,0,1,4,8]
+	indx = [i for i, x in enumerate(lt) if x == 1]
+	print indx
+
 
