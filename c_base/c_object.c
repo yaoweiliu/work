@@ -14,6 +14,7 @@ static int test_view(int num)
 
 int main(int argc, char *arv[])
 {
+	char data[8] = "20181124";
 	struct st test = {
 		.num = 5,
 		.view = test_view,
@@ -21,6 +22,7 @@ int main(int argc, char *arv[])
 
 	test.view(test.num);
 	//printf("%p\n", test.view);
+	printf("%s\n", data);
 
 	return 0;
 }
