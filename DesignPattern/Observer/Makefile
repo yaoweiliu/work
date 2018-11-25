@@ -1,5 +1,5 @@
 main:Main.o ConcreteSubject.o ConcreteObserver.o
-	g++ -o  $@ $^
+	g++ -o $@ $^
 
 .PHONY:clean
 clean:
