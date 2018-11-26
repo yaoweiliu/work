@@ -20,7 +20,7 @@ int main(int argc, char const *argv[])
 		exit(-1);
 	}
 
-	dfd = open("./cp.txt", O_RDWR | O_CREAT | O_APPEND);
+	dfd = open("./cp.txt", O_RDWR | O_CREAT);//O_APPEND
 	if(dfd < 0) {
 		perror("open()");
 		close(sfd);
@@ -32,6 +32,9 @@ int main(int argc, char const *argv[])
 		write_len = write(dfd, buf+pos, read_len);
 		pos += write_len;
 	}
-	
+
+	close(sfd);
+	close(dfd);
+
 	return 0;
 }
