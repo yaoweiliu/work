@@ -14,13 +14,20 @@ int main(int argc, char const *argv[])
 	char buf[SIZE] = {"0"};
 	int pos;
 
-	sfd = open("/etc/sysctl.conf", O_RDONLY);
+	if(argc < 3) {
+		printf("Usag: my_cp source_file dect_file\n");
+		exit(-1);
+	}
+
+	//sfd = open("/etc/sysctl.conf", O_RDONLY);
+	sfd = open(argv[1], O_RDONLY);
 	if(sfd < 0) {
 		perror("open()");
 		exit(-1);
 	}
 
-	dfd = open("./cp.txt", O_RDWR | O_CREAT);//O_APPEND
+	//dfd = open("./cp.txt", O_RDWR | O_CREAT);//O_APPEND
+	dfd = open(argv[2], O_RDWR | O_CREAT);
 	if(dfd < 0) {
 		perror("open()");
 		close(sfd);
