@@ -21,7 +21,6 @@ if __name__ == "__main__":
 	d7 = OrderedDict([("hbit1",0), ("hbit2",0), ("hbit3",0), ("hbit4",1), ("hbit5",1), ("hbit6",1), ("hbit7",1), ("hbit8",1)])
 	d8 = OrderedDict([("ibit1",1), ("ibit2",1), ("ibit3",1), ("ibit4",1), ("ibit5",0), ("ibit6",0), ("ibit7",0), ("ibit8",1)])
 
-
 	for k,v in d1.items():
 		#print k, v
 		pass
@@ -29,20 +28,37 @@ if __name__ == "__main__":
 
 	data = [d1, d2, d3, d4, d5, d6, d7, d8]
 
-	result1 = 0xff
-	result2 = 0x1f
-	result3 = 0xf
-	result4 = 0x1f
-	result5 = 0x1f
-	result6 = 0x1f
-	result7 = 0x1f
-	result8 = 0xf1
+	result1 = '0xff'
+	result2 = '0xf1'
+	result3 = '0xf0'
+	result4 = '0xf1'
+	result5 = '0xf1'
+	result6 = '0xf1'
+	result7 = '0xf1'
+	result8 = '0x1f'
 
 	result = [result1, result2, result3, result4, result5, result6, result7, result8]
 
 	if True == 1:
 		print "True is equl to 1"
 
+	for i in range(len(data)):
+		keyLt = []
+		valLt = []
+		for key, val in data[i].items():
+			keyLt.append(key)
+			valLt.append(val)
+		print "valLt, keyLt: ", valLt, keyLt, result[i]
+		for b in range(8):
+			print (int(result[i],16) & (0x1 << b)), (valLt[b] << b), valLt[b], b
+			if ((int(result[i],16) & (0x1 << b)) == (valLt[b] << b)):
+				print valLt[b], keyLt[b], b
+				pass
+
+		#print keyLt, valLt
+
+
+	"""
 	for b in range(8):
 		#print result1 & (0x1 << b) == (0x1 << b), result2 & (0x1 << b) == (0x1 << b)
 		pass
@@ -51,19 +67,19 @@ if __name__ == "__main__":
 	for i in range(len(data)):
 		for key,val in data[i].items():
 			#print key, val, data[i][key]
-			print data[i][key], cunt
+			#print data[i][key], cunt
 			cunt += 1
 			for b in range(8):
-				if (result[i] & (0x1 << b) == (0x1 << b)) == data[i][key]:
-					#print "is ", key, data[i][key]
+				if (result[i] & (0x1 << b) == (0x1 << b)) == data[b][key]:
+					print "is ", key, data[i][key]
 					pass
 				else:
-					#print "not ", key, data[i][key]
+					print "not ", key, data[i][key]
 					pass
 
 		for key in data[i].keys():
 			#print data[i][key]
 			pass
-
+	"""
 	
 
