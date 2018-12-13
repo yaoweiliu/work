@@ -48,19 +48,19 @@ static void __timer_start(void (*function)(void), int level, int interval)
 	memset(&value, 0x0, sizeof(struct itimerspec));
 
 	sevp.sigev_notify = SIGEV_THREAD;
-    sevp.sigev_notify_function = timer_notify_cb;
+	sevp.sigev_notify_function = timer_notify_cb;
 
 	timer_create(CLOCK_REALTIME, &sevp, &timerid);
 
 	clock_gettime(CLOCK_REALTIME, &spec);
 	value.it_value.tv_sec = spec.tv_sec + 2;
-    value.it_value.tv_nsec = spec.tv_nsec + 0;
-    value.it_interval.tv_sec = interval / 5;
-    value.it_interval.tv_nsec = 0;
-    timer_settime(timerid, TIMER_ABSTIME, &value, NULL);
+	value.it_value.tv_nsec = spec.tv_nsec + 0;
+	value.it_interval.tv_sec = interval / 5;
+	value.it_interval.tv_nsec = 0;
+	timer_settime(timerid, TIMER_ABSTIME, &value, NULL);
 
-    //sleep(6);
-    //timer_delete(timerid);
+	//sleep(6);
+	//timer_delete(timerid);
 }
 
 int main(int argc, char const *argv[])
