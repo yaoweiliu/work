@@ -1,8 +1,10 @@
 #include <signal.h>
 #include <time.h>
+#include <stdlib.h>
 #include "multi_button.h"
 
 static struct Button btn1;
+static timer_t timerid;
 //struct Button btn2;
 typedef void (*cb_function)(void);
 static cb_function func = NULL;
@@ -35,12 +37,20 @@ static void timer_notify_cb(union sigval val)
 	func();
 }
 
+static void sighandler(int id)
+{
+	printf("%s: id = %d\n", __func__, id);
+	timer_delete(timerid);
+	exit(0);
+}
+
 static void __timer_start(void (*function)(void), int level, int interval)
 {
 	struct sigevent sevp;
-	timer_t timerid;
 	struct itimerspec value;
 	struct timespec spec;
+
+	signal(SIGINT, sighandler);
 
 	func = function;
 
