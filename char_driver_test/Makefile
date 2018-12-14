@@ -21,7 +21,8 @@ app:app_nonblock.o
 	gcc -o $@ $^
 
 clean:
-	rm -rf *.o app_nonblock *~ core  *.ko *.mod.c modules.order Module.symvers
+	@#rm -rf *.o app_nonblock *~ core  *.ko *.mod.c modules.order Module.symvers
+	$(MAKE) -C $(KERNELDIR) M=$$PWD clean
 
 _src = drv.c app_nonblock.c
 

@@ -3,6 +3,7 @@
 #include <linux/sched.h>
 #include <linux/miscdevice.h>
 #include <linux/fs.h>
+#include <linux/device.h>
 #include <asm-generic/uaccess.h>
 
 //static int test = 7;
@@ -51,12 +52,14 @@ static struct miscdevice ts =
 
 static int __init test_init(void)
 {
-	misc_register(&ts);
+	dev_dbg(ts.this_device, "test_init\n");
+    misc_register(&ts);
 	return 0;
 }
 
 static void __exit test_exit(void)
 {
+	dev_dbg(ts.this_device, "test_exit\n");
 	misc_deregister(&ts);
 }
 
