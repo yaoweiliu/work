@@ -8,6 +8,8 @@ public:
 	~StrategyBase() {};
 	
 	virtual void algorithm(void) = 0;
+private:
+	
 };
 
 #endif
