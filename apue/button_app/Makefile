@@ -7,4 +7,4 @@ $(TARGET):$(OBJECT)
 	$(GCC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm $(OBJECT) $(TARGET)
+	rm $(OBJECT) $(TARGET) -rf
