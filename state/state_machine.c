@@ -56,7 +56,7 @@ void event_process(void)
     /*build event mask first*/
     do{
         event_mask |= event_ptr->event_flag;
-    } while ((++event_ptr)->event_flag != EVENT_LIST_END); 
+    } while((++event_ptr)->event_flag != EVENT_LIST_END); 
     
     /*wait until event happened*/
     while((event_mask & get_events()) == 0)
@@ -64,14 +64,13 @@ void event_process(void)
     
     /*find match event and do actions*/
     events = get_events();
-    for(event_ptr = cur_state()->event_ptr; event_ptr->event_flag != EVENT_LIST_END; event_ptr++){
+    for(event_ptr = cur_state()->event_ptr; event_ptr->event_flag != EVENT_LIST_END; event_ptr++) {
         int32_t event_flag = event_ptr->event_flag;
-        if( ((event_flag & events) !=0) && (event_ptr->action != NULL) ){
+        if(((event_flag & events) !=0) && (event_ptr->action != NULL)) {
             (*event_ptr->action)(event_ptr->arg);
             clear_event(event_flag);
             set_state(event_ptr->next_state);
         }
-        
     }
 } 
 

@@ -32,14 +32,14 @@ typedef struct eventStruct
 	struct stateStruct *next_state;		/*pointer to the next state*/
 }EVENT_TYPE;
  
- typedef struct stateStruct
+typedef struct stateStruct
 {
 	int32_t state_id;
 	const struct eventStruct *event_ptr; 
 }STATE_TYPE;
 
 
-STATE_TYPE * cur_state(void);
+STATE_TYPE *cur_state(void);
 void set_state(STATE_TYPE *state);
 
 void init_event(void);
@@ -48,5 +48,5 @@ void clear_event(int32_t ev);
 int32_t get_events(void);
 void event_process(void);
  
- #endif
+#endif
 

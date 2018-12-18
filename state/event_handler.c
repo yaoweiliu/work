@@ -56,7 +56,7 @@ void ev_3_handler(int32_t arg)
                 servo_message_recieve_info.servo_send_flag = 0;
 			}
 		}
-        if (servo_message_recieve_info.servo_send_flag == 0 && \
+        if(servo_message_recieve_info.servo_send_flag == 0 && \
                 servo_message_recieve_info.servo_recieve_flag == 1) {
             servo_message_recieve_info.servo_recieve_flag = 0x00;
             if(Servo_CRC_Check(servo_message_recieve) == 1) {
