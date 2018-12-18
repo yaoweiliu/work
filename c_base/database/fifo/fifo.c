@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "fifo.h"
 
 int fifo_init(DataNode_T *fifo)
@@ -22,10 +23,11 @@ int fifo_enqueue(DataNode_T *fifo, DataNode_T *node)
 int fifo_dequeue(DataNode_T *fifo, DataNode_T *node)
 {
 	DataNode_T *tmp;
-	int lenth = 0;
+	int lenth = 1;
 
 	for(tmp = fifo; tmp->next != fifo; tmp++) {
 		lenth += 1;
+		printf("%d\n", lenth);
 	}
 	//node = tmp->next;
 	tmp->next = tmp->next->next;

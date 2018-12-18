@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 
 	fifo_init(fifo);
 
-	for(i = 0; i < 1; i++) {
+	for(i = 0; i < 2; i++) {
 		DataNode_T *node = malloc(sizeof(DataNode_T));
 		fifo_enqueue(fifo, node);
 	}
