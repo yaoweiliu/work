@@ -1,6 +1,9 @@
 #ifndef __FIFO_H__
 #define __FIFO_H__
 
+#define container_of(ptr, type, member)	\
+		((type *)(((char *)(ptr))-((unsigned long)(&(((type *)0)->member)))))
+
 typedef struct DataNode
 {
 	int count;

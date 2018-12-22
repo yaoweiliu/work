@@ -4,7 +4,7 @@
 
 int fifo_init(DataNode_T *fifo)
 {
-	fifo->count = 1;
+	fifo->count = 0;
 	fifo->next = fifo;
 
 	return 0;
@@ -14,8 +14,6 @@ int fifo_enqueue(DataNode_T *fifo, DataNode_T *node)
 {
 	fifo->next = node;
 	node->next = fifo;
-
-	fifo->count += 1;
 
 	return 0;
 }
@@ -27,7 +25,7 @@ int fifo_dequeue(DataNode_T *fifo, DataNode_T *node)
 
 	for(tmp = fifo; tmp->next != fifo; tmp++) {
 		lenth += 1;
-		printf("%d\n", lenth);
+		//printf("%d\n", lenth);
 	}
 	//node = tmp->next;
 	tmp->next = tmp->next->next;
@@ -36,4 +34,13 @@ int fifo_dequeue(DataNode_T *fifo, DataNode_T *node)
 	return lenth-1;
 }
 
-void fifo_display(DataNode_T *fifo);
+void fifo_display(DataNode_T *fifo)
+{
+	DataNode_T *tmp;
+
+	printf("%d\n", fifo->count);
+
+	for(tmp = fifo; tmp->next != fifo; tmp++) {
+		printf("%d\n", tmp->count);
+	}
+}
