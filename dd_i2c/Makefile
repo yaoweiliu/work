@@ -5,7 +5,8 @@ ccflags-y+=-fmax-errors=5
 #ccflags-y+=-DCTRACER_ON -include $M/ctracer.h
 #ccflags-y+=-D USE_MISCDEV # uncomment to use single misc device instead char devices region
 
-obj-m+= i2c.o
+#obj-m+= i2c.o
+obj-m += i2c_demo.o
 
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 
