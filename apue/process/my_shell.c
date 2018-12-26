@@ -37,6 +37,8 @@ void parse_cmd(char *buffer, glob_st *gl)
 		}
 
 		flag = 1;
+
+		//globfree(&gl->gl);
 	}
 }
 
@@ -70,6 +72,7 @@ int main(int argc, char const *argv[])
 			exit(1);
 		}
 
+		globfree(&g_type.gl);
 		wait(NULL);
 	}
 
