@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <glob.h>
+#include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <glob.h>
 
 #define	DELIM	" \t\n"
 
@@ -15,7 +15,7 @@ typedef struct gl_st
 
 void print(void)
 {
-	printf("[lyw-sh]$");
+	printf("[Lyw-sh]$ ");
 }
 
 void parse_cmd(char *buffer, glob_st *gl)
@@ -31,15 +31,16 @@ void parse_cmd(char *buffer, glob_st *gl)
 		if(buf[0] == '\0')
 			continue;
 
-		if(glob(buf, GLOB_NOCHECK | GLOB_APPEND*flag, NULL, &gl->gl)) {
+		if(glob(buf, GLOB_NOCHECK | GLOB_APPEND * flag, NULL, &gl->gl)) {
 			perror("glob()");
 			exit(1);
 		}
+
 		flag = 1;
 	}
 }
 
-int main(void)
+int main(int argc, char const *argv[])
 {
 	pid_t pid;
 	char *cmd_buffer = NULL;
@@ -49,7 +50,7 @@ int main(void)
 
 	while(1) {
 		print();
-	
+
 		ret = getline(&cmd_buffer, &n, stdin);
 		if(ret == -1) {
 			perror("getline()");
@@ -63,16 +64,14 @@ int main(void)
 			perror("fork()");
 			exit(1);
 		}
-
-		if(pid == 0) {
+		else if(pid == 0) {
 			execvp(g_type.gl.gl_pathv[0], g_type.gl.gl_pathv);
 			perror("execvp()");
 			exit(1);
 		}
-		else
-			wait(NULL);
+
+		wait(NULL);
 	}
 
 	return 0;
 }
-
