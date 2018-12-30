@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 
 from fysom import Fysom
+from skimage import data
+from matplotlib import pyplot as plt
 
 fsm = Fysom({"initial":"green",
              "events":[
@@ -42,21 +44,33 @@ class ChangeState():
     def green2Yellow(self):
         if self.state.current == "green":
             #TODO. dosomething then change state
+            img = data.coffee()
+            plt.imshow(img)
+            plt.show()
             self.state.trigger("warn")
 
     def yellow2Red(self):
         if self.state.current == "yellow":
             #TODO. dosomething then change state
+            img = data.camera()
+            plt.imshow(img)
+            plt.show()
             self.state.trigger("panic")
 
     def red2Yellow(self):
         if self.state.current == "red":
             #TODO. dosomething then change state
+            img = data.rocket()
+            plt.imshow(img)
+            plt.show()
             self.state.trigger("calm")
 
     def yellow2Green(self):
         if self.state.current == "yellow":
             #TODO. dosomething then change state
+            img = data.horse()
+            plt.imshow(img)
+            plt.show()
             self.state.trigger("clear")
 
 if __name__ == "__main__":
