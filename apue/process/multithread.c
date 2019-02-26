@@ -21,6 +21,8 @@ static void *start_func(void *arg)
 		printf("%s: write error\n", __func__);
 		pthread_mutex_unlock(&mutex);
 		pthread_exit(NULL);
+		
+		return NULL;
 	}
 
 	pthread_mutex_unlock(&mutex);
