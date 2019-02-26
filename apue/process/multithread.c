@@ -22,14 +22,18 @@ static void *start_func(void *arg)
 		pthread_mutex_unlock(&mutex);
 		pthread_exit(NULL);
 		
-		return NULL;
+		//return NULL;
 	}
 
 	pthread_mutex_unlock(&mutex);
 
-	pthread_exit(NULL);
+	printf("%s: 1 thread exit.\n", __func__);
 
-	return NULL;
+	pthread_exit(NULL); //pthread_exit() need not to call return.
+
+	printf("%s: 2 thread exit.\n", __func__);
+
+	//return NULL;
 }
 
 int main(int argc, char const *argv[])
@@ -38,7 +42,7 @@ int main(int argc, char const *argv[])
 	int ret, i;
 	int fd;
 
-	fd = open("./thread.txt", O_RDWR | O_CREAT | O_TRUNC);
+	fd = open("./thread.txt", O_RDWR | O_CREAT | O_TRUNC, 0666); //if flags has O_CREAT, then need set mode(0666).
 	if(fd < 0) {
 		perror("open()");
 		exit(1);
@@ -56,6 +60,8 @@ int main(int argc, char const *argv[])
 
 	for(i = 0; i < 3; i++)
 		pthread_join(pid[i], NULL);
+
+	close(fd);
 
 	return 0;
 }
