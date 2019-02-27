@@ -61,6 +61,10 @@ int main(int argc, char const *argv[])
 	for(i = 0; i < 3; i++)
 		pthread_join(pid[i], NULL);
 
+	printf("%s: join end\n", __func__);
+
+	pthread_mutex_destroy(&mutex);
+
 	close(fd);
 
 	return 0;
