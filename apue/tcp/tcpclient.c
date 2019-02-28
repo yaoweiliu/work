@@ -6,6 +6,8 @@
  #include <sys/select.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <netdb.h>
+#include <string.h>
 #include "tcpclient.h"
 
 static SOCKINFO *sinfo = NULL;
@@ -36,7 +38,7 @@ int create_socket(SOCKINFO *sinfo, const char *ip, unsigned int port)
 	struct sockaddr_in dst_addr;
     struct hostent *hostname;
     int ret;
-    const char *buf = "create socket success."
+    const char *buf = "create socket success.";
 
 	sinfo->sfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sinfo->sfd == -1) {
@@ -54,13 +56,13 @@ int create_socket(SOCKINFO *sinfo, const char *ip, unsigned int port)
     ret = connect(sinfo->sfd, (struct sockaddr *)&dst_addr, sizeof(struct sockaddr));
     if(ret) {
     	perror("connect()");
-    	return -1
+    	return -1;
     }
 
     ret = send(sinfo->sfd, buf, strlen(buf), 0);
     if(ret == -1) {
     	perror("send()");
-    	return -1
+    	return -1;
     }
 
     return 0;
@@ -90,7 +92,7 @@ int select_handle(void)
 		return -1;
 	}
 
-	ret = create_socket(sinfo);
+	ret = create_socket(sinfo, "172.20.20.2", 9008);
 	if(ret) {
 		fprintf(stderr, "create_socket error.");
 		goto malloc_error;
@@ -120,7 +122,7 @@ int select_handle(void)
 			//read and send. TODO
 		}
 	}
-	
+
 pipe_error:
 	destory_socket(sinfo);
 malloc_error:

@@ -1,7 +1,7 @@
 #ifndef __TCPCLIENT_H__
 #define __TCPCLIENT_H__
 
-typedef void (*cb_func_t)(void *buff, unsigned int len)
+typedef void (*cb_func_t)(void *buff, unsigned int len);
 
 typedef struct sock_fd
 {
