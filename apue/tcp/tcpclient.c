@@ -93,13 +93,13 @@ int select_handle(void)
 	ret = create_socket(sinfo);
 	if(ret) {
 		fprintf(stderr, "create_socket error.");
-		return -1;
+		goto malloc_error;
 	}
 
 	ret = create_pipe(sinfo);
 	if(ret) {
 		fprintf(stderr, "create_pipe error.");
-		return -1;
+		goto pipe_error;
 	}
 
 	//ret = (sinfo->pipefd[0] > sinfo->pipefd[1]) ? sinfo->pipefd[0] : sinfo->pipefd[1];
@@ -120,6 +120,12 @@ int select_handle(void)
 			//read and send. TODO
 		}
 	}
+	
+pipe_error:
+	destory_socket(sinfo);
+malloc_error:
+	free(sinfo);
+	return -1;
 }
 
 
