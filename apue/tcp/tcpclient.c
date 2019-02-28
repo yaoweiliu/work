@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <netdb.h>
 #include <string.h>
+#include <pthread.h>
 #include "tcpclient.h"
 
 static SOCKINFO *sinfo = NULL;
@@ -80,29 +81,10 @@ void set_callback_func(SOCKINFO *sinfo, cb_func_t callback, unsigned int len)
 	sinfo->cb = callback;
 }
 
-int select_handle(void)
+int select_handle(SOCKINFO *sinfo)
 {
-	SOCKINFO *sinfo = NULL;
-	int ret, max_fd;
+	int max_fd;
 	fd_set readfds;
-
-	sinfo = malloc(sizeof(SOCKINFO));
-	if(!sinfo) {
-		fprintf(stderr, "malloc error.");
-		return -1;
-	}
-
-	ret = create_socket(sinfo, "172.20.20.2", 9008);
-	if(ret) {
-		fprintf(stderr, "create_socket error.");
-		goto malloc_error;
-	}
-
-	ret = create_pipe(sinfo);
-	if(ret) {
-		fprintf(stderr, "create_pipe error.");
-		goto pipe_error;
-	}
 
 	//ret = (sinfo->pipefd[0] > sinfo->pipefd[1]) ? sinfo->pipefd[0] : sinfo->pipefd[1];
 	max_fd = (sinfo->pipefd[0] > sinfo->sfd) ? sinfo->pipefd[0] : sinfo->sfd;
@@ -122,12 +104,63 @@ int select_handle(void)
 			//read and send. TODO
 		}
 	}
+}
 
+void *start_select(void *sinfo)
+{
+	select_handle(sinfo);
+}
+
+int start_thread_handle(void)
+{
+	int ret;
+	pthread_t pid;
+	SOCKINFO *sinfo = NULL;
+
+	sinfo = malloc(sizeof(SOCKINFO));
+	if(!sinfo) {
+		fprintf(stderr, "malloc error.\n");
+		goto malloc_error;
+	}
+
+	ret = create_socket(sinfo, "172.20.20.2", 9008);
+	if(ret) {
+		fprintf(stderr, "create_socket error.\n");
+		goto socket_error;
+	}
+
+	ret = create_pipe(sinfo);
+	if(ret) {
+		fprintf(stderr, "create_pipe error.\n");
+		goto pipe_error;
+	}
+
+	ret = pthread_create(&pid, NULL, start_select, (void *)sinfo);
+	if(ret) {
+		fprintf(stderr, "pthread_create error.\n");
+		goto thread_error;
+	}
+
+	return 0;
+
+thread_error:
+	destory_pipe(sinfo);
 pipe_error:
 	destory_socket(sinfo);
-malloc_error:
+socket_error:
 	free(sinfo);
+malloc_error:
 	return -1;
+}
+
+/*test code*/
+int main(int argc, char const *argv[])
+{
+	int ret;
+
+	ret = start_thread_handle();
+	
+	return 0;
 }
 
 
