@@ -128,10 +128,25 @@ void *start_select(void *sinfo)
 	pthread_exit(NULL);
 }
 
-SOCKINFO *start_thread_handle(void)
+int start_thread_handle(SOCKINFO *sinfo)
 {
 	int ret;
-	pthread_t pid;
+	//pthread_t pid;
+
+	ret = pthread_create(&sinfo->pid, NULL, start_select, (void *)sinfo);
+	if(ret) {
+		fprintf(stderr, "pthread_create error.\n");
+		return -1;
+	}
+
+	//pthread_join(pid, NULL);
+
+	return 0;
+}
+
+SOCKINFO *create_socket_info(void)
+{
+	int ret;
 	SOCKINFO *sinfo = NULL;
 
 	sinfo = malloc(sizeof(SOCKINFO));
@@ -152,18 +167,6 @@ SOCKINFO *start_thread_handle(void)
 		goto pipe_error;
 	}
 
-	ret = pthread_create(&pid, NULL, start_select, (void *)sinfo);
-	if(ret) {
-		fprintf(stderr, "pthread_create error.\n");
-		goto thread_error;
-	}
-
-	/*test pipe demo code*/
-	//close(sinfo->pipefd[0]);
-	write(sinfo->pipefd[1], "test pipe is ready.", 19);
-
-	pthread_join(pid, NULL);
-
 	return sinfo;
 
 thread_error:
@@ -176,13 +179,38 @@ malloc_error:
 	return NULL;
 }
 
+void *write_pipe(void *sinfo)
+{
+	/*test pipe demo code*/
+	//close(sinfo->pipefd[0]);
+
+	SOCKINFO *info = (SOCKINFO *)sinfo;
+	write(info->pipefd[1], "test pipe is ready.", 19);
+
+	pthread_exit(NULL);
+
+	return NULL;
+}
+
 /*test code*/
 int main(int argc, char const *argv[])
 {
 	int ret;
 	SOCKINFO *sinfo;
+	//pthread_t pipe_fd;
 
-	sinfo = start_thread_handle();
+	sinfo = create_socket_info();
+
+	start_thread_handle(sinfo);
+
+	ret = pthread_create(&sinfo->pipe_fd, NULL, write_pipe, (void *)sinfo);
+	if(ret) {
+		fprintf(stderr, "pthread_create error.\n");
+		goto thread_error;
+	}
+
+	pthread_join(sinfo->pipe_fd, NULL);
+	pthread_join(sinfo->pid, NULL);
 
 	destory_pipe(sinfo);
 	destory_socket(sinfo);
@@ -190,6 +218,13 @@ int main(int argc, char const *argv[])
 	sinfo = NULL;
 	
 	return 0;
+thread_error:
+	destory_pipe(sinfo);
+	destory_socket(sinfo);
+	free(sinfo);
+	sinfo = NULL;
+
+	return -1;
 }
 
 
