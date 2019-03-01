@@ -109,6 +109,8 @@ int select_handle(SOCKINFO *sinfo)
 void *start_select(void *sinfo)
 {
 	select_handle(sinfo);
+
+	pthread_exit(NULL);
 }
 
 int start_thread_handle(void)
@@ -123,7 +125,7 @@ int start_thread_handle(void)
 		goto malloc_error;
 	}
 
-	ret = create_socket(sinfo, "172.20.20.2", 9008);
+	ret = create_socket(sinfo, "192.168.1.155", 6666);
 	if(ret) {
 		fprintf(stderr, "create_socket error.\n");
 		goto socket_error;
@@ -140,6 +142,8 @@ int start_thread_handle(void)
 		fprintf(stderr, "pthread_create error.\n");
 		goto thread_error;
 	}
+
+	pthread_join(pid, NULL);
 
 	return 0;
 
