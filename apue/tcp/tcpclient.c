@@ -85,11 +85,14 @@ int select_handle(SOCKINFO *sinfo)
 {
 	int max_fd;
 	fd_set readfds;
+	char buf[19];
+	int ret;
 
 	//ret = (sinfo->pipefd[0] > sinfo->pipefd[1]) ? sinfo->pipefd[0] : sinfo->pipefd[1];
 	max_fd = (sinfo->pipefd[0] > sinfo->sfd) ? sinfo->pipefd[0] : sinfo->sfd;
 
 	FD_ZERO(&readfds);
+	memset(buf, '0', 19);
 
 	while(1) {
 		FD_SET(sinfo->sfd, &readfds);
@@ -98,12 +101,24 @@ int select_handle(SOCKINFO *sinfo)
 		select(max_fd+1, &readfds, NULL, NULL, NULL);
 		if(FD_ISSET(sinfo->sfd, &readfds)) {
 			//recv and recv callback. TODO
+			recv(sinfo->sfd, buf, 19, 0);
+			printf("%s: recv msg is %s.\n", __func__, buf);
 		}
 
 		if(FD_ISSET(sinfo->pipefd[0], &readfds)) {
 			//read and send. TODO
+			read(sinfo->pipefd[0], buf, 19);
+			ret = send(sinfo->sfd, buf, strlen(buf), 0);
+			if(ret == -1) {
+		    	perror("send()");
+		    	return -1;
+    		}
+			printf("%s: pipe ready, data is %s\n", __func__, buf);
+			break;
 		}
 	}
+
+	return 0;
 }
 
 void *start_select(void *sinfo)
@@ -113,7 +128,7 @@ void *start_select(void *sinfo)
 	pthread_exit(NULL);
 }
 
-int start_thread_handle(void)
+SOCKINFO *start_thread_handle(void)
 {
 	int ret;
 	pthread_t pid;
@@ -125,7 +140,7 @@ int start_thread_handle(void)
 		goto malloc_error;
 	}
 
-	ret = create_socket(sinfo, "192.168.1.155", 6666);
+	ret = create_socket(sinfo, "127.0.0.1", 6666);
 	if(ret) {
 		fprintf(stderr, "create_socket error.\n");
 		goto socket_error;
@@ -143,9 +158,13 @@ int start_thread_handle(void)
 		goto thread_error;
 	}
 
+	/*test pipe demo code*/
+	//close(sinfo->pipefd[0]);
+	write(sinfo->pipefd[1], "test pipe is ready.", 19);
+
 	pthread_join(pid, NULL);
 
-	return 0;
+	return sinfo;
 
 thread_error:
 	destory_pipe(sinfo);
@@ -154,15 +173,21 @@ pipe_error:
 socket_error:
 	free(sinfo);
 malloc_error:
-	return -1;
+	return NULL;
 }
 
 /*test code*/
 int main(int argc, char const *argv[])
 {
 	int ret;
+	SOCKINFO *sinfo;
 
-	ret = start_thread_handle();
+	sinfo = start_thread_handle();
+
+	destory_pipe(sinfo);
+	destory_socket(sinfo);
+	free(sinfo);
+	sinfo = NULL;
 	
 	return 0;
 }

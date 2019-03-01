@@ -22,7 +22,9 @@ void set_callback_func(SOCKINFO *sinfo, cb_func_t callback, unsigned int len);
 
 int select_handle(SOCKINFO *sinfo);
 
-int start_thread_handle(void);
+SOCKINFO *start_thread_handle(void);
+
+int signal_handle(void);
 
 #endif
 
