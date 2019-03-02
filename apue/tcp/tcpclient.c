@@ -39,7 +39,7 @@ int create_socket(SOCKINFO *sinfo, const char *ip, unsigned int port)
 	struct sockaddr_in dst_addr;
     struct hostent *hostname;
     int ret;
-    const char *buf = "create socket success.";
+    const char *buf = "create socket success.\n";
 
 	sinfo->sfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sinfo->sfd == -1) {
@@ -59,7 +59,7 @@ int create_socket(SOCKINFO *sinfo, const char *ip, unsigned int port)
     	perror("connect()");
     	return -1;
     }
-
+    
     ret = send(sinfo->sfd, buf, strlen(buf), 0);
     if(ret == -1) {
     	perror("send()");
@@ -128,6 +128,20 @@ void *start_select(void *sinfo)
 	pthread_exit(NULL);
 }
 
+void *write_pipe(void *sinfo)
+{
+	/*test pipe demo code*/
+	//close(sinfo->pipefd[0]);
+	const char *buf = "test pipe is ready.\n";
+
+	SOCKINFO *info = (SOCKINFO *)sinfo;
+	write(info->pipefd[1], buf, strlen(buf));
+
+	pthread_exit(NULL);
+
+	return NULL;
+}
+
 int start_thread_handle(SOCKINFO *sinfo)
 {
 	int ret;
@@ -136,12 +150,20 @@ int start_thread_handle(SOCKINFO *sinfo)
 	ret = pthread_create(&sinfo->pid, NULL, start_select, (void *)sinfo);
 	if(ret) {
 		fprintf(stderr, "pthread_create error.\n");
-		return -1;
+		goto thread_error;
+	}
+
+	ret = pthread_create(&sinfo->pipe_fd, NULL, write_pipe, (void *)sinfo);
+	if(ret) {
+		fprintf(stderr, "pthread_create error.\n");
+		goto thread_error;
 	}
 
 	//pthread_join(pid, NULL);
 
 	return 0;
+thread_error:
+	return -1;
 }
 
 SOCKINFO *create_socket_info(void)
@@ -179,19 +201,6 @@ malloc_error:
 	return NULL;
 }
 
-void *write_pipe(void *sinfo)
-{
-	/*test pipe demo code*/
-	//close(sinfo->pipefd[0]);
-
-	SOCKINFO *info = (SOCKINFO *)sinfo;
-	write(info->pipefd[1], "test pipe is ready.", 19);
-
-	pthread_exit(NULL);
-
-	return NULL;
-}
-
 /*test code*/
 int main(int argc, char const *argv[])
 {
@@ -202,12 +211,6 @@ int main(int argc, char const *argv[])
 	sinfo = create_socket_info();
 
 	start_thread_handle(sinfo);
-
-	ret = pthread_create(&sinfo->pipe_fd, NULL, write_pipe, (void *)sinfo);
-	if(ret) {
-		fprintf(stderr, "pthread_create error.\n");
-		goto thread_error;
-	}
 
 	pthread_join(sinfo->pipe_fd, NULL);
 	pthread_join(sinfo->pid, NULL);
