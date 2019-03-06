@@ -1,5 +1,8 @@
 /* dts demo code. */
 
 /{
-	
-}
+	DTS_demo {
+		compatible = "DTS_demo, lyw";
+		status = "okay";
+	};
+};
