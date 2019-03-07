@@ -10,7 +10,7 @@ static int dts_probe(struct platform_device *pdev)
 {
 	struct device_node *np = pdev->dev.of_node;
 
-	printk("%s: dts demo probe.\n");
+	printk("%s: dts demo probe.\n", __func__);
 
 	return 0;
 }
@@ -24,7 +24,7 @@ static const struct of_device_id DTS_demo_of_match[] = {
 	{.compatible = "DTS_demo, lyw", },
 	{},
 };
-MODULE_DEBICE_TABLE(of, DTS_demo_of_match);
+MODULE_DEVICE_TABLE(of, DTS_demo_of_match);
 
 static struct platform_driver dts_demo_driver = {
 	.probe = dts_probe,
