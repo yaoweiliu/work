@@ -73,7 +73,7 @@ namespace Example {
 
 	void StateA::entry() {cout << "StateA::entry" << endl;}
 	void StateA::exit() {cout << "StateA:exit" << endl;}
-	void StateA::init(int i) {cout << "StateA::init" << i << endl;}
+	void StateA::init(int i) {cout << "StateA::init " << i << endl;}
 	void StateA::event1(int i) {
 		box().data = i;
 		cout << "StateA::box().data: " << box().data << endl;
