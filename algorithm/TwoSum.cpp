@@ -10,6 +10,7 @@
 
 using namespace std;
 
+/* 1
 vector<int> twoSum(vector<int>& nums, int target)
 {
 	int i, j;
@@ -27,6 +28,12 @@ vector<int> twoSum(vector<int>& nums, int target)
 	}
 
 	return tmp;
+}
+*/
+
+vector<int> twoSum(vector<int>& nums, int target)
+{
+	//unordered_map()
 }
 
 int main(int argc, char const *argv[])
