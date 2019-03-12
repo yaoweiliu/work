@@ -11,13 +11,14 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <time.h>
 
 int test_glob(glob_t *p_glob)
 {
 	return glob("*", GLOB_NOSORT, NULL, p_glob);
 }
 
-void print_file_type(const struct stat *buf)
+void print_file_type(const struct stat *buf, const char *path)
 {
 	char info[11] = "----------";
 
@@ -35,14 +36,18 @@ void print_file_type(const struct stat *buf)
 	S_ISLNK(m)  symbolic link?  (Not in POSIX.1-1996.)
 
 	S_ISSOCK(m) socket?  (Not in POSIX.1-1996.)
+
+	S_IRUSR     00400   owner has read permission
+    S_IWUSR     00200   owner has write permission
+    S_IXUSR     00100   owner has execute permission
 	*/
 
-	if(S_ISREG(buf->st_mode))
-		strncpy(info, "----------", 10);
+	if(S_ISREG(buf->st_mode) && (buf->st_mode & S_IRUSR) && (buf->st_mode & S_IWUSR))
+		strncpy(info, "-rw-------", 10);
 	else if(S_ISDIR(buf->st_mode))
 		strncpy(info, "d---------", 10);
 
-	printf("%s\n", info);
+	printf("%s %u %ld %s\n", info, buf->st_uid, buf->st_atim.tv_sec+buf->st_atim.tv_nsec, path);
 }
 
 int get_file_info(const char *path)
@@ -54,7 +59,7 @@ int get_file_info(const char *path)
 		return -1;
 	}
 
-	print_file_type(&buf);
+	print_file_type(&buf, path);
 
 	return 0;
 }
@@ -76,7 +81,7 @@ int main(int argc, char const *argv[])
 	}
 
 	for(i = 0; i < p_glob.gl_pathc; i++) {
-		printf("%s\n", p_glob.gl_pathv[i]);
+		//printf("%s\n", p_glob.gl_pathv[i]);
 		ret = get_file_info(p_glob.gl_pathv[i]);
 		if(ret) {
 			printf("%s\n", "stat error");
