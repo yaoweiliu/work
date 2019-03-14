@@ -38,14 +38,16 @@ vector<int> twoSum(vector<int>& nums, int target)
 	//unordered_map()
 	int i, res;
 	unordered_map<int, int> num2id;
+	unordered_map<int, int>::const_iterator it;
 
 	for(i = 0; i < nums.size(); i++) {
 		res = target - nums[i];
-		auto it = num2id.find(res);
+		//auto it = num2id.find(res);
+		it = num2id.find(res);
 
 		cout << i << " " << res << endl;
 		if(it != num2id.end()) {
-			cout << "haha" << endl;
+			cout << "haha " << it->first << " " << it->second << endl;
 			return vector<int>{it->second, i};
 		}
 		num2id[nums[i]] = i;
