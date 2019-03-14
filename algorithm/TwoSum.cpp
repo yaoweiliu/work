@@ -3,10 +3,12 @@
  * Given nums = [2, 7, 11, 15], target = 9,
  * Because nums[0] + nums[1] = 2 + 7 = 9,
  * return [0, 1].
+ * g++ -std=c++11 -o twoSum TwoSum.cpp
  */
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -34,6 +36,21 @@ vector<int> twoSum(vector<int>& nums, int target)
 vector<int> twoSum(vector<int>& nums, int target)
 {
 	//unordered_map()
+	int i, res;
+	unordered_map<int, int> num2id;
+
+	for(i = 0; i < nums.size(); i++) {
+		res = target - nums[i];
+		auto it = num2id.find(res);
+
+		cout << i << " " << res << endl;
+		if(it != num2id.end()) {
+			cout << "haha" << endl;
+			return vector<int>{it->second, i};
+		}
+		num2id[nums[i]] = i;
+	}
+	return vector<int>();
 }
 
 int main(int argc, char const *argv[])
