@@ -1,12 +1,12 @@
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
 typedef struct node{
 	int a;
-	int b;
 	struct node *next;
-	node(int x, int y):a(x),b(y),next(NULL) {}
+	node(int x):a(x),next(NULL) {}
 }LIST_NODE;
 
 LIST_NODE *addTwoNums(LIST_NODE *l1, LIST_NODE *l2)
@@ -18,30 +18,42 @@ LIST_NODE *addTwoNums(LIST_NODE *l1, LIST_NODE *l2)
 	else if(!l2)
 		return l2;
 
-	int a = l1->b + l2->b;
-	LIST_NODE *p = new LIST_NODE(a, a%10);
+	int a = l1->a + l2->a;
+	LIST_NODE *p = new LIST_NODE(a%10);
 	p->next = addTwoNums(l1->next, l2->next);
-	if(a >= 10)
-		p->next = new LIST_NODE(p->next, new LIST_NODE(0, 1));
+	printf("A p->next: %p, p->a: %d\n", p->next, p->a);
+	if(a >= 10) {
+		p->next = addTwoNums(p->next, new LIST_NODE(1));
+		printf("B p->next: %p, p->next->a: %d\n", p->next, p->next->a);
+	}
 
 	return p;
 }
 
 int main(int argc, char const *argv[])
 {
-	LIST_NODE *l1 = new LIST_NODE(5, 7);
-	LIST_NODE *l2 = new LIST_NODE(3, 9);
+	LIST_NODE *l1 = new LIST_NODE(5);
+	LIST_NODE *l2 = new LIST_NODE(8);
 	LIST_NODE *l3 = NULL;
 
-	cout << l1->a << endl << l1->b << endl;
-	cout << l2->a << endl << l2->b << endl;
+	cout << l1->a << endl;
+	cout << l2->a << endl;
 
 	l3 = addTwoNums(l1, l2);
+	cout << "===================================" << endl;
 
-	cout << l3->a << endl << l3->b << endl;
+	cout << l3->a << endl;
+	if(l3->next)
+		cout << l3->next->a << endl;
+
 
 	delete l1;
 	delete l2;
+	delete l3;
+
+	l1 = NULL;
+	l2 = NULL;
+	l3 = NULL;
 
 	return 0;
 }
