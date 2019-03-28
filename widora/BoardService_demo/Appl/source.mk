@@ -5,4 +5,5 @@ SRCS = Main.cpp \
 	   MgrBase.cpp \
 	   NetworkMgr.cpp \
 	   Process.cpp \
-	   ProcessMgr.cpp
+	   ProcessMgr.cpp \
+	   Module.cpp
