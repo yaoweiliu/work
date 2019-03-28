@@ -8,6 +8,58 @@
 #include <linux/kern_levels.h>
 #include <linux/fs.h>
 #include <linux/kernel.h>
+#include <linux/interrupt.h>
+#include <linux/gpio.h>
+
+#include "dht22.h"
+
+static irqreturn_t dht22_interrupter(int irq, void *dev_id)
+{
+	//TODO.
+	return IRQ_HANDLED;
+}
+
+static int dht22_open(struct inode *node, struct file *fp);
+{
+	int ret;
+
+	//request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags, const char *name, void *dev) 
+	ret = request_irq(gpio_to_irq(GPIO_IRQ_11), dht22_interrupter, IRQF_TRIGGER_HIGH, "dht22_irq", NULL);
+	if(unlikely(ret < 0)) {
+		gpio_free(GPIO_IRQ_11);
+		return ret;
+	}
+
+	return 0;
+}
+
+static int dht22_close(struct inode *node, struct file *fp)
+{
+	free_irq(gpio_to_irq(GPIO_IRQ_11), NULL);
+	gpio_free(GPIO_IRQ_11);
+
+	return 0;
+}
+
+static ssize_t dht22_read(struct file *fp, char __user *buf, size_t count, loff_t *offset)
+{
+	return 0;
+}
+
+static ssize_t dht22_write(struct file *fp, const char __user *buf, size_t count, loff_t *offset)
+{
+	return 0;
+}
+
+static long dht22_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+{
+	return 0;
+}
+
+static unsigned int dht22_poll(struct file *fp, struct poll_table_struct *poll_table)
+{
+	return 0;
+}
 
 static const struct file_operations dht22_ops = {
 	.open = dht22_open,
