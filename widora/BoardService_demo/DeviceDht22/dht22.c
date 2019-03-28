@@ -13,6 +13,8 @@
 
 #include "dht22.h"
 
+/* get data according hardware datasheet */
+
 static irqreturn_t dht22_interrupter(int irq, void *dev_id)
 {
 	//TODO.
@@ -23,14 +25,25 @@ static int dht22_open(struct inode *node, struct file *fp);
 {
 	int ret;
 
+	ret = gpio_request_one(GPIO_IRQ_11, GPIOF_IN, "dht22_irq");
+	if(unlikely(ret < 0)) {
+		printk("%s: gpio_request_one failed.\n");
+		goto gpio_request_err;
+	}
+
 	//request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags, const char *name, void *dev) 
 	ret = request_irq(gpio_to_irq(GPIO_IRQ_11), dht22_interrupter, IRQF_TRIGGER_HIGH, "dht22_irq", NULL);
 	if(unlikely(ret < 0)) {
-		gpio_free(GPIO_IRQ_11);
-		return ret;
+		printk("%s: request_irq failed.\n");
+		goto irq_request_err;
 	}
 
 	return 0;
+
+irq_request_err:
+	gpio_free(GPIO_IRQ_11);
+gpio_request_err:
+	return ret;
 }
 
 static int dht22_close(struct inode *node, struct file *fp)
