@@ -13,7 +13,7 @@ public:
 	int rmModule(const char *file);
 
 private:
-	int execShell(const char *cmd);
+	int execShell(const char *cmd, const char *file);
 };
 
 #endif
