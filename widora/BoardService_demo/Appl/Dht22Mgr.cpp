@@ -41,6 +41,7 @@ int Dht22Mgr::stop(void)
 {
 	//close /dev/dht22
 	close(fd);
+	rmModule();
 
 	return 0;
 }
@@ -76,4 +77,10 @@ int Dht22Mgr::insModule(void)
 {
 
 }
+
+int Dht22Mgr::rmModule(void)
+{
+	
+}
+
 

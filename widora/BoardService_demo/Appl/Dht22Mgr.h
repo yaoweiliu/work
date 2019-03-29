@@ -21,6 +21,7 @@ private:
 
 private:
 	int insModule(void);
+	int rmModule(void);
 	char *getTemperatureAndHumidity(void);
 };
 
