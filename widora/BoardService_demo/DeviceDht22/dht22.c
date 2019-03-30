@@ -21,20 +21,20 @@ static irqreturn_t dht22_interrupter(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
-static int dht22_open(struct inode *node, struct file *fp);
+static int dht22_open(struct inode *node, struct file *fp)
 {
 	int ret;
 
 	ret = gpio_request_one(GPIO_IRQ_11, GPIOF_IN, "dht22_irq");
 	if(unlikely(ret < 0)) {
-		printk("%s: gpio_request_one failed.\n");
+		printk("%s: gpio_request_one failed.\n", __func__);
 		goto gpio_request_err;
 	}
 
 	//request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags, const char *name, void *dev) 
 	ret = request_irq(gpio_to_irq(GPIO_IRQ_11), dht22_interrupter, IRQF_TRIGGER_HIGH, "dht22_irq", NULL);
 	if(unlikely(ret < 0)) {
-		printk("%s: request_irq failed.\n");
+		printk("%s: request_irq failed.\n", __func__);
 		goto irq_request_err;
 	}
 

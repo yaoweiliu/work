@@ -1,14 +1,12 @@
 #ifndef __OSCOMMON_H__
 #define __OSCOMMON_H__
 
-#include <signal.h>
-#include <time.h>
 #include <pthread.h>
 #include <semaphore.h>
 
-//timer
-#define OS_create_timer(clockid, sevp, timerid)		timer_create(clockid, sevp, timerid)
-#define OS_delete_timer(timerid)					timer_delete(timerid)
+// posix timer; most system supporting posix standard, so no need typedef.
+//#define OS_create_timer(clockid, sevp, timerid)		timer_create(clockid, sevp, timerid)
+//#define OS_delete_timer(timerid)					timer_delete(timerid)
 
 //thread
 typedef pthread_t os_pthread_t; 

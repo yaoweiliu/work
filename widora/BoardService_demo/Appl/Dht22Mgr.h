@@ -2,6 +2,7 @@
 #define __DHT22MGR_H__
 
 #include "MgrBase.h"
+class Module;
 
 #define DEVNAME	"/dev/dht22"
 
@@ -18,10 +19,11 @@ public:
 
 private:
 	int fd;
+	Module *mod;
 
 private:
-	int insModule(void);
-	int rmModule(void);
+	//int insModule(void);
+	//int rmModule(void);
 	char *getTemperatureAndHumidity(void);
 };
 

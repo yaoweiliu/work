@@ -10,11 +10,12 @@
 Dht22Mgr::Dht22Mgr()
 {
 	fd = -1;
+	mod = new Module();
 }
 
 Dht22Mgr::~Dht22Mgr()
 {
-
+	delete mod;
 }
 
 int Dht22Mgr::start(void)
@@ -22,7 +23,7 @@ int Dht22Mgr::start(void)
 	//open /dev/dht22
 	int ret;
 
-	ret = insModule();
+	ret = mod->insModule("dht22.ko");//libxml2.
 	if(ret) {
 		printf("%s: insModule error.\n", __func__);
 		return -1;
@@ -41,7 +42,7 @@ int Dht22Mgr::stop(void)
 {
 	//close /dev/dht22
 	close(fd);
-	rmModule();
+	mod->rmModule("dht22.ko");
 
 	return 0;
 }
@@ -73,14 +74,6 @@ char *Dht22Mgr::getTemperatureAndHumidity(void)
 	return buf;
 }
 
-int Dht22Mgr::insModule(void)
-{
 
-}
-
-int Dht22Mgr::rmModule(void)
-{
-	
-}
 
 

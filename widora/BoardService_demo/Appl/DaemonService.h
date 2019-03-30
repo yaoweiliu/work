@@ -7,15 +7,15 @@ public:
 	DaemonService();
 	~DaemonService();
 
-	int start(void);
+	int start(int mode);
 	int stop(void);
 	int suspend(void);
 	int resume(void);
 
 protected:
-	int startLoopTimer();
-	int startOnceTimer();
-	int stopTimer();
+	int startLoopTimer(void);
+	int startOnceTimer(void);
+	int stopTimer(void);
 };
 
 
