@@ -2,6 +2,7 @@
 #define __PROCESS_H__
 
 #include <string>
+#include <string.h>
 
 #define SYS_CMD_LEN	128
 

@@ -71,7 +71,7 @@ char *Dht22Mgr::getTemperatureAndHumidity(void)
 	printf("temperature: ");
 	printf("humidity: ");
 
-	return buf;
+	return NULL;
 }
 
 

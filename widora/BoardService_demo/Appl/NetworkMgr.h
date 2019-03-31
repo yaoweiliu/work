@@ -2,8 +2,9 @@
 #define __NETWORKMGR_H__
 
 #include <string>
+#include "MgrBase.h"
 
-class NetworkMgr
+class NetworkMgr :public MgrBase
 {
 public:
 	NetworkMgr();
@@ -15,7 +16,7 @@ public:
 	int resume(void);
 
 private:
-	void updateNtp(string ip);
+	void updateNtp(std::string ip);
 };
 
 #endif

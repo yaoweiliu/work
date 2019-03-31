@@ -2,6 +2,8 @@
 #define __MODULE_H__
 
 /* install/remove module */
+#include <stdio.h>
+#include <stdlib.h>
 
 class Module
 {

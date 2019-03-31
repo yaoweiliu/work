@@ -1,6 +1,6 @@
 #include "ProcessMgr.h"
 
-ProcessMgr::ProcessMgr(path):filePath(path)
+ProcessMgr::ProcessMgr(char *path):filePath(path)
 {
 	this->proc = new Process();
 }

@@ -23,7 +23,7 @@ int Module::rmModule(const char *file)
 
 int Module::execShell(const char *cmd, const char *file)
 {
-	char *buf[20];
+	char buf[20];
 
 	memset(buf, 0, 20);
 	sprintf(buf, "%s", cmd);

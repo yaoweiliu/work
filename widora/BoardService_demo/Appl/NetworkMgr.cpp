@@ -13,7 +13,7 @@ NetworkMgr::~NetworkMgr()
 
 int NetworkMgr::start(void)
 {
-#ifdef (INSTALLED_NEP_SERVER)
+#ifdef INSTALLED_NEP_SERVER
 	updateNtp("127.0.0.1");
 #endif
 
@@ -35,10 +35,10 @@ int NetworkMgr::resume(void)
 	return 0;
 }
 
-void NetworkMgr::updateNtp(string ip)
+void NetworkMgr::updateNtp(std::string ip)
 {
-	string cmd = "ntpdate " + ip;
-	return system((char *)cmd.c_str());
+	std::string cmd = "ntpdate " + ip;
+	system((char *)cmd.c_str());
 }
 
 
