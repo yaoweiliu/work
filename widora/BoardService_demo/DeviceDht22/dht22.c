@@ -11,10 +11,18 @@
 #include <linux/interrupt.h>
 #include <linux/gpio.h>
 #include <linux/delay.h>
+//#include <asm-generic/uaccess.h>
+#include <asm/uaccess.h>
 
 #include "dht22.h"
 
 /* get data according hardware datasheet */
+
+static void dht22_idle_state(void)
+{
+	gpio_direction_output(GPIO_IRQ_11, 0x1);
+}
+
 static void set_start_signal_dht22(void)
 {
 	//ensure dataline is high.
@@ -23,28 +31,65 @@ static void set_start_signal_dht22(void)
 
 	//first pull down dataline 1ms.
 	gpio_direction_output(GPIO_IRQ_11, 0x0);
-	mdelay(1);
+	mdelay(20);
 
 	//second pull up dataline. release data bus
 	gpio_direction_output(GPIO_IRQ_11, 0x1);
+	udelay(30);
 }
 
 static void wait_dht22_send_ack_signal(void)
 {
 	gpio_direction_input(GPIO_IRQ_11);
 
-	while(gpio_get_value(GPIO_IRQ_11));//datasheet sequense
-	while(!gpio_get_value(GPIO_IRQ_11));//
+	//datasheet sequense.
+	while(gpio_get_value(GPIO_IRQ_11));//if dht22 pull down, break. 80us
+	while(!gpio_get_value(GPIO_IRQ_11));//if dht22 pull up, break. 80us
 }
 
-static char get_data_from_dht22(void)
+static void get_data_from_dht22(char *buf)
 {
 	int i, j;
+	int d, count = 0;
+
+	memset(buf, 0x0, 5);
 
 	set_start_signal_dht22();
 	wait_dht22_send_ack_signal();
 
-	
+	for(i = 0; i < 5; i++) {
+		for(j = 0; j < 8; j++) {
+			do{
+				d = gpio_get_value(GPIO_IRQ_11);
+				count++;
+				udelay(2);
+			}while(d && (count < 40));//first wait 80us, for dht22 pull up 80us.
+
+			if(d) {
+				printk("%s: timeout for wait 80us.\n", __func__);
+				return ;
+			}
+
+			count = 0;
+			do {
+				d = gpio_get_value(GPIO_IRQ_11);
+				count++;
+				udelay(2);
+			}while(!d && (count < 25));//first wait 50us, for dht22 pull down 50us.
+
+			if(!d) {
+				printk("%s: timeout for wait 50us.\n", __func__);
+				return ;
+			}
+
+			udelay(40);//charge high or low.
+			if(gpio_get_value(GPIO_IRQ_11)) {
+				buf[i] |= (1 << (7-j)); //MSB
+			}
+		}
+	}
+
+	dht22_idle_state();
 }
 
 static irqreturn_t dht22_interrupter(int irq, void *dev_id)
@@ -57,7 +102,8 @@ static int dht22_open(struct inode *node, struct file *fp)
 {
 	int ret;
 
-	ret = gpio_request_one(GPIO_IRQ_11, GPIOF_IN, "dht22_irq");
+	//ret = gpio_request_one(GPIO_IRQ_11, GPIOF_IN, "dht22_irq");
+	ret = gpio_request(GPIO_IRQ_11, "dht22_irq");
 	if(unlikely(ret < 0)) {
 		printk("%s: gpio_request_one failed.\n", __func__);
 		goto gpio_request_err;
@@ -88,7 +134,20 @@ static int dht22_close(struct inode *node, struct file *fp)
 
 static ssize_t dht22_read(struct file *fp, char __user *buf, size_t count, loff_t *offset)
 {
-	return 0;
+	char data[5];
+	size_t len = 5;
+
+	get_data_from_dht22(data);
+
+	len = min(count, len);
+	if(!copy_to_user(buf, data, len))
+		*offset += len;
+	else {
+		printk("%s: copy_to_user() failed.\n", __func__);
+		return -EINVAL;
+	}
+
+	return len;
 }
 
 static ssize_t dht22_write(struct file *fp, const char __user *buf, size_t count, loff_t *offset)

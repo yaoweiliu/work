@@ -59,17 +59,19 @@ int Dht22Mgr::resume(void)
 
 char *Dht22Mgr::getTemperatureAndHumidity(void)
 {
-	char buf[8] = {0};
+	char buf[5] = {0};
 	int ret;
 
-	ret = read(fd, buf, 8);
+	ret = read(fd, buf, 5);
 	if(ret == -1) {
 		perror("read()");
 		return NULL;
 	}
 
-	printf("temperature: ");
-	printf("humidity: ");
+	if(buf[0] + buf[1] + buf[2] + buf[3] == buf[4]) {//checksum
+		printf("temperature: %d\n", buf[3] | (buf[2] << 8));
+		printf("humidity: %d\n", buf[1] | (buf[0] << 8));
+	}
 
 	return NULL;
 }
