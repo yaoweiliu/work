@@ -10,10 +10,42 @@
 #include <linux/kernel.h>
 #include <linux/interrupt.h>
 #include <linux/gpio.h>
+#include <linux/delay.h>
 
 #include "dht22.h"
 
 /* get data according hardware datasheet */
+static void set_start_signal_dht22(void)
+{
+	//ensure dataline is high.
+	gpio_direction_output(GPIO_IRQ_11, 0x1);
+	udelay(10);
+
+	//first pull down dataline 1ms.
+	gpio_direction_output(GPIO_IRQ_11, 0x0);
+	mdelay(1);
+
+	//second pull up dataline. release data bus
+	gpio_direction_output(GPIO_IRQ_11, 0x1);
+}
+
+static void wait_dht22_send_ack_signal(void)
+{
+	gpio_direction_input(GPIO_IRQ_11);
+
+	while(gpio_get_value(GPIO_IRQ_11));//datasheet sequense
+	while(!gpio_get_value(GPIO_IRQ_11));//
+}
+
+static char get_data_from_dht22(void)
+{
+	int i, j;
+
+	set_start_signal_dht22();
+	wait_dht22_send_ack_signal();
+
+	
+}
 
 static irqreturn_t dht22_interrupter(int irq, void *dev_id)
 {
