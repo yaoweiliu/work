@@ -135,7 +135,7 @@ static int dht22_close(struct inode *node, struct file *fp)
 static ssize_t dht22_read(struct file *fp, char __user *buf, size_t count, loff_t *offset)
 {
 	char data[5];
-	size_t len = 5;
+	size_t len = 5;//ARRAY_SIZE(data);
 
 	get_data_from_dht22(data);
 
