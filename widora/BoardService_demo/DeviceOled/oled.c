@@ -61,7 +61,7 @@ ssize_t oled_write(struct file *fp, const char __user *buf, size_t count, loff_t
 		return -1;
 	}
 
-	send_data[0] = 0x3c;//TODO. slave device address: 0x78/0x7a ??? 0x3c/0x3d
+	send_data[0] = 0x78;//TODO. slave device address: 0x3c/0x3d + RW bit. 1:read 0:write
 	i2c_master_send(oled_client, send_data, count+1);
 	
 	kfree(send_data);
