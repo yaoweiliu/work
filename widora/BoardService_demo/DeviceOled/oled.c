@@ -61,6 +61,7 @@ ssize_t oled_write(struct file *fp, const char __user *buf, size_t count, loff_t
 		return -1;
 	}
 
+	//i2c_master_send()内部包装了i2c_msg结构，并获取到client的address且填充到i2c_msg
 	send_data[0] = 0x78;//TODO. slave device address: 0x3c/0x3d + RW bit. 1:read 0:write
 	i2c_master_send(oled_client, send_data, count+1);
 	
@@ -72,9 +73,12 @@ ssize_t oled_write(struct file *fp, const char __user *buf, size_t count, loff_t
 long oled_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
 {
 	switch(cmd) {
-	case :
-	case :
-	case :
+	case 0x10:
+		break;
+	case 0x11:
+		break;
+	case 0x12:
+		break;
 	default:
 		break;
 	}
