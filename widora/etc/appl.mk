@@ -39,8 +39,12 @@ CPP = g++
 LD = g++
 INCDIRS += -I. -I$(SRC_PATH)/.
 
+$(warning "debug build111111111111111111111...")
+
 .PHONY : clean libraries program programtest
 all:: libraries program
+
+$(warning "debug build222222222222222222222...")
 
 .SUFFIXES: .c .cpp .cc .o
 .c.o:
@@ -53,9 +57,28 @@ all:: libraries program
 	${CPP} -c ${CPPFLAGS} $(INCDIRS) $< 
 	$(warning "the value of C++ is $(CPP)")
 
+$(warning "debug build333333333333333333333...")
+
+libraries:: $(LIB_TARGET)
+ifeq "$(LIBRARY)" ""
+$(LIB_TARGET):
+	${NOTHING}
+else
+$(LIB_TARGET):$(OBJS)
+	@echo $(SRC_PATH)
+	$(AR) cr $(LIB_TARGET) $^
+	cp -f $(LIB_TARGET) $(LIB_DIR)
+	
+clean::
+	rm -f $(LIB_DIR)/$(LIB_TARGET)
+	rm -f $(TEST_REPORT_DIR)/$(PROGRAM)*.xml
+	rm -rf .cccc
+endif
+
+$(warning "debug build444444444444444444444...")
+
 program:: $(PROGRAM)
 ifeq "$(PROGRAM)" ""
-	echo "debug**********************************************"
 $(PROGRAM)::
 	${NOTHING}
 else
