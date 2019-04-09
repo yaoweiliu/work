@@ -11,6 +11,7 @@
 #include <linux/gfp.h>
 #include <uapi/asm-generic/errno-base.h>
 #include <asm/uaccess.h>
+#include <linux/delay.h>
 
 #include "oled.h"
 
@@ -24,6 +25,7 @@ static void oled_reg_init(void)
 		0xdb, 0x20, 0x8d, 0x14, 0xaf};
 
 	msleep(100);
+	//mdelay(100);
 
 	i2c_master_send(oled_client, init_cmd, sizeof(init_cmd));
 }
@@ -53,10 +55,10 @@ ssize_t oled_write(struct file *fp, const char __user *buf, size_t count, loff_t
 		return -ENOMEM;
 	}
 
-	if(!copy_from_user(send_data[1], buf, count))
+	if(!copy_from_user(&send_data[1], buf, count))
 		*offset += count;
 	else {
-		printk("%s: copy_from_user error.\n");
+		printk("%s: copy_from_user error.\n", __func__);
 		kfree(send_data);
 		return -1;
 	}
@@ -108,7 +110,7 @@ static int oled_probe(struct i2c_client *ssd1306_client, const struct i2c_device
 	oled_client = ssd1306_client;
 	ret = misc_register(&oled_misc_dev);
 	if(unlikely(ret != 0)) {
-		printk("oled_misc_dev register failed.\n")
+		printk("oled_misc_dev register failed.\n");
 		return ret;
 	}
 
@@ -141,7 +143,7 @@ static struct i2c_driver oled_driver = {
 		.owner = THIS_MODULE,
 	},
 	.id_table = oled_id_table,
-}
+};
 
 static int __init oled_init(void)
 {
