@@ -7,3 +7,5 @@ CFLAGS += -c -fmessage-length=0 -mlittle-endian -march=armv7-a \
 CPPFLAGS += -c -fmessage-length=0 -mlittle-endian -march=armv7-a \
 			-mtune=cortex-a8 -msoft-float -g -Wall -Werror -MD -MP \
 			-D__STDC_FORMAT_MACROS
+
+LDFLAGS += -g -lrt -pthread -march=armv7-a -mtune=cortex-a8, -Wl,--hash-style=gnu -Wl,-O1
