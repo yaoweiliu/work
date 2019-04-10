@@ -88,3 +88,4 @@ $(PROGRAM)::$(OBJS)
 	${CC} -c ${CFLAGS}
 	$(LD) -o $(PROGRAM) $(OBJS) $(LDFLAGS) 
 endif
+$(warning "debug build555555555555555555555...")
