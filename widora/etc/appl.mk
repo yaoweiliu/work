@@ -20,7 +20,8 @@ include $(SRC_PATH)/source.mk
 endif
 
 #error code.
-ifneq "${EDFILE}" ""
+#ifneq "${EDFILE}" ""
+ifeq "${EDFILE}" ""
 EDBASE = $(basename $(notdir $(EDFILE)))
 EDSRC = $(EDBASE:%=%.cpp)
 SRCS += $(EDSRC)
@@ -32,12 +33,19 @@ $(warning "the value of SRCBASE is $(SRCBASE)")
 OBJS = $(SRCBASE:%=%.o)
 $(warning "the value of OBJS is $(OBJS)")
 OBJ_FILE := $(foreach file, $(OBJS), $(shell basename $(file)) )
+$(warning "the value of OBJ_FILE is $(OBJ_FILE)")
 DEPENDS := $(SRCBASE:%=%.d)
+
+VPATH = $(SRC_PATH)
 
 CC = gcc
 CPP = g++
 LD = g++
 INCDIRS += -I. -I$(SRC_PATH)/.
+
+#$(OBJS):
+	#$(warning "the value of VPATH is $(VPATH)")
+	#$(CPP) -o $*.o $*.cpp
 
 $(warning "debug build111111111111111111111...")
 
@@ -82,10 +90,11 @@ ifeq "$(PROGRAM)" ""
 $(PROGRAM)::
 	${NOTHING}
 else
+$(warning "the value of PROGRAM is $(PROGRAM)")
 $(PROGRAM)::$(OBJS)
 	$(warning "start build...")
-	${CPP} -c ${CPPFLAGS} $(INCDIRS)
-	${CC} -c ${CFLAGS}
+	#${CPP} -c ${CPPFLAGS} $(INCDIRS)
+	#${CC} -c ${CFLAGS}
 	$(LD) -o $(PROGRAM) $(OBJS) $(LDFLAGS) 
 endif
 $(warning "debug build555555555555555555555...")
