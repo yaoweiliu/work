@@ -95,6 +95,8 @@ static void get_data_from_dht22(char *buf)
 static irqreturn_t dht22_interrupter(int irq, void *dev_id)
 {
 	//TODO.
+	printk("%s.\n", __func__);
+	
 	return IRQ_HANDLED;
 }
 
