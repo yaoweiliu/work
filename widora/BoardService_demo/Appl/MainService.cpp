@@ -12,7 +12,7 @@ MainService::~MainService()
 
 int MainService::init(void)
 {
-	mgr.push_back(process = new ProcessMgr("/usr/bin/top"));
+	mgr.push_back(process = new ProcessMgr("/bin/ls"));
 	mgr.push_back(network = new NetworkMgr());
 	mgr.push_back(dht22 = new Dht22Mgr());
 }

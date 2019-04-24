@@ -38,9 +38,9 @@ DEPENDS := $(SRCBASE:%=%.d)
 
 VPATH = $(SRC_PATH)
 
-CC = gcc
-CPP = g++
-LD = g++
+CC = mipsel-openwrt-linux-gcc
+CPP = mipsel-openwrt-linux-g++
+LD = mipsel-openwrt-linux-g++
 INCDIRS += -I. -I$(SRC_PATH)/.
 
 #$(OBJS):
