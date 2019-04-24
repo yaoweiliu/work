@@ -95,6 +95,11 @@ $(PROGRAM)::$(OBJS)
 	$(warning "start build...")
 	#${CPP} -c ${CPPFLAGS} $(INCDIRS)
 	#${CC} -c ${CFLAGS}
-	$(LD) -o $(PROGRAM) $(OBJS) $(LDFLAGS) 
+	$(LD) -o $(PROGRAM) $(OBJS) $(LDFLAGS)
+clean::
+	rm -f $(PROGRAM)*
 endif
 $(warning "debug build555555555555555555555...")
+
+clean::
+	rm -f *.o *.d *.a *.gcno
