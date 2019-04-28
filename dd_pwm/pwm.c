@@ -7,8 +7,12 @@
 #include <linux/device.h>
 #include <linux/gpio.h>
 #include <linux/interrupt.h>
+#include <linux/sizes.h>
+#include <linux/delay.h>
 
 static int rgb_irq;
+#define CHIPID	0x10000000
+void __iomem *base = NULL;
 
 struct platform_data_st
 {
@@ -85,22 +89,39 @@ static int rgb_probe(struct platform_device *pdev)
 	struct resource *res = NULL;
 	//struct pwm_device *rgb_pwm = NULL;
 	struct platform_data_st *data = NULL;
+	unsigned int chip_id, rev_id, wlen_status;
 
 	dump_stack();
 
 	printk("%s: %s.\n", __func__, pdev->name);
 
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-	printk("%s: mem name is %s, mem start is %x, mem end is %x.\n", __func__, res->name, res->start, res->end);
+	printk("%s: mem name is %s, mem start is 0x%x, mem end is 0x%x.\n", __func__, res->name, res->start, res->end);
 
 	res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
 	printk("%s: irq name is %s, irq start is %d, irq end is %d.\n", __func__, res->name, res->start, res->end);
 
 	data = (struct platform_data_st *)platform_get_drvdata(pdev);
-	printk("%s: id is %d, info is %s, pwm_rgb is %x.\n", __func__, data->id, data->info, data->pwm_rgb);
+	printk("%s: id is %d, info is %s, pwm_rgb is 0x%x.\n", __func__, data->id, data->info, data->pwm_rgb);
 
 	data->pwm_rgb = pwm_get(&pdev->dev, "rgb_pwm");
-	printk("%s: pwm_rgb is %x.\n", __func__, data->pwm_rgb);
+	printk("%s: pwm_rgb is 0x%x.\n", __func__, data->pwm_rgb);
+
+	base = ioremap(CHIPID, SZ_16K);
+	printk("%s: base is 0x%x.\n", __func__, base);
+
+	chip_id = ioread32(base);
+	printk("%s: chip_id is 0x%x.\n", __func__, chip_id);
+
+	rev_id = ioread32(base + 12);
+	printk("%s: rev_id is 0x%x.\n", __func__, rev_id);
+
+	wlen_status = ioread32(base + 100);
+	printk("%s: wlen_status is 0x%x.\n", __func__, wlen_status);
+
+	iowrite32(0x552, base + 100);
+	mdelay(2000);
+	iowrite32(0x550, base + 100);
 
 	return 0;
 }
@@ -113,8 +134,12 @@ static int rgb_remove(struct platform_device *pdev)
 
 	data = (struct platform_data_st *)platform_get_drvdata(pdev);
 
-	printk("%s: id is %d, info is %s, pwm_rgb is %x.\n", __func__, data->id, data->info, data->pwm_rgb);
+	printk("%s: id is %d, info is %s, pwm_rgb is 0x%x.\n", __func__, data->id, data->info, data->pwm_rgb);
 	//pwm_put(data->pwm_rgb); this call will fault. why?
+
+	iounmap(base);
+	base = NULL;
+	printk("%s: base is 0x%x.\n", __func__, base);
 
 	return 0;
 }

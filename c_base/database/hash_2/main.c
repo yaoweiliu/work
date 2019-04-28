@@ -11,6 +11,11 @@ int main(int argc, char const *argv[])
 
 	HashTableInsert(&ht, 1, 1);
 	HashTableInsert(&ht, 2, 2);
+	HashTableInsert(&ht, 3, 3);
+
+	HashTablePrint(&ht);
+
+	HashTableDestroy(&ht);
 
 	HashTablePrint(&ht);
 

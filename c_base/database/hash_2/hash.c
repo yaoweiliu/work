@@ -7,12 +7,14 @@ size_t HashFuncDefault(KeyType key)
 
 void HashTableInit(HashTable *ht, HashFunc hashFunc)
 {
+	size_t i;
+
 	assert(ht != NULL);
 
 	ht->size = 0;
 	ht->hashFunc = HashFuncDefault;
 
-	for(size_t i = 0; i < HASHMAXSIZE; i++) {
+	for(i = 0; i < HASHMAXSIZE; i++) {
 		ht->data[i].key = 0;
 		ht->data[i].stat = Empty;
 		ht->data[i].value = 0;
@@ -70,9 +72,11 @@ int HashTableFind(HashTable *ht, KeyType key, ValueType *value, size_t *cur)
 
 int HashTableFindCur(HashTable *ht, KeyType key, size_t *cur)
 {
+	size_t i;
+
 	assert(ht != NULL);
 
-	for(size_t i = 0; i < HASHMAXSIZE; i++) {
+	for(i = 0; i < HASHMAXSIZE; i++) {
 		if(ht->data[i].key == key && ht->data[i].stat == Valid) {
 			*cur = i;
 			return 1;
@@ -113,12 +117,14 @@ size_t HashTableSize(HashTable *ht)
 
 void HashTableDestroy(HashTable *ht)
 {
+	size_t i;
+
 	assert(ht != NULL);
 
 	ht->size = 0;
 	ht->hashFunc = HashFuncDefault;
 
-	for(size_t i = 0; i < HASHMAXSIZE; i++) {
+	for(i = 0; i < HASHMAXSIZE; i++) {
 		ht->data[i].key = 0;
 		ht->data[i].stat = Empty;
 		ht->data[i].value = 0;
@@ -129,9 +135,13 @@ void HashTableDestroy(HashTable *ht)
 
 void HashTablePrint(HashTable *ht)
 {
+	size_t i;
+
 	assert(ht != NULL || ht->size < 0);
 
-	for(size_t i = 0; i < HASHMAXSIZE; i++)
-		printf("value: %d\n", ht->data[i].value);
+	for(i = 0; i < HASHMAXSIZE; i++) {
+		if(ht->data[i].stat == Valid)
+			printf("key: %d, value: %d\n",ht->data[i].key, ht->data[i].value);
+	}
 }
 
