@@ -119,9 +119,9 @@ static int rgb_probe(struct platform_device *pdev)
 	wlen_status = ioread32(base + 100);
 	printk("%s: wlen_status is 0x%x.\n", __func__, wlen_status);
 
-	iowrite32(0x552, base + 100);
+	iowrite32(0x552, base + 100);//off
 	mdelay(2000);
-	iowrite32(0x550, base + 100);
+	iowrite32(0x550, base + 100);//on
 
 	return 0;
 }
