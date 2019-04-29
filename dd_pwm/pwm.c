@@ -89,6 +89,7 @@ static int rgb_probe(struct platform_device *pdev)
 	struct resource *res = NULL;
 	//struct pwm_device *rgb_pwm = NULL;
 	struct platform_data_st *data = NULL;
+	struct platform_data_st *data_2 = NULL;
 	unsigned int chip_id, rev_id, wlen_status;
 
 	dump_stack();
@@ -122,6 +123,9 @@ static int rgb_probe(struct platform_device *pdev)
 	iowrite32(0x552, base + 100);//off
 	mdelay(2000);
 	iowrite32(0x550, base + 100);//on
+
+	data_2 = pdev->dev.platform_data;
+	printk("%s: id is %d, info is %s, pwm_rgb is 0x%x.\n", __func__, data_2->id, data_2->info, data_2->pwm_rgb);
 
 	return 0;
 }
