@@ -12,6 +12,8 @@
 #include <linux/list.h>
 #include <linux/mutex.h>
 #include <asm/uaccess.h>
+#include <linux/delay.h>
+#include <linux/poll.h>
 //#include <uapi/linux/time.h>
 
 #define DEVNAME	"wait"
@@ -20,7 +22,6 @@ struct device_info
 {
 	struct timer_list timer;
 	struct timespec time;
-	wait_queue_head_t wait;
 	struct miscdevice miscdev;
 };
 
@@ -33,6 +34,7 @@ struct data_info
 static struct device_info *private = NULL;
 static struct list_head data_queue;
 static struct mutex lock;
+static wait_queue_head_t event_wait;
 
 static void check_time(unsigned long arg)
 {
@@ -52,6 +54,8 @@ static void check_time(unsigned long arg)
 	mutex_lock(&lock);
 	list_add_tail(&data->list, &data_queue);
 	mutex_unlock(&lock);
+
+	wake_up_interruptible(&event_wait);
 
 	printk("%s: the time is %lu.\n", __func__, printk_time);
 
@@ -97,7 +101,7 @@ static ssize_t wait_read(struct file *file, char __user *buf, size_t count, loff
 {
 	unsigned long value;
 
-	if(file->f_flags & O_NONBLOCK)
+	if((file->f_flags & O_NONBLOCK) && list_empty(&data_queue))
 		return -EAGAIN;
 
 	value = get_rdata();
@@ -105,6 +109,10 @@ static ssize_t wait_read(struct file *file, char __user *buf, size_t count, loff
 	count = min(count, sizeof(unsigned long));
 	if(!copy_to_user(buf, &value, count))
 		*offset += count;
+
+	//printk("%s: value is %lu.\n", __func__, value);
+
+	mdelay(6000);
 
 	return count;
 }
@@ -124,7 +132,13 @@ static long wait_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 
 static unsigned int wait_poll(struct file *file, struct poll_table_struct *wait_table)
 {
-	return 0;
+	unsigned int mask = 0;
+
+	poll_wait(file, &event_wait, wait_table);
+	if(!list_empty(&data_queue))
+		mask = POLLIN | POLLRDNORM; 
+
+	return mask;
 }
 
 static const struct file_operations wait_ops = {
@@ -154,7 +168,7 @@ static int __init timer_demo_init(void)
 	private->timer.data = 0;
 	add_timer(&private->timer);
 
-	init_waitqueue_head(&private->wait);
+	init_waitqueue_head(&event_wait);
 	mutex_init(&lock);
 	private->miscdev.minor = MISC_DYNAMIC_MINOR;
 	private->miscdev.name = DEVNAME;
