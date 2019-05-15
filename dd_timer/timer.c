@@ -14,6 +14,7 @@
 #include <asm/uaccess.h>
 #include <linux/delay.h>
 #include <linux/poll.h>
+#include <linux/kthread.h>
 //#include <uapi/linux/time.h>
 
 #define DEVNAME	"wait"
@@ -35,6 +36,7 @@ static struct device_info *private = NULL;
 static struct list_head data_queue;
 static struct mutex lock;
 static wait_queue_head_t event_wait;
+static struct task_struct *task = NULL;
 
 static void check_time(unsigned long arg)
 {
@@ -87,13 +89,30 @@ static unsigned long get_rdata(void)
 	return value;
 }
 
+static int kthread_func(void *data)
+{
+	printk("%s: kthread starting.\n", __func__);
+
+	return 0;
+}
+
 static int wait_open(struct inode *inode, struct file *file)
 {
+	task = kthread_run(kthread_func, NULL, "kthread_test");
+	if(IS_ERR(task))
+		printk("%s: kthread error.\n", __func__);
+	else
+		printk("%s: kthread create.\n", __func__);
+
 	return 0;
 }
 
 static int wait_close(struct inode *inode, struct file *file)
 {
+	if(!IS_ERR(task)) {
+		kthread_stop(task);
+		printk("%s: kthread stoped.\n", __func__);
+	}
 	return 0;
 }
 
