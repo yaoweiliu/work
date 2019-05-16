@@ -109,8 +109,9 @@ static int wait_open(struct inode *inode, struct file *file)
 
 static int wait_close(struct inode *inode, struct file *file)
 {
-	if(!IS_ERR(task)) {
+	if(task) {
 		kthread_stop(task);
+		task = NULL;
 		printk("%s: kthread stoped.\n", __func__);
 	}
 	return 0;
