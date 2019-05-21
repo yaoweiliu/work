@@ -1,4 +1,5 @@
 #ifndef __RING_BUFF_H__
+#define __RING_BUFF_H__
 
 #define	MAX_LEN	1024
 
