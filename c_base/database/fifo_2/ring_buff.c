@@ -50,8 +50,11 @@ int main(int argc, char const *argv[])
 	for(int i = 0; i < MAX_LEN; i++)
 		ring_buff_push(i);
 
-	for(int i = 0; i < MAX_LEN; i++)
+	for(int i = 0; i < MAX_LEN; i++) {
 		printf("%d ", ring_buff.data[i]);
+		if((i+1)%10 == 0)
+			printf("\n");
+	}
 	printf("\nlenth: %d\n", ring_buff.lenth);
 
 	for(int i = 0; i < MAX_LEN; i++)
