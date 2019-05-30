@@ -57,6 +57,9 @@ void goSaturday(void);
 
 void goSunday(void);
 
+void initFsm(Fsm_t *pFsm);
+
+void pollingDay(int *event);
 
 #endif
 
