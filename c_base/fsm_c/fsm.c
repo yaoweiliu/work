@@ -46,6 +46,7 @@ void FSM_EventHandle(Fsm_t *pFsm, int event)
 		if(eventActFun)
 			eventActFun();
 		FSM_StateTransfer(pFsm, nextState);
+		//printf("%s\n", __func__);
 	}
 	else {
 		//do something.
@@ -95,10 +96,13 @@ void initFsm(Fsm_t *pFsm)
 
 void pollingDay(int *event)
 {
+	//printf("%s: event is %d\n", __func__, *event);
 	if(*event == 7)
 		*event = 1;
-	else
-		*event++;
+	else {
+		(*event)++;
+		//printf("%s: event is %d\n", __func__, *event);
+	}
 }
 
 int main(int argc, char const *argv[])
@@ -113,6 +117,7 @@ int main(int argc, char const *argv[])
 		FSM_EventHandle(&fsm, event);
 		printf("fsm current state %d\n", fsm.curState);
 		pollingDay(&event);
+		//printf("%s: event is %d\n", __func__, event);
 		sleep(2);
 	}
 
