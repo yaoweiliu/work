@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct data
 {
@@ -43,6 +44,9 @@ int main(int argc, char const *argv[])
 
 	*p='X'; //right. 指针常量不能改变指向，但是可以通过指针常量修改指针指向的内容。
 	printf("%s\n",str1);
+
+	char *str3 = "hello";
+	printf("the string length is %lu\n", strlen(str3)); //strlen(): 计算给定字符串的长度，但不包括尾零
 	
 	return 0;
 }
