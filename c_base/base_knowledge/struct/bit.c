@@ -16,11 +16,31 @@ struct data
 	int c:3; //(-4):(3)
 };
 
+/* 结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要编译器会在成员末尾加上填充字节 */
+struct mem_1
+{
+	unsigned char c; //存储空间分布为c(1byte)+空闲(3byte)+d(4byte)+b(1byte)+空闲(3byte)=12(byte)。
+	unsigned int d;
+	unsigned char b;
+};
+
+struct mem_2
+{
+	unsigned int a; //存储空间分布为a(4byte)+c(1byte)+b(1byte)+空闲(2byte)=8(byte)。
+	unsigned char c;
+	unsigned char b;
+};
+
 int main(int argc, char const *argv[])
 {
 	struct data dt = {.a = 5, .b = 0, .c = 5,};
 
 	printf("dt.a = %d, dt.b = %d, dt.c = %d\n", dt.a, dt.b, dt.c);
+
+	struct mem_1 m1;
+	struct mem_2 m2;
+
+	printf("m1 memory is %lu, m2 memory is %lu\n", sizeof(m1), sizeof(m2));
 
 	return 0;
 }
