@@ -17,7 +17,7 @@ static void bubble(int *arr, int len)
 
 int main(int argc, char const *argv[])
 {
-	int arr[] = {1, 67, 4, 98, 45, 30, 21};
+	int arr[] = {1, 67, 4, 98, 10, 45, 30, 21};
 	int i, len;
 
 	len = sizeof(arr)/sizeof(arr[0]);
