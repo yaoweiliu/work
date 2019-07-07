@@ -1,6 +1,6 @@
 /*---------------------------------------------------
 file: database.h
-brief: device fd etc.
+brief: student infomation and device fd etc.
 date: 2019-07-05
 ---------------------------------------------------*/
 
@@ -8,6 +8,9 @@ date: 2019-07-05
 #define __DATABASE_H__
 
 #include <stdio.h>
+#include "list.h"
+
+#define NAME_LEN	12
 
 typedef struct 
 {
@@ -17,19 +20,20 @@ typedef struct
 
 typedef struct
 {
-	char *name;
-	int number;
-	char *sale;
-}STUDENT;
+	float math;
+	float chinese;
+	float english;
+}GRADE;
 
 typedef struct
 {
-	float english;
-	float math;
-	float yuwen;
-};
-
-
+	int id;
+	char name[NAME_LEN];
+	char sex[NAME_LEN];
+	int age;
+	GRADE grade;
+	struct list_head stu_list;
+}STUDENT;
 
 #endif
 
