@@ -38,3 +38,7 @@ static struct platform_driver dts_demo_driver = {
 
 module_platform_driver(dts_demo_driver);
 
+MODULE_LICENSE("GPL");
+
+
+
