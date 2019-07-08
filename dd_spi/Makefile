@@ -1,33 +1,10 @@
-#ccflags-y+=-Wfatal-errors
-ccflags-y+=-DDEBUG
-ccflags-y+=-DUSE_PLATFORM_DEVICE
-ccflags-y+=-fmax-errors=5
-#ccflags-y+=-DCTRACER_ON -include $M/ctracer.h
-#ccflags-y+=-D USE_MISCDEV # uncomment to use single misc device instead char devices region
+LINUX_SRC :=/home/lyw/project/openwrt_widora/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7688/linux-3.18.29
 
-obj-m+= spi.o
+obj-m += spi_demo.o
 
-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
-
-all:	modules
-
-modules:
-	$(MAKE) -C $(KERNELDIR) M=$$PWD modules
-
-modules_install:
-	$(MAKE) -C $(KERNELDIR) M=$$PWD modules_install
-
-app:app_nonblock.o
-	gcc -o $@ $^
-
+#obj-m += module_test1.o
+all:
+	make -C $(LINUX_SRC) M=`pwd` modules
 clean:
-	@#rm -rf *.o app_nonblock *~ core  *.ko *.mod.c modules.order Module.symvers
-	$(MAKE) -C $(KERNELDIR) M=$$PWD clean
-
-_src = drv.c app_nonblock.c
-
-checkpatch:
-	checkpatch.pl --no-tree --show-types --ignore LINE_CONTINUATIONS --terse -f $(_src) Makefile
-
-checkpatch2:
-	checkpatch.pl --no-tree --show-types --ignore LONG_LINE,LINE_CONTINUATIONS --terse -f $(_src) Makefile
+	make -C $(LINUX_SRC) M=`pwd` modules clean
+	
