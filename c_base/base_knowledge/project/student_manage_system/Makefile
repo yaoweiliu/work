@@ -1,5 +1,7 @@
+CC:=mipsel-openwrt-linux-gcc
+
 main:display.o main.o file.o
-	gcc -o $@ $^
+	$(CC) -o $@ $^ -g
 
 clean:
 	rm *.o main -f
