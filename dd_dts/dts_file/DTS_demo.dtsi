@@ -1,0 +1,35 @@
+/*
+ * DTS Demo.
+ * https://biscuitos.github.io/blog/DTS-for_each_compatible_node/#源码分析
+ */
+
+ / {
+ 		DTS_demo {
+ 			compatible = "DTS_demo, BiscuitOS";
+ 			status = "okay";
+ 			BiscuitOS_name = "BiscuitOS";
+ 			BiscuitOS_int = <0x10203040>;
+ 			BiscuitOS_mult = <0x10203040 0x50607080
+ 							  0x90a0b0c0 0xd0e0f000>;
+ 			BiscuitOS_leg;
+
+ 			child0 {
+ 				compatible = "Child0, BiscuitOS";
+ 				status = "disabled";
+ 			};
+ 			child1 {
+ 				compatible = "Child1, BiscuitOS";
+ 				status = "okay";
+ 			};
+ 		};
+
+ 		DTS_demoX {
+ 			compatible = "DTS_demo, BiscuitOS";
+ 			status = "disabled";
+ 		};
+
+ 		DTS_demoY {
+ 			compatible = "DTS_demo, BiscuitOS";
+ 			status = "disabled";
+ 		};
+ };
