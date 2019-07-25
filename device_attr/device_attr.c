@@ -24,11 +24,15 @@ struct data_t
 #define	NAME		"attr_demo_name"
 #define	MODE 		(0666)
 #define	DEVNAME		"misc_demo_device"
+#define LENTH		(14)
+
+static char buffer[LENTH];
 
 //static ssize_t attr_show(struct kobject *kob, struct attribute *attr, char *str)
 static ssize_t attr_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
-	printk("%s\n", __func__);
+	snprintf(buf, LENTH, buffer);
+	printk("%s: buf is %s\n", __func__, buf);
 
 	return 0;
 }
@@ -36,12 +40,13 @@ static ssize_t attr_show(struct device *dev, struct device_attribute *attr, char
 //static ssize_t attr_store(struct kobject *kob, struct attribute *attr, const char *str, size_t count)
 ssize_t attr_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
 {
-	printk("%s\n", __func__);
+	snprintf(buffer, LENTH, buf);
+	printk("%s: buffer is %s\n", __func__, buffer);
 
 	return 0;
 }
 
-DEVICE_ATTR(attr_demo_name, MODE, attr_show, attr_store);
+DEVICE_ATTR(attr_demo_name, MODE, attr_show, attr_store); //该宏调用__ATTR()，在__ATTR()内会将_name转为字符串
 
 static ssize_t misc_demo_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
 {
@@ -104,8 +109,8 @@ static void __exit attr_exit(void)
 	//class_destroy(struct class *cls);
 	//unregister_chrdev(unsigned int major, const char *name);
 
-	misc_deregister(&attr_misc);
 	device_remove_file(attr_misc.this_device, &dev_attr_attr_demo_name);
+	misc_deregister(&attr_misc);
 }
 
 module_init(attr_init);
