@@ -32,4 +32,16 @@
  			compatible = "DTS_demo, BiscuitOS";
  			status = "disabled";
  		};
+
+ 		i2c@50 {
+ 			status = "okay";
+ 			compatible = "i2cdemo,eeprom";
+ 			reg = <0x50 0x20>;
+ 			/*
+ 			i2cdemo@50 {
+ 				compatible = "i2cdemo,eeprom";
+ 				reg = <0x50>;
+ 			};
+ 			*/
+ 		};
  };

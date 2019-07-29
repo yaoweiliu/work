@@ -55,6 +55,15 @@ static __exit void demo_exit(void)
 }
 */
 
+static const struct of_device_id DTS_demo_of_match[] = {
+	{.compatible = "DTS_demo, BiscuitOS",},
+	{.compatible = "DTS_demo, BiscuitOSX",},
+	{.compatible = "DTS_demo, BiscuitOSY",},
+	{ },
+};
+
+MODULE_DEVICE_TABLE(of, DTS_demo_of_match);
+
 static int dts_probe(struct platform_device *pdev)
 {
 	struct device_node *node = NULL;
@@ -116,6 +125,10 @@ static int dts_probe(struct platform_device *pdev)
 	for_each_available_child_of_node(node, child)
 		printk(" \"%s\"\n", child->name);
 
+	node = NULL;
+	for_each_matching_node(node, DTS_demo_of_match)
+		if(node)
+			printk("%s: matching %s\n", __func__, node->name);
 
 	return misc_register(&demo_device);
 }
@@ -126,11 +139,6 @@ static int dts_remove(struct platform_device *pdev)
 
 	return 0;
 }
-
-static const struct of_device_id DTS_demo_of_match[] = {
-	{.compatible = "DTS_demo, BiscuitOS",},
-	{ },
-};
 
 static struct platform_driver DTS_demo_driver = {
 	.probe = dts_probe,
