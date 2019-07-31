@@ -70,6 +70,7 @@ static int dts_probe(struct platform_device *pdev)
 	struct device_node *child = NULL;
 	const __be32 *prop;
 	int len, count;
+	const struct of_device_id *match = NULL; 
 
 	printk("%s: entence.\n", __func__);
 
@@ -126,9 +127,18 @@ static int dts_probe(struct platform_device *pdev)
 		printk(" \"%s\"\n", child->name);
 
 	node = NULL;
-	for_each_matching_node(node, DTS_demo_of_match)
+	for_each_matching_node(node, DTS_demo_of_match) {
 		if(node)
 			printk("%s: matching %s\n", __func__, node->name);
+	}
+
+	node = NULL;
+	for_each_matching_node_and_match(node, DTS_demo_of_match, &match) {
+		if(node)
+			printk("%s: matching %s\n", __func__, node->name);
+		if(match)
+			printk("%s: device_id compatible is %s\n", __func__, match->compatible);
+	}
 
 	return misc_register(&demo_device);
 }
