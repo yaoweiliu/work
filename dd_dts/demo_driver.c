@@ -140,6 +140,16 @@ static int dts_probe(struct platform_device *pdev)
 			printk("%s: device_id compatible is %s\n", __func__, match->compatible);
 	}
 
+	node = pdev->dev.of_node;
+	int ret;
+	u32 array[6];
+	ret = of_property_read_u32_array(node, "BiscuitOS_array", array, ARRAY_SIZE(array));
+	if(ret) {
+		printk("%s: unable to read BiscuitOS_array\n", __func__);
+		return -1;
+	}
+	printk("%s: Array: %#x %#x %#x %#x %#x %#x", __func__, array[0], array[1], array[2], array[3], array[4], array[5]);
+
 	return misc_register(&demo_device);
 }
 
