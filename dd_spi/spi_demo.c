@@ -194,6 +194,7 @@ static int spi_demo_remove(struct spi_device *spi)
 
 static const struct of_device_id spi_demo_dt_ids[] = {
     { .compatible = DEV_NAME },
+	{ .compatible = "ilitek,ili9341"},
     { },
 };
 

@@ -59,6 +59,7 @@ static const struct of_device_id DTS_demo_of_match[] = {
 	{.compatible = "DTS_demo, BiscuitOS",},
 	{.compatible = "DTS_demo, BiscuitOSX",},
 	{.compatible = "DTS_demo, BiscuitOSY",},
+	{.compatible = "dts_demo, BiscuitOS",},
 	{ },
 };
 
@@ -148,7 +149,7 @@ static int dts_probe(struct platform_device *pdev)
 	ret = of_property_read_u32_array(node, "BiscuitOS_array", array, ARRAY_SIZE(array));
 	if(ret) {
 		printk("%s: unable to read BiscuitOS_array\n", __func__);
-		return -1;
+		//return -1;
 	}
 	printk("%s: Array: %#x %#x %#x %#x %#x %#x", __func__, array[0], array[1], array[2], array[3], array[4], array[5]);
 
