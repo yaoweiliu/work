@@ -101,12 +101,12 @@ static int dts_probe(struct platform_device *pdev)
 		unsigned long value;
 
 		printk("%s: Property is BiscuitOS_mult, len is %d\n", __func__, len);
-		value = of_read_ulong(prop, of_n_addr_cells(node));
-		printk("%s: #cell 0 is %#lx\n", __func__, value);
+		value = of_read_ulong(prop, of_n_addr_cells(node));//first cells.
+		printk("%s: #cell 0 is %#lx, num is %d\n", __func__, value, of_n_addr_cells(node));
 
 		prop += of_n_addr_cells(node);
-		value = of_read_ulong(prop, of_n_addr_cells(node));
-		printk("%s: #cell 1 is %#lx\n", __func__, value);
+		value = of_read_ulong(prop, of_n_addr_cells(node));//second cells.
+		printk("%s: #cell 1 is %#lx, num is %d\n", __func__, value, of_n_addr_cells(node));
 	}
 
 	prop = of_get_property(node, "BiscuitOS_leg", &len);
@@ -134,6 +134,8 @@ static int dts_probe(struct platform_device *pdev)
 
 	node = NULL;
 	for_each_matching_node_and_match(node, DTS_demo_of_match, &match) {
+		if(of_device_is_available(node))
+			printk("%s: %s is available\n", __func__, node->name);
 		if(node)
 			printk("%s: matching %s\n", __func__, node->name);
 		if(match)
