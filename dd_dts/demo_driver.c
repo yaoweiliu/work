@@ -4,6 +4,7 @@
 #include <linux/fs.h>
 #include <linux/miscdevice.h>
 #include <linux/of_platform.h>
+#include <linux/platform_device.h>
 
 #define DEMO_NAME	"demo_driver"
 #define DEVICE_NAME	"DTS_demo"
@@ -151,8 +152,16 @@ static int dts_probe(struct platform_device *pdev)
 		printk("%s: unable to read BiscuitOS_array\n", __func__);
 		//return -1;
 	}
-	printk("%s: Array: %#x %#x %#x %#x %#x %#x", __func__, array[0], array[1], array[2], array[3], array[4], array[5]);
+	else
+		printk("%s: Array: %#x %#x %#x %#x %#x %#x", __func__, array[0], array[1], array[2], array[3], array[4], array[5]);
 
+	struct resource *resource = NULL;
+	resource = platform_get_resource(pdev, IORESOURCE_MEM, 0);//dts--->reg, #address-cells, #size-cells
+	if(!resource) 
+		printk("%s: can not get resource.\n", __func__);
+	else
+		printk("%s: resource start address is %#x, end address is %#x\n", __func__, resource->start, resource->end);
+	
 	return misc_register(&demo_device);
 }
 
