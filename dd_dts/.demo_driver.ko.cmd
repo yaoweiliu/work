@@ -1,1 +1,0 @@
-cmd_/home/lyw/git/code/C/work/dd_dts/demo_driver.ko := mipsel-openwrt-linux-ld -r  -m elf32ltsmip -T ./scripts/module-common.lds -s --build-id  -o /home/lyw/git/code/C/work/dd_dts/demo_driver.ko /home/lyw/git/code/C/work/dd_dts/demo_driver.o /home/lyw/git/code/C/work/dd_dts/demo_driver.mod.o
