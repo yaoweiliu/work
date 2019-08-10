@@ -14,7 +14,7 @@ struct socket_file
 {
 	int sockfd;
 	int new_fd;
-	char buf[BUFLEN];
+	char buf[0];
 };
 
 #endif

@@ -11,7 +11,7 @@
 
 int create_socket(struct socket_file *file)
 {
-	if(file->sockfd = socket(AF_INET, SOCK_STREAM, 0) < 0) {
+	if((file->sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		perror("sockt()");
 		return -1;
 	}
@@ -22,12 +22,15 @@ int create_socket(struct socket_file *file)
 int bind_socketfd(struct socket_file *file)
 {
 	struct sockaddr_in servaddr;
+	socklen_t count;
 
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port = htons(DEFAULT_PORT);
 
+	count = 1;
+    setsockopt(file->sockfd, SOL_SOCKET, SO_REUSEADDR, &count, sizeof(count));
 	printf("%s: fd = %d\n", __func__, file->sockfd);
 	if(bind(file->sockfd, &servaddr, sizeof(servaddr)) == -1) {
 		perror("bind()");
@@ -54,6 +57,10 @@ int accept_scoketfd(struct socket_file *file)
     	}
 
     	read(file->new_fd, file->buf, BUFLEN);
+    	printf("data: %s", file->buf);
+    	write(file->new_fd, file->buf, BUFLEN);
+    	//file->buf = {0};
+    	memset(file->buf, '\0', strlen(file->buf));
 
     	close(file->new_fd);
 	}
@@ -64,6 +71,7 @@ int main(int argc, char const *argv[])
 	struct socket_file *file = NULL;
 
 	file = malloc(sizeof(struct socket_file));
+	memset(file->buf, '\0', strlen(file->buf));
 
 	if(create_socket(file)) {
 		fprintf(stderr, "%s\n", "create socket error.");
@@ -78,8 +86,6 @@ int main(int argc, char const *argv[])
 	listen_socketfd(file);
 
 	accept_scoketfd(file);
-
-	printf("data: %s\n", file->buf);
 
 	close(file->sockfd);
 	free(file);
