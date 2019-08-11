@@ -5,7 +5,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-#include <netinet/in.h> 
+#include <netinet/in.h>
+#include <sys/select.h>
+#include <sys/time.h>
 
 #include "common.h"
 
@@ -50,15 +52,34 @@ int listen_socketfd(struct socket_file *file)
 
 int accept_scoketfd(struct socket_file *file)
 {
+	fd_set readfds, writefds;
+	int ret;
+
+	FD_ZERO(&readfds);
+	FD_ZERO(&writefds);
+
 	while(1) {
 		if((file->new_fd = accept(file->sockfd, (struct sockaddr*)NULL, NULL)) == -1){  
         	printf("accept socket error: %s(errno: %d)",strerror(errno),errno);
-        	continue;  
+        	//continue;
+        	return -1;
     	}
+    	FD_SET(file->new_fd, &readfds);
+    	//FD_SET(file->new_fd, &writefds);
+		ret = select(file->new_fd+1, &readfds, &writefds, NULL, NULL);
+		if(ret < 0) {
+			perror("select()");
+			return -1;
+		}
+		printf("%s\n", "It is for select.");
+		if(FD_ISSET(file->new_fd, &readfds)) {
+			read(file->new_fd, file->buf, BUFLEN);
+    		printf("data: %s", file->buf);
+    		write(file->new_fd, file->buf, BUFLEN);
+		}
 
-    	read(file->new_fd, file->buf, BUFLEN);
-    	printf("data: %s", file->buf);
-    	write(file->new_fd, file->buf, BUFLEN);
+		//if(FD_ISSET(file->new_fd, &writefds))
+    		//write(file->new_fd, file->buf, BUFLEN);
     	//file->buf = {0};
     	memset(file->buf, '\0', strlen(file->buf));
 
