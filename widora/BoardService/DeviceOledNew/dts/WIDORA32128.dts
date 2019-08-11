@@ -120,10 +120,10 @@
 
 		i2c@900 {
 			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
 
 			oled12864@3c {
-				#address-cells = <1>;
-				#size-cells = <0>;
 				compatible = "OLED12864";
 				reg = <0x3c>;
 			};
