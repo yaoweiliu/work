@@ -16,7 +16,7 @@ static sem_t sem;
 void handler(int arg)
 {
     int value;
-    sem_post(&sem);
+    sem_post(&sem);//+1
     printf("%s: receive sigterm,", __func__);
     sem_getvalue(&sem, &value);
     printf(" 0 value is %d\n", value);
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 
     sem_getvalue(&sem, &value);
     printf("%s: 1 value is %d\n", __func__, value);
-    sem_wait(&sem);
+    sem_wait(&sem);//-1
     sem_getvalue(&sem, &value);
      printf("%s: 2 value is %d\n", __func__, value);
 
