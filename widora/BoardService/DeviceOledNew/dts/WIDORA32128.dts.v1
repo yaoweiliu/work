@@ -122,14 +122,10 @@
 			status = "okay";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			ssd1306fb@3c {
-				compatible = "solomon,ssd1306fb-i2c";
+
+			oled12864@3c {
+				compatible = "OLED12864";
 				reg = <0x3c>;
-				solomon,width = <128>;
-				solomon,height = <64>;
-				reset-gpios = <&gpio0 11 0>;
-				solomon,page-offset = <0>;
-				solomon,com-invdir;
 			};
 		};
 
