@@ -53,7 +53,7 @@ static irqreturn_t button_interruppt(int irq, void *dev)
 	struct button_data *data = (struct button_data *)kzalloc(sizeof(struct button_data)+7, GFP_ATOMIC);
 	if(!data)
 		printk("%s: alloc memory error.\n", __func__);
-	//data->to_user = "touser";
+	//data->to_user = "touser"; error
 	memcpy(data->to_user, "touser", 7);
 
 	spin_lock_irqsave(&lock, flags);
