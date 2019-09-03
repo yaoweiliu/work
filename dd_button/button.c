@@ -47,9 +47,6 @@ static irqreturn_t button_interruppt(int irq, void *dev)
 	unsigned long flags;
 	struct button_dev *button = (struct button_dev *)dev;
 
-	INIT_WORK(&button->work, work_func);
-	queue_work(button->workqueue, &button->work);
-
 	struct button_data *data = (struct button_data *)kzalloc(sizeof(struct button_data)+7, GFP_ATOMIC);
 	if(!data)
 		printk("%s: alloc memory error.\n", __func__);
@@ -61,6 +58,9 @@ static irqreturn_t button_interruppt(int irq, void *dev)
 	spin_unlock_irqrestore(&lock, flags);
 
 	wake_up_interruptible(&wait_queue);
+
+	INIT_WORK(&button->work, work_func);
+	queue_work(button->workqueue, &button->work);
 
 	return IRQ_HANDLED;
 }
