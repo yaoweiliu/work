@@ -92,6 +92,8 @@ static int button_open(struct inode *inode, struct file *file)
 
 	file->private_data = button;
 
+	return err;
+
 irq_error:
 	free_irq(gpio_to_irq(button->button_gpio), button);
 	gpio_free(button->button_gpio);
