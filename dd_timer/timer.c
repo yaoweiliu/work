@@ -60,8 +60,8 @@ static void check_time(unsigned long arg)
 	wake_up_interruptible(&event_wait);
 
 	printk("%s: the time is %lu.\n", __func__, printk_time);
-
-	mod_timer(&private->timer, jiffies + 5*HZ);
+    del_timer(&private->timer);
+	//mod_timer(&private->timer, jiffies + 5*HZ);
 memory_error:
 	return ;
 }

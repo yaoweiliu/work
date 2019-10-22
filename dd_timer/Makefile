@@ -1,12 +1,34 @@
-LINUX_SRC :=/home/lyw/project/openwrt_widora/build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7688/linux-3.18.29
+#ccflags-y+=-Wfatal-errors
+ccflags-y+=-DDEBUG
+ccflags-y+=-DUSE_PLATFORM_DEVICE
+ccflags-y+=-fmax-errors=5
+#ccflags-y+=-DCTRACER_ON -include $M/ctracer.h
+#ccflags-y+=-D USE_MISCDEV # uncomment to use single misc device instead char devices region
 
-#obj-m += timer.o
-obj-m += hrtimer.o
-#obj-m += module_test1.o
-all:
-	make -C $(LINUX_SRC) M=`pwd` modules
-	mipsel-openwrt-linux-gcc -o app app.c
+#obj-m+= i2c.o
+obj-m += timer.o
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+
+all:	modules
+
+modules:
+	$(MAKE) -C $(KERNELDIR) M=$$PWD modules
+
+modules_install:
+	$(MAKE) -C $(KERNELDIR) M=$$PWD modules_install
+
+app:app.o
+	gcc -o $@ $^
+
 clean:
-	make -C $(LINUX_SRC) M=`pwd` modules clean
-	rm app
-	
+	$(MAKE) -C $(KERNELDIR) M=$$PWD clean
+	#rm -rf *.o app *~ core  *.ko *.mod.c modules.order Module.symvers
+
+_src = i2c.c
+
+checkpatch:
+	checkpatch.pl --no-tree --show-types --ignore LINE_CONTINUATIONS --terse -f $(_src) Makefile
+
+checkpatch2:
+	checkpatch.pl --no-tree --show-types --ignore LONG_LINE,LINE_CONTINUATIONS --terse -f $(_src) Makefile
