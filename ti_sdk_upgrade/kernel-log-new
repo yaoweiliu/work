@@ -1,0 +1,322 @@
+[    0.000000] Booting Linux on physical CPU 0x0                                
+[    0.000000] Linux version 4.19.38-g4dae378bbe (lyw@lyw-virtual-machine) (gcc9
+[    0.000000] start_kernel: 552 it is in kernel                                
+[    0.000000] CPU: ARMv7 Processor [413fc082] revision 2 (ARMv7), cr=10c5387d  
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instructie
+[    0.000000] OF: fdt: Machine model: TI AM335x EVM                            
+[    0.000000]   r1=0xffffffff, r2=0x8fff2000                                   
+[    0.000000] Memory policy: Data cache writeback                              
+[    0.000000] efi: Getting EFI parameters from FDT:                            
+[    0.000000] efi: UEFI not found.                                             
+[    0.000000] cma: Reserved 48 MiB at 0x9d000000                               
+[    0.000000] CPU: All CPU(s) started in SVC mode.                             
+[    0.000000] AM335X ES1.0 (neon)                                              
+[    0.000000] random: get_random_bytes called from start_kernel+0xbc/0x44c wit0
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 129920    
+[    0.000000] Kernel command line: console=ttyO0,115200n8 root=/dev/nfs nfsrook
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)  
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)   
+[    0.000000] Memory: 456976K/524288K available (8192K kernel code, 293K rwdat)
+[    0.000000] Virtual kernel memory layout:                                    
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)                
+[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)                
+[    0.000000]     vmalloc : 0xe0800000 - 0xff800000   ( 496 MB)                
+[    0.000000]     lowmem  : 0xc0000000 - 0xe0000000   ( 512 MB)                
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)                
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)                
+[    0.000000]       .text : 0x(ptrval) - 0x(ptrval)   (9184 kB)                
+[    0.000000]       .init : 0x(ptrval) - 0x(ptrval)   (1024 kB)                
+[    0.000000]       .data : 0x(ptrval) - 0x(ptrval)   ( 294 kB)                
+[    0.000000]        .bss : 0x(ptrval) - 0x(ptrval)   ( 253 kB)                
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1       
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.                
+[    0.000000]  Tasks RCU enabled.                                              
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16                  
+[    0.000000] IRQ: Found an INTC at 0x(ptrval) (revision 5.0) with 128 interrus
+[    0.000000] OMAP clockevent source: timer2 at 24000000 Hz                    
+[    0.000020] sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 8947s
+[    0.000043] clocksource: timer1: mask: 0xffffffff max_cycles: 0xffffffff, mas
+[    0.000057] OMAP clocksource: timer1 at 24000000 Hz                          
+[    0.000279] timer_probe: no matching timers found                            
+[    0.000513] Console: colour dummy device 80x30                               
+[    0.000550] WARNING: Your 'console=ttyO0' has been replaced by 'ttyS0'       
+[    0.000558] This ensures that you still see kernel messages. Please          
+[    0.000565] update your kernel commandline.                                  
+[    0.000631] Calibrating delay loop... 718.02 BogoMIPS (lpj=3590144)          
+[    0.118875] pid_max: default: 32768 minimum: 301                             
+[    0.119129] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)      
+[    0.119147] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes) 
+[    0.120162] CPU: Testing write buffer coherency: ok                          
+[    0.120244] CPU0: Spectre v2: using BPIALL workaround                        
+[    0.121324] Setting up static identity map for 0x80100000 - 0x80100060       
+[    0.121517] rcu: Hierarchical SRCU implementation.                           
+[    0.121955] EFI services will not be available.                              
+[    0.123664] devtmpfs: initialized                                            
+[    0.134646] VFP support v0.3: implementor 41 architecture 3 part 30 variant 3
+[    0.135140] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, ms
+[    0.135170] futex hash table entries: 256 (order: -1, 3072 bytes)            
+[    0.139910] pinctrl core: initialized pinctrl subsystem                      
+[    0.140853] DMI not present or invalid.                                      
+[    0.141373] NET: Registered protocol family 16                               
+[    0.144276] DMA: preallocated 256 KiB pool for atomic coherent allocations   
+[    0.167639] l4_wkup_cm:clk:0010:0: failed to disable                         
+[    0.221833] cpuidle: using governor ladder                                   
+[    0.221879] cpuidle: using governor menu                                     
+[    0.228095] OMAP GPIO hardware version 0.1                                   
+[    0.242204] No ATAGs?                                                        
+[    0.242227] hw-breakpoint: debug architecture 0x4 unsupported.               
+[    0.259643] edma 49000000.edma: TI EDMA DMA engine driver                    
+[    0.261655] v1_8d: supplied by vbat                                          
+[    0.262018] v3_3d: supplied by vbat                                          
+[    0.265432] media: Linux media interface: v0.10                              
+[    0.265505] videodev: Linux video capture interface: v2.00                   
+[    0.265617] pps_core: LinuxPPS API ver. 1 registered                         
+[    0.265627] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giom>
+[    0.265656] PTP clock support registered                                     
+[    0.265700] EDAC MC: Ver: 3.0.0                                              
+[    0.266805] omap-mailbox 480c8000.mailbox: omap mailbox rev 0x400            
+[    0.267286] Advanced Linux Sound Architecture Driver Initialized.            
+[    0.269180] clocksource: Switched to clocksource timer1                      
+[    0.279542] NET: Registered protocol family 2                                
+[    0.280580] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096)
+[    0.280621] TCP established hash table entries: 4096 (order: 2, 16384 bytes) 
+[    0.280675] TCP bind hash table entries: 4096 (order: 2, 16384 bytes)        
+[    0.280728] TCP: Hash tables configured (established 4096 bind 4096)         
+[    0.280873] UDP hash table entries: 256 (order: 0, 4096 bytes)               
+[    0.280897] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)          
+[    0.281088] NET: Registered protocol family 1                                
+[    0.281837] RPC: Registered named UNIX socket transport module.              
+[    0.281853] RPC: Registered udp transport module.                            
+[    0.281861] RPC: Registered tcp transport module.                            
+[    0.281869] RPC: Registered tcp NFSv4.1 backchannel transport module.        
+[    0.283075] hw perfevents: enabled with armv7_cortex_a8 PMU driver, 5 countee
+[    0.284785] Initialise system trusted keyrings                               
+[    0.285229] workingset: timestamp_bits=14 max_order=17 bucket_order=3        
+[    0.291326] squashfs: version 4.0 (2009/01/31) Phillip Lougher               
+[    0.292281] NFS: Registering the id_resolver key type                        
+[    0.292339] Key type id_resolver registered                                  
+[    0.292349] Key type id_legacy registered                                    
+[    0.292405] ntfs: driver 2.1.32 [Flags: R/O].                                
+[    0.293028] pstore: using deflate compression                                
+[    0.295280] Key type asymmetric registered                                   
+[    0.295301] Asymmetric key parser 'x509' registered                          
+[    0.295388] Block layer SCSI generic (bsg) driver version 0.4 loaded (major )
+[    0.295403] io scheduler noop registered                                     
+[    0.295413] io scheduler deadline registered                                 
+[    0.295732] io scheduler cfq registered (default)                            
+[    0.295745] io scheduler mq-deadline registered                              
+[    0.295755] io scheduler kyber registered                                    
+[    0.297942] pinctrl-single 44e10800.pinmux: 142 pins, size 568               
+[    0.302188] pwm-backlight backlight: backlight supply power not found, usingr
+[    0.302312] pwm-backlight backlight: Linked as a consumer to regulator.0     
+[    0.363675] Serial: 8250/16550 driver, 10 ports, IRQ sharing enabled         
+[    0.368628] 44e09000.serial: ttyS0 at MMIO 0x44e09000 (irq = 30, base_baud =0
+[    1.024676] console [ttyS0] enabled                                          
+[    1.029696] 48022000.serial: ttyS1 at MMIO 0x48022000 (irq = 31, base_baud =0
+[    1.041142] omap_rng 48310000.rng: Random Number Generator ver. 20           
+[    1.049797] OF: graph: no port node found in /ocp/lcdc@4830e000              
+[    1.056042] OF: graph: no port node found in /ocp/lcdc@4830e000              
+[    1.062744] OF: graph: no port node found in /ocp/lcdc@4830e000              
+[    1.068708] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).      
+[    1.075402] [drm] No driver support for vblank timestamp query.              
+[    1.128068] Console: switching to colour frame buffer device 100x30          
+[    1.150522] tilcdc 4830e000.lcdc: fb0: DRM emulated frame buffer device      
+[    1.157930] [drm] Initialized tilcdc 1.0.0 20121205 for 4830e000.lcdc on min0
+[    1.181503] brd: module loaded                                               
+[    1.193711] loop: module loaded                                              
+[    1.200527] libphy: Fixed MDIO Bus: probed                                   
+[    1.279250] davinci_mdio 4a101000.mdio: davinci mdio revision 1.6, bus freq 0
+[    1.286973] davinci_mdio 4a101000.mdio: detected phy mask fffffffc           
+[    1.295645] libphy: 4a101000.mdio: probed                                    
+[    1.299852] davinci_mdio 4a101000.mdio: phy[0]: device 4a101000.mdio:00, driY
+[    1.309559] davinci_mdio 4a101000.mdio: phy[1]: device 4a101000.mdio:01, driY
+[    1.320414] cpsw 4a100000.ethernet: Detected MACID = d0:ff:50:52:95:a2       
+[    1.327128] cpsw 4a100000.ethernet: initialized cpsw ale version 1.4         
+[    1.333708] cpsw 4a100000.ethernet: ALE Table size 1024                      
+[    1.339020] cpsw 4a100000.ethernet: cpts: overflow check period 500 (jiffies)
+[    1.348121] i2c /dev entries driver                                          
+[    1.354394] cpuidle: enable-method property 'ti,am3352' found operations     
+[    1.361812] sdhci: Secure Digital Host Controller Interface driver           
+[    1.368059] sdhci: Copyright(c) Pierre Ossman                                
+[    1.373423] omap_gpio 44e07000.gpio: Could not set line 6 debounce to 200000)
+[    1.382256] omap_hsmmc 48060000.mmc: Got CD GPIO                             
+[    1.388753] omap_hsmmc 47810000.mmc: Linked as a consumer to regulator.3     
+[    1.404296] l4_per_cm:clk:0000:0: failed to disable                          
+[    1.504856] sdhci-pltfm: SDHCI platform and OF driver helper                 
+[    1.512119] ledtrig-cpu: registered to indicate activity on CPUs             
+[    1.524498] NET: Registered protocol family 10                               
+[    1.531249] Segment Routing with IPv6                                        
+[    1.535150] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver              
+[    1.542177] NET: Registered protocol family 17                               
+[    1.547037] Key type dns_resolver registered                                 
+[    1.551784] omap_voltage_late_init: Voltage driver support not added         
+[    1.559451] Loading compiled-in X.509 certificates                           
+[    1.576512] omap-gpmc 50000000.gpmc: GPMC revision 6.0                       
+[    1.581934] gpmc_mem_init: disabling cs 0 mapped at 0x0-0x1000000            
+[    1.590392] nand: device found, Manufacturer ID: 0x2c, Chip ID: 0xdc         
+[    1.596788] nand: Micron MT29F4G08ABADAWP                                    
+[    1.600882] nand: 512 MiB, SLC, erase size: 128 KiB, page size: 2048, OOB si4
+[    1.608603] nand: using OMAP_ECC_BCH8_CODE_HW ECC scheme                     
+[    1.614159] 10 fixed-partitions partitions found on MTD device omap2-nand.0  
+[    1.621188] Creating 10 MTD partitions on "omap2-nand.0":                    
+[    1.626640] 0x000000000000-0x000000020000 : "NAND.SPL"                       
+[    1.633270] 0x000000020000-0x000000040000 : "NAND.SPL.backup1"               
+[    1.640374] 0x000000040000-0x000000060000 : "NAND.SPL.backup2"               
+[    1.647261] 0x000000060000-0x000000080000 : "NAND.SPL.backup3"               
+[    1.654303] 0x000000080000-0x0000000c0000 : "NAND.u-boot-spl-os"             
+[    1.661546] 0x0000000c0000-0x0000001c0000 : "NAND.u-boot"                    
+[    1.668401] 0x0000001c0000-0x0000001e0000 : "NAND.u-boot-env"                
+[    1.675391] 0x0000001e0000-0x000000200000 : "NAND.u-boot-env.backup1"        
+[    1.683012] 0x000000200000-0x000000a00000 : "NAND.kernel"                    
+[    1.693450] 0x000000a00000-0x000010000000 : "NAND.file-system"               
+[    1.849502] tps65910 0-002d: No interrupt support, no core IRQ               
+[    1.857445] random: fast init done                                           
+[    1.861143] vrtc: supplied by vbat                                           
+[    1.868330] vio: supplied by vbat                                            
+[    1.873217] vdd1: supplied by vbat                                           
+[    1.878444] vdd2: supplied by vbat                                           
+[    1.885215] vdig1: supplied by vbat                                          
+[    1.890149] vdig2: supplied by vbat                                          
+[    1.895024] vpll: supplied by vbat                                           
+[    1.899883] vdac: supplied by vbat                                           
+[    1.904691] vaux1: supplied by vbat                                          
+[    1.909596] vaux2: supplied by vbat                                          
+[    1.914472] vaux33: supplied by vbat                                         
+[    1.919520] vmmc: supplied by vbat                                           
+[    1.924349] vbb: supplied by vbat                                            
+[    1.929000] omap_i2c 44e0b000.i2c: bus 0 rev0.11 at 400 kHz                  
+[    1.937362] omap_i2c 4802a000.i2c: bus 1 rev0.11 at 100 kHz                  
+[    1.943565] cpu cpu0: Linked as a consumer to regulator.8                    
+[    1.949125] cpu cpu0: Dropping the link to regulator.8                       
+[    1.954645] cpu cpu0: Linked as a consumer to regulator.8                    
+[    1.962101] omap_gpio 44e07000.gpio: Could not set line 6 debounce to 200000)
+[    1.971035] omap_hsmmc 48060000.mmc: Got CD GPIO                             
+[    1.976351] omap_hsmmc 48060000.mmc: Linked as a consumer to regulator.18    
+[    2.012904] input: volume_keys0 as /devices/platform/volume_keys0/input/inpu0
+[    2.022029] hctosys: unable to open rtc device (rtc0)                        
+[    2.043329] omap_hsmmc 48060000.mmc: card claims to support voltages below de
+[    2.052670] net eth0: initializing cpsw version 1.12 (0)                     
+[    2.160806] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[    2.175026] libphy: PHY 4a101000.mdio:11 not found                           
+[    2.180241] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[    2.191985] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[    3.309262] mmc1: error -110 whilst initialising SDIO card                   
+[    3.315483] omap_hsmmc 48060000.mmc: card claims to support voltages below de
+[    4.240378] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[    4.259271] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[    4.289409] Sending DHCP requests .                                          
+[    4.615111] mmc1: card never left busy state                                 
+[    4.623017] mmc1: error -110 whilst initialising SD card                     
+[    4.628728] omap_hsmmc 48060000.mmc: card claims to support voltages below de
+[    4.636971] omap_hsmmc 48060000.mmc: exceeding card's volts                  
+[    4.646681] mmc1: error -110 whilst initialising MMC card                    
+[    6.929259] .....                                                            
+[   73.600707] random: crng init done                                           
+[   88.309222]  timed out!                                                      
+[   88.315705] IP-Config: Retrying forever (NFS root)...                        
+[   88.321356] net eth0: initializing cpsw version 1.12 (0)                     
+[   88.420002] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[   88.434018] libphy: PHY 4a101000.mdio:11 not found                           
+[   88.438908] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[   88.449710] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[   90.560305] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[   90.579312] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[   90.609391] Sending DHCP requests ...... timed out!                          
+[  172.178163] IP-Config: Retrying forever (NFS root)...                        
+[  172.183903] net eth0: initializing cpsw version 1.12 (0)                     
+[  172.290038] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  172.303955] libphy: PHY 4a101000.mdio:11 not found                           
+[  172.308874] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  172.319741] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  175.440343] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  175.469299] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  175.499393] Sending DHCP requests ...... timed out!                          
+[  251.088203] IP-Config: Retrying forever (NFS root)...                        
+[  251.093839] net eth0: initializing cpsw version 1.12 (0)                     
+[  251.200058] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  251.213973] libphy: PHY 4a101000.mdio:11 not found                           
+[  251.218898] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  251.229857] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  253.280372] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  253.299330] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  253.329420] Sending DHCP requests ...... timed out!                          
+[  336.778172] IP-Config: Retrying forever (NFS root)...                        
+[  336.783916] net eth0: initializing cpsw version 1.12 (0)                     
+[  336.890059] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  336.903966] libphy: PHY 4a101000.mdio:11 not found                           
+[  336.908902] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  336.919775] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  338.960308] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  338.989262] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  339.019393] Sending DHCP requests ...... timed out!                          
+[  410.448142] IP-Config: Retrying forever (NFS root)...                        
+[  410.453817] net eth0: initializing cpsw version 1.12 (0)                     
+[  410.560009] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  410.573967] libphy: PHY 4a101000.mdio:11 not found                           
+[  410.578859] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  410.589694] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  412.640320] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  412.659305] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  412.689396] Sending DHCP requests ...... timed out!                          
+[  490.158145] IP-Config: Retrying forever (NFS root)...                        
+[  490.163769] net eth0: initializing cpsw version 1.12 (0)                     
+[  490.269990] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  490.283994] libphy: PHY 4a101000.mdio:11 not found                           
+[  490.288890] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  490.299584] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  492.400321] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  492.429299] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  492.459387] Sending DHCP requests ...... timed out!                          
+[  573.768145] IP-Config: Retrying forever (NFS root)...                        
+[  573.773780] net eth0: initializing cpsw version 1.12 (0)                     
+[  573.880089] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  573.894031] libphy: PHY 4a101000.mdio:11 not found                           
+[  573.898929] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  573.909628] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  577.040314] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  577.059299] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  577.089399] Sending DHCP requests ...... timed out!                          
+[  650.818141] IP-Config: Retrying forever (NFS root)...                        
+[  650.823840] net eth0: initializing cpsw version 1.12 (0)                     
+[  650.930086] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  650.944041] libphy: PHY 4a101000.mdio:11 not found                           
+[  650.948933] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  650.959660] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  653.040328] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  653.059297] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  653.089401] Sending DHCP requests ...... timed out!                          
+[  727.258148] IP-Config: Retrying forever (NFS root)...                        
+[  727.263834] net eth0: initializing cpsw version 1.12 (0)                     
+[  727.369896] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  727.383673] libphy: PHY 4a101000.mdio:11 not found                           
+[  727.388566] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  727.399320] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  729.440353] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  729.469300] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  729.499395] Sending DHCP requests ...... timed out!                          
+[  805.908154] IP-Config: Retrying forever (NFS root)...                        
+[  805.913801] net eth0: initializing cpsw version 1.12 (0)                     
+[  806.020054] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  806.034098] libphy: PHY 4a101000.mdio:11 not found                           
+[  806.039021] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  806.049940] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  808.160325] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  808.179387] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  808.209388] Sending DHCP requests ...... timed out!                          
+[  885.218080] IP-Config: Retrying forever (NFS root)...                        
+[  885.223722] net eth0: initializing cpsw version 1.12 (0)                     
+[  885.330084] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  885.344027] libphy: PHY 4a101000.mdio:11 not found                           
+[  885.348915] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  885.359640] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  888.480372] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  888.509256] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready          
+[  888.539403] Sending DHCP requests ...... timed out!                          
+[  975.848350] IP-Config: Retrying forever (NFS root)...                        
+[  975.854019] net eth0: initializing cpsw version 1.12 (0)                     
+[  975.959995] TI TLK10X 10/100 Mbps PHY 4a101000.mdio:01: attached PHY driver )
+[  975.973952] libphy: PHY 4a101000.mdio:11 not found                           
+[  975.978847] net eth0: phy "4a101000.mdio:11" not found on slave 1, err -19   
+[  975.989657] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready               
+[  979.120309] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow cox
+[  979.139319] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready 

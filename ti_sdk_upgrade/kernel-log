@@ -1,0 +1,204 @@
+old-uimage:
+Uncompressing Linux... done, booting the kernel.
+[    0.000000] Linux version 3.2.0 (lyw@lyw-virtual-machine) (gcc version 4.5.3 20110311 (prerelease) (GCC) ) #2 Thu Sep 26 16:15:29 CST 2019
+[    0.000000] CPU: ARMv7 Processor [413fc082] revision 2 (ARMv7), cr=10c53c7d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: am335xiaevm
+[    0.000000] Memory policy: ECC disabled, Data cache writeback
+[    0.000000] AM335X ES1.0 (neon )
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 130048
+[    0.000000] Kernel command line: root=/dev/mmcblk0p2 rootwait console=ttyO0,115200
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Memory: 512MB = 512MB total
+[    0.000000] Memory: 512892k/512892k available, 11396k reserved, 0K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     vmalloc : 0xe0800000 - 0xff000000   ( 488 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xe0000000   ( 512 MB)
+[    0.000000]     modules : 0xbf000000 - 0xc0000000   (  16 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc05e2000   (5992 kB)
+[    0.000000]       .init : 0xc05e2000 - 0xc061c000   ( 232 kB)
+[    0.000000]       .data : 0xc061c000 - 0xc0685e68   ( 424 kB)
+[    0.000000]        .bss : 0xc0685e8c - 0xc06b2f64   ( 181 kB)
+[    0.000000] NR_IRQS:396
+[    0.000000] IRQ: Found an INTC at 0xfa200000 (revision 5.0) with 128 interrupts
+[    0.000000] Total of 128 interrupts on 1 active controller
+[    0.000000] OMAP clockevent source: GPTIMER2 at 24000000 Hz
+[    0.000000] OMAP clocksource: GPTIMER1 at 32768 Hz
+[    0.000000] sched_clock: 32 bits at 32kHz, resolution 30517ns, wraps every 131071999ms
+[    0.000000] Console: colour dummy device 80x30
+[    0.000183] Calibrating delay loop... 718.02 BogoMIPS (lpj=3590144)
+[    0.058898] pid_max: default: 32768 minimum: 301
+[    0.059051] Security Framework initialized
+[    0.059173] Mount-cache hash table entries: 512
+[    0.059570] CPU: Testing write buffer coherency: ok
+[    0.064880] print_constraints: dummy: 
+[    0.065277] NET: Registered protocol family 16
+[    0.067443] OMAP GPIO hardware version 0.1
+[    0.070159] omap_mux_init: Add partition: #1: core, flags: 0
+[    0.072143]  omap_i2c.1: alias fck already exists
+[    0.072753] The board is an industrial automation EVM in profile 0
+[    0.074493]  init scu v2 interrupt gpio
+[    0.074584]  d_can.0: alias fck already exists
+[    0.075103] Power down signal set to low at initialize.
+[    0.075866]  omap2_mcspi.1: alias fck already exists
+[    0.076110]  omap2_mcspi.2: alias fck already exists
+[    0.077056]  edma.0: alias fck already exists
+[    0.077056]  edma.0: alias fck already exists
+[    0.077087]  edma.0: alias fck already exists
+[    0.104675] bio: create slab <bio-0> at 0
+[    0.106964] SCSI subsystem initialized
+[    0.109008] usbcore: registered new interface driver usbfs
+[    0.109344] usbcore: registered new interface driver hub
+[    0.109558] usbcore: registered new device driver usb
+[    0.109710] musb-ti81xx musb-ti81xx: musb0, board_mode=0x11, plat_mode=0x1
+[    0.109985] musb-ti81xx musb-ti81xx: musb1, board_mode=0x11, plat_mode=0x1
+[    0.128997] omap_i2c omap_i2c.1: bus 1 rev2.4.0 at 100 kHz
+[    0.130065] Advanced Linux Sound Architecture Driver Version 1.0.24.
+[    0.131195] Switching to clocksource gp timer
+[    0.146820] musb-hdrc: version 6.0, ?dma?, otg (peripheral+host)
+[    0.147003] musb-hdrc musb-hdrc.0: dma type: pio
+[    0.147338] MUSB0 controller's USBSS revision = 4ea20800
+[    0.147583] musb-hdrc musb-hdrc.0: MUSB HDRC host driver
+[    0.147674] musb-hdrc musb-hdrc.0: new USB bus registered, assigned bus number 1
+[    0.147827] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    0.147827] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    0.147857] usb usb1: Product: MUSB HDRC host driver
+[    0.147857] usb usb1: Manufacturer: Linux 3.2.0 musb-hcd
+[    0.147857] usb usb1: SerialNumber: musb-hdrc.0
+[    0.148712] hub 1-0:1.0: USB hub found
+[    0.148742] hub 1-0:1.0: 1 port detected
+[    0.149353] musb-hdrc musb-hdrc.0: USB Host mode controller at e0834000 using PIO, IRQ 18
+[    0.149536] musb-hdrc musb-hdrc.1: dma type: pio
+[    0.149871] MUSB1 controller's USBSS revision = 4ea20800
+[    0.150054] musb-hdrc musb-hdrc.1: MUSB HDRC host driver
+[    0.150085] musb-hdrc musb-hdrc.1: new USB bus registered, assigned bus number 2
+[    0.150177] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002
+[    0.150207] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    0.150207] usb usb2: Product: MUSB HDRC host driver
+[    0.150238] usb usb2: Manufacturer: Linux 3.2.0 musb-hcd
+[    0.150238] usb usb2: SerialNumber: musb-hdrc.1
+[    0.150970] hub 2-0:1.0: USB hub found
+[    0.151000] hub 2-0:1.0: 1 port detected
+[    0.151580] musb-hdrc musb-hdrc.1: USB Host mode controller at e0836800 using PIO, IRQ 19
+[    0.152008] NET: Registered protocol family 2
+[    0.152221] IP route cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.152557] TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.152862] TCP bind hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.153045] TCP: Hash tables configured (established 16384 bind 16384)
+[    0.153045] TCP reno registered
+[    0.153076] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.153106] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.153289] NET: Registered protocol family 1
+[    0.153564] RPC: Registered named UNIX socket transport module.
+[    0.153564] RPC: Registered udp transport module.
+[    0.153594] RPC: Registered tcp transport module.
+[    0.153594] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.153839] NetWinder Floating Point Emulator V0.97 (double precision)
+[    0.154052] omap-gpmc omap-gpmc: GPMC revision 6.0
+[    0.154083] Registering NAND on CS0
+[    0.175842] VFS: Disk quotas dquot_6.5.2
+[    0.175903] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[    0.176635] msgmni has been set to 1001
+[    0.180114] alg: No test for stdrng (krng)
+[    0.180847] io scheduler noop registered
+[    0.180847] io scheduler deadline registered
+[    0.180938] io scheduler cfq registered (default)
+[    0.182617] omap_uart.0: ttyO0 at MMIO 0x44e09000 (irq = 72) is a OMAP UART0
+[    0.796234] ti81xx_interrupt 1120: VBUS error workaround (delay coming)
+[    0.796234] ti81xx_interrupt 1120: VBUS error workaround (delay coming)
+[    0.810058] console [ttyO0] enabled
+[    0.814392] omap_uart.1: ttyO1 at MMIO 0x48022000 (irq = 73) is a OMAP UART1
+[    0.822265] omap_uart.2: ttyO2 at MMIO 0x48024000 (irq = 74) is a OMAP UART2
+[    0.830047] omap_uart.3: ttyO3 at MMIO 0x481a6000 (irq = 44) is a OMAP UART3
+[    0.837829] omap_uart.4: ttyO4 at MMIO 0x481a8000 (irq = 45) is a OMAP UART4
+[    0.845642] omap_uart.5: ttyO5 at MMIO 0x481aa000 (irq = 46) is a OMAP UART5
+[    0.853942] omap4_rng omap4_rng: OMAP4 Random Number Generator ver. 2.00
+[    0.862396] brd: module loaded
+[    0.870391] loop: module loaded
+[    0.875823] mtdoops: mtd device (mtddev=name/number) must be supplied
+[    0.883331] ONFI flash detected
+[    0.886749] ONFI param page 0 valid
+[    0.890380] NAND device: Manufacturer ID: 0x2c, Chip ID: 0xdc (Micron MT29F4G08ABADAWP)
+[    0.899017] Creating 5 MTD partitions on "omap2-nand.0":
+[    0.904602] 0x000000000000-0x000004000000 : "rootfs0"
+[    0.937774] 0x000004000000-0x000008000000 : "rootfs1"
+[    0.970855] 0x000008000000-0x00000c000000 : "rootfs2"
+[    1.003875] 0x00000c000000-0x00001c000000 : "sv-app"
+[    1.116577] 0x00001c000000-0x000020000000 : "sv-backup"
+[    1.149993] OneNAND driver initializing
+[    1.155456] CAN device driver interface
+[    1.159454] CAN bus driver for Bosch D_CAN controller 1.0
+[    1.165985] d_can d_can.0: device registered (irq=52, irq_obj=53)
+[    1.221832] davinci_mdio davinci_mdio.0: davinci mdio revision 1.6
+[    1.228302] davinci_mdio davinci_mdio.0: detected phy mask fffffffc
+[    1.236053] davinci_mdio.0: probed
+[    1.239624] davinci_mdio davinci_mdio.0: phy[0]: device 0:00, driver unknown
+[    1.247009] davinci_mdio davinci_mdio.0: phy[1]: device 0:01, driver unknown
+[    1.254730] usbcore: registered new interface driver zd1201
+[    1.260742] usbcore: registered new interface driver cdc_ether
+[    1.266998] usbcore: registered new interface driver cdc_eem
+[    1.273071] usbcore: registered new interface driver dm9601
+[    1.278930] cdc_ncm: 04-Aug-2011
+[    1.282470] usbcore: registered new interface driver cdc_ncm
+[    1.288391] Initializing USB Mass Storage driver...
+[    1.293731] usbcore: registered new interface driver usb-storage
+[    1.299987] USB Mass Storage support registered.
+[    1.305267] mousedev: PS/2 mouse device common for all mice
+[    1.311553] ilitek_init
+[    1.314331] i2c-core: driver [ilitek_i2c] using legacy suspend method
+[    1.321044] i2c-core: driver [ilitek_i2c] using legacy resume method
+[    1.327697] ilitek_i2c_register_device, add i2c device, success
+[    1.333892] ilitek_i2c_register_device, no i2c board information
+[    1.340179] ilitek_init, register i2c device, error
+[    1.345275] Initial gslx680-linux Touch Driver
+[    1.350036] i2c-core: driver [gslX680] using legacy suspend method
+[    1.356506] i2c-core: driver [gslX680] using legacy resume method
+[    1.362884] ==gsl_ts_init== ret=0
+[    1.366760] omap_rtc am33xx-rtc: rtc core: registered am33xx-rtc as rtc0
+[    1.373992] i2c /dev entries driver
+[    1.378051] Linux video capture interface: v2.00
+[    1.383209] usbcore: registered new interface driver uvcvideo
+[    1.389190] USB Video Class driver (1.1.1)
+[    1.394317] OMAP Watchdog Timer Rev 0x01: initial timeout 60 sec
+[    1.400848] _regulator_get: deviceless supply vdd_mpu not found, using dummy regulator
+[    1.409606] cpuidle: using governor ladder
+[    1.414398] cpuidle: using governor menu
+[    1.418701] omap4_aes_mod_init: loading AM33X AES driver
+[    1.424407] omap4-aes omap4-aes: AM33X AES hw accel rev: 3.02
+[    1.430908] omap4_aes_probe: probe() done
+[    1.435363] omap4_sham_mod_init: loading AM33X SHA/MD5 driver
+[    1.441467] omap4-sham omap4-sham: AM33X SHA/MD5 hw accel rev: 4.03
+[    1.453155] omap4_sham_probe: probe() done
+[    1.460266] usbcore: registered new interface driver usbhid
+[    1.466125] usbhid: USB HID core driver
+[    1.470764] usbcore: registered new interface driver snd-usb-audio
+[    1.478881] ALSA device list:
+[    1.482025]   No soundcards found.
+[    1.485565] oprofile: hardware counters not available
+[    1.490814] oprofile: using timer interrupt.
+[    1.495330] nf_conntrack version 0.5.0 (8013 buckets, 32052 max)
+[    1.502197] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    1.507873] TCP cubic registered
+[    1.511230] NET: Registered protocol family 17
+[    1.515930] can: controller area network core (rev 20090105 abi 8)
+[    1.522460] NET: Registered protocol family 29
+[    1.527130] can: raw protocol (rev 20090105)
+[    1.531585] can: broadcast manager protocol (rev 20090105 t)
+[    1.537536] Registering the dns_resolver key type
+[    1.542541] VFP support v0.3: implementor 41 architecture 3 part 30 variant c rev 3
+[    1.550537] ThumbEE CPU extension supported.
+[    1.555084] mux: Failed to setup hwmod io irq -22
+[    1.560607] Power Management for AM33XX family
+[    1.565490] Trying to load am335x-pm-firmware.bin (60 secs timeout)
+[    1.572174] Copied the M3 firmware to UMEM
+[    1.577087] sr_init: platform driver register failed
+[    1.587677] clock: disabling unused clocks to save power
+[    1.606048] Detected MACID=d0:ff:50:52:95:a2
+[    1.611602] cpsw: Detected MACID = d0:ff:50:52:95:a3
+[    1.617919] <<-GTP-INFO->> GTP driver installing...
+[    1.623352] omap_rtc am33xx-rtc: setting system clock to 2000-01-01 00:00:00 UTC (946684800)
+[    1.632751] Waiting for root device /dev/mmcblk0p2...

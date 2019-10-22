@@ -1,0 +1,1489 @@
+minicom: /home/lyw/.minirc.dfl
+
+sudo apt-get install libssl-dev
+
+
+sd card operation log:
+lyw@lyw-virtual-machine:ti-processor-sdk-linux-am335x-evm-06.00.00.07$ sudo ./bin/create-sdcard.sh 
+[sudo] password for lyw: 
+
+
+################################################################################
+
+This script will create a bootable SD card from custom or pre-built binaries.
+
+The script must be run with root permissions and from the bin directory of
+the SDK
+
+Example:
+ $ sudo ./create-sdcard.sh
+
+Formatting can be skipped if the SD card is already formatted and
+partitioned properly.
+
+################################################################################
+
+
+Available Drives to write images to: 
+
+#  major   minor    size   name 
+1:   8       16    3872256 sdb
+ 
+Enter Device Number or n to exit: 1
+ 
+sdb was selected
+
+/dev/sdb is an sdx device
+Unmounting the sdb drives
+ unmounted /dev/sdb1
+ unmounted /dev/sdb2
+Current size of sdb1 72261 bytes
+Current size of sdb2 3791340 bytes
+
+################################################################################
+
+   Detected device has 2 partitions already
+
+   Re-partitioning will allow the choice of 2 or 3 partitions
+
+################################################################################
+
+Would you like to re-partition the drive anyways [y/n] : y
+
+ 
+Now partitioning sdb ...
+
+
+################################################################################
+
+	Select 2 partitions if only need boot and rootfs (most users).
+	Select 3 partitions if need SDK & other content on SD card.  This is
+        usually used by device manufacturers with access to partition tarballs.
+
+	****WARNING**** continuing will erase all data on sdb
+
+################################################################################
+
+Number of partitions needed [2/3] : 2
+
+ 
+Now partitioning sdb with 2 partitions...
+ 
+
+################################################################################
+
+		Now making 2 partitions
+
+################################################################################
+
+1024+0 records in
+1024+0 records out
+1048576 bytes (1.0 MB, 1.0 MiB) copied, 2.34663 s, 447 kB/s
+DISK SIZE - 3965190144 bytes
+
+################################################################################
+
+		Partitioning Boot
+
+################################################################################
+mkfs.fat 4.1 (2017-01-24)
+mkfs.fat: warning - lowercase labels might not work properly with DOS or Windows
+
+################################################################################
+
+		Partitioning rootfs
+
+################################################################################
+mke2fs 1.44.1 (24-Mar-2018)
+/dev/sdb2 contains a ext3 file system labelled 'rootfs'
+	last mounted on / on Tue Feb 23 01:00:05 2016
+Proceed anyway? (y,N) y
+Creating filesystem with 945920 4k blocks and 236640 inodes
+Filesystem UUID: ac5d6ca1-1346-4b6f-adad-27fda0fe0f5c
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+
+
+################################################################################
+
+   Partitioning is now done
+   Continue to install filesystem or select 'n' to safe exit
+
+   **Warning** Continuing will erase files any files in the partitions
+
+################################################################################
+
+
+Would you like to continue? [y/n] : y
+
+ 
+ 
+Mount the partitions 
+ 
+Emptying partitions 
+ 
+
+Syncing....
+
+################################################################################
+
+	Choose file path to install from
+
+	1 ) Install pre-built images from SDK
+	2 ) Enter in custom boot and rootfs file paths
+
+################################################################################
+
+Choose now [1/2] : 1
+
+ 
+Will now install from SDK pre-built images
+now installing:  ti-processor-sdk-linux-am335x-evm-06.00.00.07
+
+################################################################################
+
+   Multiple rootfs Tarballs found
+
+################################################################################
+
+	 1:tisdk-rootfs-image-am335x-evm.tar.xz
+	 2:tisdk-docker-rootfs-image-am335x-evm.tar.xz
+
+Enter Number of rootfs Tarball: 1
+ 
+################################################################################
+
+	Copying files now... will take minutes
+
+################################################################################
+
+Copying boot partition
+
+
+
+MLO copied
+
+
+u-boot.img copied
+
+
+Copying rootfs System partition
+                                                                                                                                                                                     
+
+Syncing...
+ 
+Un-mount the partitions 
+ 
+Remove created temp directories 
+ 
+Operation Finished
+
+
+
+
+
+
+
+
+fdt log:
+## Flattened Device Tree blob at 88000000
+   Booting using the fdt blob at 0x88000000
+   Loading Device Tree to 8df2b000, end 8df37d2b ... OK
+
+
+
+ros2:
+ros2-crystal.mcf
+
+
+
+=> setenv serverip 172.20.20.3                                                  
+=> setenv ipaddr 172.20.20.1                                                    
+=> ping 172.20.20.3                                                             
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+00 18 31 e1 f9 a9 cpsw_eth_start.                                               
+phy_startup: pyh driver name is AR8031/AR8033.                                  
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 31085.    
+genphy_update_link: 233, phydev link is 0, phydev autoneg is 1.                 
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 1000, full duplex                                      
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+host 172.20.20.3 is alive                                                       
+=> tftp 0x82000000 zImage                                                       
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+00 18 31 e1 f9 a9 cpsw_eth_start.                                               
+phy_startup: pyh driver name is AR8031/AR8033.                                  
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 31085.    
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.                 
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 1000, full duplex                                      
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'zImage'.                                                              
+Load address: 0x82000000                                                        
+Loading: #################################################################      
+         #################################################################      
+         #################################################################      
+         #################################################################      
+         ##################                                                     
+         3.6 MiB/s                                                              
+done                                                                            
+Bytes transferred = 4080128 (3e4200 hex)                                        
+=> bootm                                                                        
+Wrong Image Format for bootm command                                            
+ERROR: can't get kernel image! 
+
+
+
+
+
+
+old-uboot:in scu
+U-Boot 2012.10 (Sep 24 2019 - 10:34:34)                                         
+                                                                                
+I2C:   ready                                                                    
+DRAM:  512 MiB                                                                  
+WARNING: Caches not enabled                                                     
+NAND:  512 MiB                                                                  
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1                                           
+SF: Detected N25Q00AA with page size 64 KiB, total 128 MiB                      
+Net:   phy_connect: 715 phy_device addr is 1, phy_id is 2000a211, interface is 0
+cpsw, usb_ether                                                                 
+Hit any key to stop autoboot:  0                                                
+U-Boot# setenv ipaddr 172.20.20.1                                               
+U-Boot# setenv serverip 172.20.20.3                                             
+U-Boot# ping 172.20.20.3                                                        
+link up on port 0, speed 100, full duplex                                       
+Using cpsw device                                                               
+host 172.20.20.3 is alive                                                       
+U-Boot# 
+
+
+new-uboot:in tmdsk3358
+U-Boot 2019.01-gf95c3e0297-dirty (Sep 24 2019 - 11:05:07 +0800)                
+                                                                               
+CPU  : AM335X-GP rev 1.0                                                       
+Model: TI AM335x EVM-SK                                                        
+DRAM:  256 MiB                                                                 
+NAND:  0 MiB
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1                                          
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.                                
+ti_cm_get_macid_addr: target machine is am33xx.                                 
+cpsw_eth_probe: probe ethernet@4a100000.                                        
+phy_connect: 925 try to find phy for ethernet@4a100000: addr 0 interface 10     
+search_for_existing_phy: 732...                                                 
+phy_connect: 932 get PHY for ethernet@4a100000: addr 0 interface 10             
+cpsw_phy_init: 853 phydev_addr is 0, phy_id is 4dd074, interface is 10          
+genphy_config_advert: 73 adv is 4577, err is 0                                  
+genphy_config_advert: 81 bmsr is 31049                                          
+genphy_config_advert: 113 adv is 768, err is 0                                  
+eth0: ethernet@4a100000                                                         
+Hit any key to stop autoboot:  0                                                
+=> ping 172.20.20.3                                                             
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+00 18 31 e1 f9 a9  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 8df49500, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is AR8031/AR8033.                                  
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 31085.    
+genphy_update_link: 233, phydev link is 0, phydev autoneg is 1.                 
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 1000, full duplex                                      
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+host 172.20.20.3 is alive                                                       
+=> mii device                                                                   
+MII devices: 'ethernet@4a100000'                                                
+Current device: 'ethernet@4a100000'                                             
+=> mii info 0                                                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+PHY 0x00: OUI = 0x1374, Model = 0x07, Rev = 0x04, 100baseT, FDX                 
+=> 
+
+
+new-uboot:in tmdsk3358
+U-Boot 2019.01-gf95c3e0297-dirty (Sep 24 2019 - 13:00:13 +0800)                 
+                                                                                
+CPU  : AM335X-GP rev 1.0                                                        
+Model: TI AM335x EVM-SK                                                         
+DRAM:  256 MiB                                                                  
+NAND:  0 MiB                                                                    
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1                                           
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC  
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.                                
+cpsw_eth_ofdata_to_platdata: 1274 mdio_base is 4a101000                         
+cpsw_eth_ofdata_to_platdata: 1302 phy_addr is 0                                 
+cpsw_eth_ofdata_to_platdata: 1302 phy_addr is 1                                 
+ti_cm_get_macid_addr: target machine is am33xx.                                 
+cpsw_eth_ofdata_to_platdata: 1343 phy_addr is 8ffcc18c, phy_if is 10            
+cpsw_eth_probe: probe ethernet@4a100000.                                        
+phy_connect: 925 try to find phy for ethernet@4a100000: addr 0 interface 10     
+search_for_existing_phy: 732...                                                 
+phy_connect: 932 get PHY for ethernet@4a100000: addr 0 interface 10             
+cpsw_phy_init: 853 phydev_addr is 0, phy_id is 4dd074, interface is 10          
+genphy_config_advert: 73 adv is 4577, err is 0                                  
+genphy_config_advert: 81 bmsr is 31053                                          
+genphy_config_advert: 113 adv is 768, err is 0                                  
+eth0: ethernet@4a100000                                                         
+Hit any key to stop autoboot:  0                                                
+=> mii device                                                                   
+MII devices: 'ethernet@4a100000'                                                
+Current device: 'ethernet@4a100000'                                             
+=> mii info 0                                                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+PHY 0x00: OUI = 0x1374, Model = 0x07, Rev = 0x04, 100baseT, FDX                 
+=> mii info 1                                                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+miiphy_read: 246 devname is ethernet@4a100000                                   
+PHY 0x01: OUI = 0x1374, Model = 0x07, Rev = 0x04,  10baseT, HDX                 
+=> 
+
+new-uboot:in tmdsk3358
+U-Boot 2019.01-gf95c3e0297-dirty (Sep 24 2019 - 18:34:24 +0800)                 
+                                                                                
+CPU  : AM335X-GP rev 1.0                                                        
+Model: TI AM335x EVM-SK                                                         
+DRAM:  256 MiB                                                                  
+NAND:  0 MiB                                                                    
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1                                           
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC  
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.                                
+cpsw_eth_ofdata_to_platdata: 1274 mdio_base is 4a101000                         
+cpsw_eth_ofdata_to_platdata: 1286 phy_if is 10                                  
+cpsw_eth_ofdata_to_platdata: 1305 phy_addr is 0, phy_id[0] is 49, phy_id[1] is 0
+cpsw_eth_ofdata_to_platdata: 1286 phy_if is 10                                  
+cpsw_eth_ofdata_to_platdata: 1305 phy_addr is 1, phy_id[0] is 49, phy_id[1] is 1
+ti_cm_get_macid_addr: target machine is am33xx.                                 
+cpsw_eth_ofdata_to_platdata: 1347 phy_addr is 0, phy_if is 10                   
+cpsw_eth_ofdata_to_platdata: 1347 phy_addr is 1, phy_if is 10                   
+cpsw_eth_probe: probe ethernet@4a100000.                                        
+phy_connect: 987 try to find phy for ethernet@4a100000: addr 0 interface 10     
+search_for_existing_phy: 790...                                                 
+cpsw_mdio_read: 93...                                                           
+cpsw_mdio_read: 93...                                                           
+create_phy_by_mask: 773 pyhdev addr 0, devad -1, phydev id 4dd074               
+get_phy_device_by_mask: 828 pyhdev addr 0, phydev interface 10, phydev id 4dd074
+cpsw_mdio_read: 93...                                                           
+phy_connect_dev: 955 ethernet@4a100000 connected to AR8031/AR8033               
+phy_connect: 995 get PHY for ethernet@4a100000: addr 0 interface 10             
+cpsw_phy_init: 853 phydev_addr is 0, phy_id is 4dd074, interface is 10          
+cpsw_mdio_read: 93...                                                           
+genphy_config_advert: 73 adv is 4577, err is 0                                  
+cpsw_mdio_read: 93...                                                           
+genphy_config_advert: 81 bmsr is 31049                                          
+cpsw_mdio_read: 93...                                                           
+genphy_config_advert: 113 adv is 768, err is 0                                  
+cpsw_mdio_read: 93...                                                           
+cpsw_mdio_read: 93...                                                           
+eth0: ethernet@4a100000                                                         
+Hit any key to stop autoboot:  0                                                
+=> 
+
+
+
+new-uboot:in scu
+U-Boot 2019.01-gf95c3e0297-dirty (Sep 24 2019 - 13:43:46 +0800)                
+                                                                               
+CPU  : AM335X-GP rev 1.0                                                       
+Model: TI AM335x EVM                                                           
+DRAM:  512 MiB
+NAND:  0 MiB                                                                   
+MMC:   OMAP SD/MMC: 0
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC  
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.                                
+cpsw_eth_ofdata_to_platdata: 1274 mdio_base is 4a101000                         
+cpsw_eth_ofdata_to_platdata: 1302 phy_addr is 0                                 
+cpsw_eth_ofdata_to_platdata: 1302 phy_addr is 1                                 
+ti_cm_get_macid_addr: target machine is am33xx.                                 
+cpsw_eth_ofdata_to_platdata: 1343 phy_addr is 38, phy_if is 10                  
+cpsw_eth_probe: probe ethernet@4a100000.                                        
+phy_connect: 925 try to find phy for ethernet@4a100000: addr 0 interface 10     
+search_for_existing_phy: 732...                                                 
+Could not get PHY for ethernet@4a100000: addr 0                                 
+eth0: ethernet@4a100000                                                         
+Warning: usb_ether MAC addresses don't match:                                   
+Address in ROM is          de:ad:be:ef:00:01                                    
+Address in environment is  d0:ff:50:52:95:a3                                    
+, eth1: usb_ether                                                               
+Hit any key to stop autoboot:  0                                                
+=> 
+
+new-uboot:in scu
+U-Boot 2019.01-gf95c3e0297-dirty (Sep 26 2019 - 10:04:36 +0800)                 
+                                                                                
+CPU  : AM335X-GP rev 1.0                                                        
+Model: TI AM335x EVM                                                            
+DRAM:  512 MiB                                                                  
+NAND:  512 MiB                                                                  
+MMC:   OMAP SD/MMC: 0                                                           
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC  
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.                                
+cpsw_eth_ofdata_to_platdata: 1279 mdio_base is 4a101000                         
+cpsw_eth_ofdata_to_platdata: 1291 phy_if is 0                                   
+cpsw_eth_ofdata_to_platdata: 1310 phy_addr is 1, phy_id[0] is 4f, phy_id[1] is 1
+ti_cm_get_macid_addr: target machine is am33xx.                                 
+cpsw_eth_ofdata_to_platdata: 1352 phy_addr is 1, phy_if is 0                    
+cpsw_eth_ofdata_to_platdata: 1352 phy_addr is 11, phy_if is 0                   
+cpsw_eth_probe: probe ethernet@4a100000.                                        
+_cpsw_register: 898 slave 208, sliver d80, addr 1, if 0                         
+phy_connect: 987 try to find phy for ethernet@4a100000: addr 1 interface 0      
+search_for_existing_phy: 790...                                                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+create_phy_by_mask: 773 pyhdev addr 1, devad -1, phydev id 2000a211             
+get_phy_device_by_mask: 828 pyhdev addr 1, phydev interface 0, phydev id 2000a21
+cpsw_mdio_read: 97...                                                           
+phy_connect_dev: 955 ethernet@4a100000 connected to Generic PHY                 
+phy_connect: 995 get PHY for ethernet@4a100000: addr 1 interface 0              
+cpsw_phy_init: 847 slave->data->phy_addr is 1                                   
+cpsw_phy_init: 854 phydev_addr is 1, phy_id is 2000a211, interface is 0         
+genphy_config: 446...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+genphy_config_advert: 81 bmsr is 30793                                          
+cpsw_mdio_read: 97...                                                           
+eth0: ethernet@4a100000                                                         
+Warning: usb_ether MAC addresses don't match:                                   
+Address in ROM is          de:ad:be:ef:00:01                                    
+Address in environment is  d0:ff:50:52:95:a3                                    
+, eth1: usb_ether                                                               
+Hit any key to stop autoboot:  0                                                
+=> ping 172.20.20.3                                                             
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4f780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 0, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+host 172.20.20.3 is alive 
+
+new kernel:in scu
+=> tftp 0x80008000 uImage                                                       
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4f780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'uImage'.                                                              
+Load address: 0x80008000                                                        
+Loading: ############################T #####################################    
+         #################################################################      
+         ############T ##########################T #############T ##############
+         #################################################################      
+         ##################                                                     
+         148.4 KiB/s                                                            
+done                                                                            
+Bytes transferred = 4080192 (3e4240 hex)                                        
+=> bootm 0x80008000                                                             
+## Booting kernel from Legacy Image at 80008000 ...                             
+   Image Name:   Linux-4.19.38-g4dae378bbe                                      
+   Created:      2019-09-20   8:22:52 UTC                                       
+   Image Type:   ARM Linux Kernel Image (uncompressed)                          
+   Data Size:    4080128 Bytes = 3.9 MiB                                        
+   Load Address: 80008000                                                       
+   Entry Point:  80008000                                                       
+   Verifying Checksum ... OK                                                    
+   Loading Kernel Image ... OK                                                  
+                                                                                
+Starting kernel ...                                                             
+                                                                                
+
+use dtb:in scu
+=> setenv fdtfile am335x-evm.dtb                                                
+=> tftp 0x82000000 zImage                                                       
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4f780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'zImage'.                                                              
+Load address: 0x82000000                                                        
+Loading: #################################################################      
+         #################################################################      
+         #################################################################      
+         #################################################################      
+         ##################                                                     
+         1.9 MiB/s                                                              
+done                                                                            
+Bytes transferred = 4080128 (3e4200 hex)                                        
+=> tftp 0x88000000 am335x-evm.dtb                                               
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4f780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'am335x-evm.dtb'.                                                      
+Load address: 0x88000000                                                        
+Loading: ###                                                                    
+         632.8 KiB/s                                                            
+done                                                                            
+Bytes transferred = 41528 (a238 hex)                                            
+=> bootz 0x82000000 - 0x88000000                                                
+## Flattened Device Tree blob at 88000000                                       
+   Booting using the fdt blob at 0x88000000                                     
+   Loading Device Tree to 8fff2000, end 8ffff237 ... OK                         
+ft_board_setup: 645...                                                          
+                                                                                
+Starting kernel ... 
+
+
+machine id:
+=> setenv fdtfile am335x-evm.dtb                                                
+=> tftp 0x82000000 zImage                                                       
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 0, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'zImage'.                                                              
+Load address: 0x82000000                                                        
+Loading: #################################################################      
+         #################################################################      
+         #################################################################      
+         #################################################################      
+         ##################                                                     
+         1.8 MiB/s                                                              
+done                                                                            
+Bytes transferred = 4080128 (3e4200 hex)                                        
+=> tftp 0x88000000 am335x-evm.dtb                                               
+net_loop: 415 net loop start.                                                   
+eth_init: 265 current device name is ethernet@4a100000.                         
+eth_init: Trying ethernet@4a100000, device flag is 67                           
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.          
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000           
+phy_startup: pyh driver name is Generic PHY.                                    
+cpsw_mdio_read: 97...                                                           
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.    
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.                 
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_mdio_read: 97...                                                           
+cpsw_slave_update_link: ret is 0.                                               
+link up on port 0, speed 100, full duplex                                       
+eth_init: 280 ret is 0                                                          
+net_loop: 421 net loop start, ret is 0.                                         
+Using ethernet@4a100000 device                                                  
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1                     
+Filename 'am335x-evm.dtb'.                                                      
+Load address: 0x88000000                                                        
+Loading: ###                                                                    
+         1.5 MiB/s                                                              
+done                                                                            
+Bytes transferred = 41528 (a238 hex)                                            
+=> bootz 0x82000000 - 0x88000000                                                
+do_bootm_states: 644 states is 1                                                
+do_bootm_states: 702 states is 1, os name is Invalid OS                         
+do_bootm_states: 744 ret is 0...                                                
+## Flattened Device Tree blob at 88000000                                       
+   Booting using the fdt blob at 0x88000000                                     
+do_bootm_states: 678 states is 1808                                             
+do_bootm_states: 682 states is 1808                                             
+do_bootm_states: 702 states is 1808, os name is Linux                           
+do_bootm_linux: 432 jump to linux flag is 256                                   
+   Loading Device Tree to 8fff2000, end 8ffff237 ... OK                         
+fixing up phy_id for ethernet0, old: 0, new: 1                                  
+fixing up phy_id for ethernet1, old: 1, new: 17                                 
+do_bootm_states: 744 ret is 0...                                                
+do_bootm_states: 747...                                                         
+do_bootm_linux: 438 jump to linux flag is 1024                                  
+boot_jump_linux: 391 Using machid 0xe05 from environment                        
+boot_jump_linux: 393 ## Transferring control to Linux (at address 82000000)...  
+                                                                                
+Starting kernel ...
+
+
+env:
+arch=arm                                                                        
+args_mmc=run finduuid;setenv bootargs console=${console} ${optargs} root=PARTUU}
+baudrate=115200                                                                 
+board=am335x                                                                    
+boot_a_script=load ${devtype} ${devnum}:${distro_bootpart} ${scriptaddr} ${pref}
+boot_efi_binary=if fdt addr ${fdt_addr_r}; then bootefi bootmgr ${fdt_addr_r};ei
+boot_extlinux=sysboot ${devtype} ${devnum}:${distro_bootpart} any ${scriptaddr}}
+boot_fdt=try                                                                    
+boot_fit=0                                                                      
+boot_net_usb_start=usb start                                                    
+boot_prefixes=/ /boot/                                                          
+boot_script_dhcp=boot.scr.uimg                                                  
+boot_scripts=boot.scr.uimg boot.scr                                             
+boot_syslinux_conf=extlinux/extlinux.conf                                       
+boot_targets=mmc0 legacy_mmc0 mmc1 legacy_mmc1 nand0 pxe dhcp                   
+bootcmd=if test ${boot_fit} -eq 1; then run update_to_fit; fi; run findfdt; rund
+bootcmd_dhcp=run boot_net_usb_start; if dhcp ${scriptaddr} ${boot_script_dhcp};;
+bootcmd_legacy_mmc0=setenv mmcdev 0; setenv bootpart 0:2 ; run mmcboot          
+bootcmd_legacy_mmc1=setenv mmcdev 1; setenv bootpart 1:2 ; run mmcboot          
+bootcmd_mmc0=setenv devnum 0; run mmc_boot                                      
+bootcmd_mmc1=setenv devnum 1; run mmc_boot                                      
+bootcmd_nand=run nandboot                                                       
+bootcmd_pxe=run boot_net_usb_start; dhcp; if pxe get; then pxe boot; fi         
+bootcount=7                                                                     
+bootdelay=2                                                                     
+bootdir=/boot                                                                   
+bootenvfile=uEnv.txt                                                            
+bootfile=zImage                                                                 
+bootm_size=0x10000000                                                           
+bootpart=0:2                                                                    
+bootscript=echo Running bootscript from mmc${mmcdev} ...; source ${loadaddr}    
+console=ttyO0,115200n8                                                          
+cpu=armv7                                                                       
+dfu_alt_info_emmc=rawemmc raw 0 3751936;boot part 1 1;rootfs part 1 2;MLO fat 11
+dfu_alt_info_mmc=boot part 0 1;rootfs part 0 2;MLO fat 0 1;MLO.raw raw 0x100 0x1
+dfu_alt_info_nand=SPL part 0 1;SPL.backup1 part 0 2;SPL.backup2 part 0 3;SPL.ba9
+dfu_alt_info_ram=kernel ram 0x80200000 0x4000000;fdt ram 0x80f80000 0x80000;ram0
+distro_bootcmd=for target in ${boot_targets}; do run bootcmd_${target}; done    
+efi_dtb_prefixes=/ /dtb/ /dtb/current/                                          
+envboot=mmc dev ${mmcdev}; if mmc rescan; then echo SD/MMC found on device ${mm;
+eth1addr=d0:ff:50:52:95:a3                                                      
+ethact=ethernet@4a100000                                                        
+ethaddr=d0:ff:50:52:95:a2                                                       
+fdt_addr_r=0x88000000                                                           
+fdtaddr=0x88000000                                                              
+fdtcontroladdr=9df398d8                                                         
+fdtfile=undefined                                                               
+findfdt=if test $board_name = A335BONE; then setenv fdtfile am335x-bone.dtb; fi 
+finduuid=part uuid mmc ${bootpart} uuid                                         
+fit_bootfile=fitImage                                                           
+fit_loadaddr=0x90000000                                                         
+get_overlaystring=for overlay in $overlay_files;do;setenv overlaystring ${overl;
+ice_mii=mii                                                                     
+importbootenv=echo Importing environment from mmc${mmcdev} ...; env import -t $}
+init_console=if test $board_name = A335_ICE; then setenv console ttyO3,115200n8;
+ipaddr=172.20.20.1                                                              
+kernel_addr_r=0x82000000                                                        
+load_efi_dtb=load ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} ${prefi}
+loadaddr=0x82000000                                                             
+loadbootenv=fatload mmc ${mmcdev} ${loadaddr} ${bootenvfile}                    
+loadbootscript=load mmc ${mmcdev} ${loadaddr} boot.scr                          
+loadfdt=load ${devtype} ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}            
+loadfit=run args_mmc; run run_fit;                                              
+loadimage=load ${devtype} ${bootpart} ${loadaddr} ${bootdir}/${bootfile}        
+loadramdisk=load mmc ${mmcdev} ${rdaddr} ramdisk.gz                             
+mmc_boot=if mmc dev ${devnum}; then setenv devtype mmc; run scan_dev_for_boot_pi
+mmcboot=mmc dev ${mmcdev}; setenv devnum ${mmcdev}; setenv devtype mmc; if mmc ;
+mmcdev=0                                                                        
+mmcloados=run args_mmc; if test ${boot_fdt} = yes || test ${boot_fdt} = try; th;
+mmcrootfstype=ext4 rootwait                                                     
+mtdids=nand0=nand.0                                                             
+mtdparts=mtdparts=nand.0:128k(NAND.SPL),128k(NAND.SPL.backup1),128k(NAND.SPL.ba)
+nandargs=setenv bootargs console=${console} ${optargs} root=${nandroot} rootfst}
+nandboot=echo Booting from nand ...; run nandargs; nand read ${fdtaddr} NAND.u-}
+nandroot=ubi0:rootfs rw ubi.mtd=NAND.file-system,2048                           
+nandrootfstype=ubifs rootwait=1                                                 
+netargs=setenv bootargs console=${console} ${optargs} root=/dev/nfs nfsroot=${sp
+netboot=echo Booting from network ...; setenv autoload no; dhcp; run netloadima}
+netloadfdt=tftp ${fdtaddr} ${fdtfile}                                           
+netloadimage=tftp ${loadaddr} ${bootfile}                                       
+netmask=255.255.254.0                                                           
+nfsopts=nolock                                                                  
+partitions=uuid_disk=${uuid_gpt_disk};name=bootloader,start=384K,size=1792K,uui}
+pxefile_addr_r=0x80100000                                                       
+ramargs=setenv bootargs console=${console} ${optargs} root=${ramroot} rootfstyp}
+ramboot=echo Booting from ramdisk ...; run ramargs; bootz ${loadaddr} ${rdaddr}}
+ramdisk_addr_r=0x88080000                                                       
+ramroot=/dev/ram0 rw                                                            
+ramrootfstype=ext2                                                              
+rdaddr=0x88080000                                                               
+rootpath=/export/rootfs                                                         
+run_fit=bootm ${fit_loadaddr}#${fdtfile}${overlaystring}                        
+scan_dev_for_boot=echo Scanning ${devtype} ${devnum}:${distro_bootpart}...; for;
+scan_dev_for_boot_part=part list ${devtype} ${devnum} -bootable devplist; env ee
+scan_dev_for_efi=setenv efi_fdtfile ${fdtfile}; if test -z "${fdtfile}" -a -n "e
+scan_dev_for_extlinux=if test -e ${devtype} ${devnum}:${distro_bootpart} ${prefi
+scan_dev_for_scripts=for script in ${boot_scripts}; do if test -e ${devtype} ${e
+scriptaddr=0x80000000                                                           
+serial#=d0:ff:50:52:95:a2                                                       
+serverip=172.20.20.3                                                            
+soc=am33xx                                                                      
+spiargs=setenv bootargs console=${console} ${optargs} root=${spiroot} rootfstyp}
+spiboot=echo Booting from spi ...; run spiargs; sf probe ${spibusno}:0; sf read}
+spibusno=0                                                                      
+spiimgsize=0x362000                                                             
+spiroot=/dev/mtdblock4 rw                                                       
+spirootfstype=jffs2                                                             
+spisrcaddr=0xe0000                                                              
+static_ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}::off        
+stderr=serial@44e09000                                                          
+stdin=serial@44e09000                                                           
+stdout=serial@44e09000                                                          
+update_to_fit=setenv loadaddr ${fit_loadaddr}; setenv bootfile ${fit_bootfile}  
+usb_boot=usb start; if usb dev ${devnum}; then setenv devtype usb; run scan_devi
+usbnet_devaddr=de:ad:be:ef:00:01                                                
+vendor=ti                                                                       
+ver=U-Boot 2019.01-gf95c3e0297-dirty (Sep 26 2019 - 16:29:16 +0800)             
+                                                                                
+Environment size: 10136/131068 bytes 
+
+
+rootfs:
+sudo mkfs.ubifs -d rootfs -e 0x1f000 -c 512 -m 0x800 -x lzo -o rootfs.ubifs
+sudo mkfs.ubifs  -q -r rootfs_iproute -m 4096 -e 248KiB -c 3840 -o  rootfs.ubi -F
+mkfs.ubifs -m 512 -e 128KiB -c 100 -r /opt/img ubifs.img
+sudo apt-get install mkfs.ubifs
+
+fs:valgrind git machine-learning stress-ng gstream gnu-dbm...
+
+
+nfs: http://bbs.myir-tech.com/thread-7172-1-1.html
+vim /etc/exports
+vim /etc/default/nfs-kernel-server
+service nfs-kernel-server restart
+mount -t nfs 127.0.0.1:~/Filesystem/myrootfs/* /mnt
+
+
+nand:
+[    1.589885] nand: device found, Manufacturer ID: 0x2c, Chip ID: 0xdc         
+[    1.596327] nand: Micron MT29F4G08ABADAWP                                    
+[    1.600420] nand: 512 MiB, SLC, erase size: 128 KiB, page size: 2048, OOB si4
+[    1.608144] nand: using OMAP_ECC_BCH8_CODE_HW ECC scheme                     
+[    1.613703] 10 fixed-partitions partitions found on MTD device omap2-nand.0 
+
+
+
+bootargs:
+console=ttyO0,115200n8
+optargs=earlyprintk consoleblank=0
+bootargs_defaults=setenv bootargs console=${console} ${optargs}
+nandroot=ubi0:rootfs rw ubi.mtd=7,2048
+nandrootfstype=ubifs rootwait=1
+ip_method=none
+
+mtdids=nand0=omap2-nand.0
+mtdparts=mtdparts=omap2-nand.0:64m(rootfs0),64m(rootfs1),64m(rootfs2),256m(sv-app),-(sv-backup)
+nandargs=run bootargs_defaults;setenv bootargs ${bootargs} root=${nandroot} noinitrd rootfstype=${nandrootfstype} ip=${ip_method}
+nandboot=echo Booting from nand ...; run nandargs; nand read.i ${kloadaddr} ${nandsrcaddr} ${nandimgsize}; bootm ${kloadaddr}
+nandimgsize=0x500000
+nandroot=ubi0:rootfs rw ubi.mtd=7,2048
+nandrootfstype=ubifs rootwait=1
+nandsrcaddr=0x5A0000
+
+
+
+tftp 0x80200000 MLO   
+nand erase 0 0x20000
+nand write 0x80200000 0 ${filesize}
+
+tftp 0x80200000 am335x-evm.dtb
+nand erase 0x80000 0x20000
+nand write 0x80200000 0x80000 ${filesize}
+
+tftp 0x80200000 u-boot.img
+nand erase 0xc0000 0x100000
+nand write 0x80200000 0xc0000 ${filesize}
+
+tftp 0x80200000 zImage
+nand erase 0x200000 0x500000
+nand write 0x80200000 0x200000 ${filesize}
+
+tftp 0x80200000 ubi.img
+nand erase 0xa00000 0x7600000  
+nand write 0x80200000 0xa00000 ${filesize}
+
+nand boot:
+U-Boot 2019.01-gf95c3e0297-dirty (Oct 12 2019 - 15:26:40 +0800)
+
+CPU  : AM335X-GP rev 1.0
+Model: TI AM335x EVM
+DRAM:  512 MiB
+NAND:  512 MiB
+MMC:   OMAP SD/MMC: 0
+Loading Environment from FAT... <ethaddr> not set. Validating first E-fuse MAC
+Net:   cpsw_eth_ofdata_to_platdata: It is in dt.
+cpsw_eth_ofdata_to_platdata: 1279 mdio_base is 4a101000
+cpsw_eth_ofdata_to_platdata: 1291 phy_if is 0
+cpsw_eth_ofdata_to_platdata: 1310 phy_addr is 1, phy_id[0] is 4f, phy_id[1] is 1
+ti_cm_get_macid_addr: target machine is am33xx.
+cpsw_eth_ofdata_to_platdata: 1352 phy_addr is 1, phy_if is 0
+cpsw_eth_ofdata_to_platdata: 1352 phy_addr is 11, phy_if is 0
+cpsw_eth_probe: probe ethernet@4a100000.
+_cpsw_register: 898 slave 208, sliver d80, addr 1, if 0
+phy_connect: 987 try to find phy for ethernet@4a100000: addr 1 interface 0
+search_for_existing_phy: 790...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+create_phy_by_mask: 773 pyhdev addr 1, devad -1, phydev id 2000a211
+get_phy_device_by_mask: 828 pyhdev addr 1, phydev interface 0, phydev id 2000a211
+cpsw_mdio_read: 97...
+phy_connect_dev: 955 ethernet@4a100000 connected to Generic PHY
+phy_connect: 995 get PHY for ethernet@4a100000: addr 1 interface 0
+cpsw_phy_init: 847 slave->data->phy_addr is 1
+cpsw_phy_init: 854 phydev_addr is 1, phy_id is 2000a211, interface is 0
+genphy_config: 446...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+genphy_config_advert: 81 bmsr is 30793
+cpsw_mdio_read: 97...
+eth0: ethernet@4a100000
+Warning: usb_ether MAC addresses don't match:
+Address in ROM is          de:ad:be:ef:00:01
+Address in environment is  d0:ff:50:52:95:a3
+, eth1: usb_ether
+Hit any key to stop autoboot:  0 
+=> ping 172.20.20.3
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 0, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+host 172.20.20.3 is alive
+=> tftp 0x80200000 u-boot-spl.bin
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1
+Filename 'u-boot-spl.bin'.
+Load address: 0x80200000
+Loading: ########
+         1.3 MiB/s
+done
+Bytes transferred = 107712 (1a4c0 hex)
+=> nand erase 0 0x20000
+
+NAND erase: device 0 offset 0x0, size 0x20000
+Erasing at 0x0 -- 100% complete.
+OK
+=> nand write 0x80200000 0 ${filesize}
+
+NAND write: device 0 offset 0x0, size 0x1a4c0
+ 107712 bytes written: OK
+=> tftp 0x80200000 am335x-evm.dtb
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1
+Filename 'am335x-evm.dtb'.
+Load address: 0x80200000
+Loading: ###
+         866.2 KiB/s
+done
+Bytes transferred = 41721 (a2f9 hex)
+=> nand erase 0x1c0000 0x20000
+
+NAND erase: device 0 offset 0x80000, size 0x20000
+Erasing at 0x1c0000 -- 100% complete.
+OK
+=> nand write 0x80200000 0x1c0000 ${filesize}
+
+NAND write: device 0 offset 0x1c0000, size 0xa2f9
+ 41721 bytes written: OK
+=> tftp 0x80200000 u-boot-dtb.img
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1
+Filename 'u-boot-dtb.img'.
+Load address: 0x80200000
+Loading: #######################################################
+         1.9 MiB/s
+done
+Bytes transferred = 798456 (c2ef8 hex)
+=> nand erase 0xc0000 0x100000
+
+NAND erase: device 0 offset 0xc0000, size 0x100000
+Erasing at 0x1a0000 -- 100% complete.
+OK
+=> nand write 0x80200000 0xc0000 ${filesize}
+
+NAND write: device 0 offset 0xc0000, size 0xc2ef8
+ 798456 bytes written: OK
+=> tftp 0x80200000 zImage
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1
+Filename 'zImage'.
+Load address: 0x80200000
+Loading: #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         ##################
+         1.9 MiB/s
+done
+Bytes transferred = 4080128 (3e4200 hex)
+=> nand erase 0x200000 0x800000
+
+NAND erase: device 0 offset 0x200000, size 0x800000
+Erasing at 0x6e0000 -- 100% complete.
+OK
+=> nand write 0x80200000 0x200000 ${filesize}
+
+NAND write: device 0 offset 0x200000, size 0x3e4200
+ 4080128 bytes written: OK
+=> tftp 0x80200000 rootfs.img.scu
+net_loop: 415 net loop start.
+eth_init: 265 current device name is ethernet@4a100000.
+eth_init: Trying ethernet@4a100000, device flag is 67
+d0 ff 50 52 95 a2  cpsw_eth_start, eth_udev_name is ethernet@4a100000.
+_cpsw_init: priv address 9df4e780, priv_dev_name is ethernet@4a100000
+phy_startup: pyh driver name is Generic PHY.
+cpsw_mdio_read: 97...
+genphy_update_link: 232, phydev_name is ethernet@4a100000, mii_reg is 30829.
+genphy_update_link: 233, phydev link is 1, phydev autoneg is 1.
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_mdio_read: 97...
+cpsw_slave_update_link: ret is 0.
+link up on port 0, speed 100, full duplex
+eth_init: 280 ret is 0
+net_loop: 421 net loop start, ret is 0.
+Using ethernet@4a100000 device
+TFTP from server 172.20.20.3; our IP address is 172.20.20.1
+Filename 'rootfs.img.scu'.
+Load address: 0x80200000
+Loading: #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         ######################
+         2 MiB/s
+done
+Bytes transferred = 67108864 (4000000 hex)
+=> nand erase 0xa00000 0xf600000
+
+NAND erase: device 0 offset 0xa00000, size 0xf600000
+Skipping bad block at  0x00c80000                                          
+Skipping bad block at  0x00ca0000                                          
+Erasing at 0x7fe0000 -- 100% complete.
+OK
+=> nand write 0x80200000 0xa00000 ${filesize}
+
+NAND write: device 0 offset 0xa00000, size 0x4000000
+Skip bad block 0x00c80000
+Skip bad block 0x00ca0000
+ 67108864 bytes written: OK
+=> nand device
+
+Device 0: nand0, sector size 128 KiB
+  Page size       2048 b
+  OOB size          64 b
+  Erase size    131072 b
+  subpagesize      512 b
+  options     0x4000400c
+  bbt options 0x00008000
+=> nand
+nand - NAND sub-system
+
+Usage:
+nand info - show available NAND devices
+nand device [dev] - show or set current device
+nand read - addr off|partition size
+nand write - addr off|partition size
+    read/write 'size' bytes starting at offset 'off'
+    to/from memory address 'addr', skipping bad blocks.
+nand read.raw - addr off|partition [count]
+nand write.raw[.noverify] - addr off|partition [count]
+    Use read.raw/write.raw to avoid ECC and access the flash as-is.
+nand erase[.spread] [clean] off size - erase 'size' bytes from offset 'off'
+    With '.spread', erase enough for given file size, otherwise,
+    'size' includes skipped bad blocks.
+nand erase.part [clean] partition - erase entire mtd partition'
+nand erase.chip [clean] - erase entire chip'
+nand bad - show bad blocks
+nand dump[.oob] off - dump page
+nand scrub [-y] off size | scrub.part partition | scrub.chip
+    really clean NAND erasing bad blocks (UNSAFE)
+nand markbad off [...] - mark bad block(s) at offset (UNSAFE)
+nand biterr off - make a bit error at offset (UNSAFE)
+=> nboot
+
+** No boot device **
+=> nboot Device 0 0x80200000
+
+Loading from nand0, offset 0x80200000
+Attempt to read outside the flash area
+** Read error
+=> nboot Device 0 0x80000   
+
+Loading from nand0, offset 0x80000
+data abort
+pc : [<9ff898bc>]          lr : [<9ff8d7d1>]
+reloc pc : [<808228bc>]    lr : [<808267d1>]
+sp : 9df38590  ip : 00000101     fp : 00000000
+r10: 9df48000  r9 : 9df46eb8     r8 : 000000de
+r7 : 00000002  r6 : 00000200     r5 : 000000de  r4 : 50000084
+r3 : 00000000  r2 : 00000002     r1 : 000000de  r0 : 000000d0
+Flags: nzCv  IRQs off  FIQs on  Mode SVC_32
+Code: 429a40f0 bd10dc00 b2c07820 8f5ff3bf (330154c8) 
+Resetting CPU ...
+
+resetting ...
+CCCCCCCC
+
+
+nand read and write test in uboot:
+mw.w 0x80200000 0x1234 1    --->write 0x1234 to memory(0x80200000)
+md.w 0x80200000 1           --->display memory(0x80200000)
+nand erase 0 0x20000        --->erase nand(0x0-0x20000)
+nand write 0x80200000 0 40  --->write memory(0x80200000)data to nand(0x0)
+nand read 0x80008000 0 40   --->read nand(0x0) to memory(0x80200000)
+md.w 0x80008000 1           --->display memory(0x80008000)
+
+ft_board_setup()
+
+tps65910 0-002d: No interrupt support, no core IRQ
+
+
+nor flash uboot cmd:
+=> sf probe
+=> tftp 0x80007fc0 MLO.byteswap     (for nor flash)
+=> sf erase 0x0 0x20000
+=> sf write 0x80007fc0 0x0 0x20000
+=> tftp 0x80007fc0 u-boot-dtb.img
+=> sf erase 0x20000 0x500000
+=> sf write 0x80007fc0 0x20000 0x500000
+=> tftp 0x80007fc0 am335x-evm.dtb
+=> sf erase 0x520000 0x20000
+=> sf write 0x80007fc0 0x520000 0x20000
+=> tftp 0x80007fc0 zImage
+=> sf erase 0x540000 0x500000
+=> sf write 0x80007fc0 0x540000 0x500000
+=> tftp 0x80007fc0 zImage
+=> sf erase 0xA40000 0x500000
+=> sf write 0x80007fc0 0xA40000 0x500000
+=> tftp 0x80007fc0 rootfs.img.scu
+=> nand erase 0 0x4000000
+=> nand write 0x80007fc0 0 0x4000000
+=> tftp 0x80007fc0 rootfs.img.scu
+=> nand erase 0x4000000 0x4000000
+=> nand write 0x80007fc0 0x4000000 0x4000000
+=> setenv bootcmd run ramboot
+=> saveenv
+=> boot
+
+nand flash uboot cmd:
+=> tftp 0x82000000 MLO    (for nand flash) |tftp 0x82000000 u-boot-spl.bin(for uart)
+=> nand erase 0x0 0x20000
+=> nand write 0x82000000 0x0 0x20000
+=> tftp 0x82000000 am335x-evm.dtb          |(NAND.u-boot-spl-os)
+=> nand erase 0x00080000 0x00040000
+=> nand write 0x82000000 0x80000 0x40000
+=> tftp 0x82000000 u-boot-dtb.img
+=> nand erase 0xc0000 0x100000
+=> nand write 0x82000000 0xc0000 0x100000
+=> tftp 0x82000000 zImage
+=> nand erase 0x200000 0x800000
+=> nand write 0x82000000 0x200000 0x800000
+=> tftp 0x82000000 rootfs.img.scu
+=> nand erase 0xa00000 0x1f600000
+=> nand write 0x82000000 0xa00000 0x1f600000
+=> nand read ${fdtaddr} NAND.u-boot-spl-os
+=> nand read ${loadaddr} NAND.kernel
+=> bootz ${loadaddr} - ${fdtaddr}          |0x82000000 - 0x88000000
+
+
+ubifs:
+sudo mkfs.ubifs –F -q -r rootfs -m 2048 -e 126976 -c 2047 -o scu_ubifs.img
+sudo ubinize -o scu_ubi.img -m 2048 -p 128KiB ubinize.cfg
+
+ubinize.cfg:
+[ubifs]
+mode=ubi
+image=scu_ubifs.img
+vol_id=0
+vol_size=200MiB
+vol_type=dynamic
+vol_name=rootfs
+vol_flags=autoresize
+
+
+kernel fs panic:
+[    4.852909] UBIFS (ubi0:0): background thread "ubifs_bgt0_0" started, PID 52
+[    4.860171] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    4.866386] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    4.910007] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 3:4096, read only 126976 bytes, retry
+[    4.923669] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    4.929908] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    4.973359] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 3:4096, read only 126976 bytes, retry
+[    4.986986] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    4.993244] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.036568] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 3:4096, read only 126976 bytes, retry
+[    5.050212] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.056424] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.099919] ubi0 error: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 3:4096, read 126976 bytes
+[    5.110879] CPU: 0 PID: 1 Comm: swapper Not tainted 4.19.38-g4dae378bbe #9
+[    5.117784] Hardware name: Generic AM33XX (Flattened Device Tree)
+[    5.123979] Backtrace: 
+[    5.126472] [<c010cb64>] (dump_backtrace) from [<c010ced4>] (show_stack+0x18/0x1c)
+[    5.134101]  r7:c0d03048 r6:0001f000 r5:ffffffb6 r4:dc05d000
+[    5.139838] [<c010cebc>] (show_stack) from [<c08a9954>] (dump_stack+0x24/0x28)
+[    5.147111] [<c08a9930>] (dump_stack) from [<c05efbc0>] (ubi_io_read+0x1bc/0x340)
+[    5.154656] [<c05efa04>] (ubi_io_read) from [<c05ed828>] (ubi_eba_read_leb+0xd4/0x414)
+[    5.162659]  r10:00000001 r9:00000000 r8:00000001 r7:00000003 r6:dc6f5000 r5:dc05d000
+[    5.170583]  r4:00000000
+[    5.173137] [<c05ed754>] (ubi_eba_read_leb) from [<c05ec324>] (ubi_leb_read+0x7c/0xbc)
+[    5.181122]  r10:00000001 r9:00000000 r8:dc05d000 r7:dc6f5000 r6:00000000 r5:0001f000
+[    5.188987]  r4:00000000
+[    5.191585] [<c05ec2a8>] (ubi_leb_read) from [<c03889b4>] (ubifs_leb_read+0x34/0x80)
+[    5.199370]  r9:00000001 r8:00000001 r7:00000000 r6:0001f000 r5:dc05e000 r4:dc7194c0
+[    5.207184] [<c0388980>] (ubifs_leb_read) from [<c0390294>] (ubifs_start_scan+0x80/0xd8)
+[    5.215353]  r8:e0a65000 r7:00000001 r6:dc05e000 r5:00000000 r4:dc7194c0
+[    5.222155] [<c0390214>] (ubifs_start_scan) from [<c039053c>] (ubifs_scan+0x2c/0x2cc)
+[    5.230053]  r8:dc05e690 r7:dc05e000 r6:00000000 r5:e0a65000 r4:0001f000
+[    5.236791] [<c0390510>] (ubifs_scan) from [<c038f6f0>] (ubifs_read_master+0x4c/0x8b8)
+[    5.244793]  r10:dc05e000 r9:dc762400 r8:dc05e690 r7:dc719100 r6:00000001 r5:c0d03048
+[    5.252676]  r4:dc05e000
+[    5.255236] [<c038f6a4>] (ubifs_read_master) from [<c0386bf4>] (ubifs_mount+0xde4/0x1580)
+[    5.263493]  r10:dc05e000 r9:dc762400 r8:dc05e690 r7:dc719100 r6:00000000 r5:c0d03048
+[    5.271429]  r4:dc2c7600
+[    5.273991] [<c0385e10>] (ubifs_mount) from [<c0237e6c>] (mount_fs+0x1c/0xac)
+[    5.281222]  r10:00008000 r9:dc719080 r8:00000000 r7:c0d1cd7c r6:c0d1cd7c r5:dc719080
+[    5.289097]  r4:c0385e10
+[    5.291706] [<c0237e50>] (mount_fs) from [<c0257964>] (vfs_kern_mount.part.4+0x50/0x118)
+[    5.299855]  r6:00008000 r5:dc719080 r4:dc1ffa00
+[    5.304512] [<c0257914>] (vfs_kern_mount.part.4) from [<c025a2cc>] (do_mount+0x194/0xda4)
+[    5.312749]  r9:dc719080 r8:00000000 r7:00000000 r6:00000020 r5:c0d03048 r4:c0d1cd7c
+[    5.320610] [<c025a138>] (do_mount) from [<c025b288>] (ksys_mount+0xb4/0xcc)
+[    5.327696]  r10:c0c3c868 r9:00008000 r8:00000000 r7:00008000 r6:c0aaa8a8 r5:dc719080
+[    5.335589]  r4:dc719040
+[    5.338155] [<c025b1d4>] (ksys_mount) from [<c0c01164>] (do_mount_root+0x28/0xb0)
+[    5.345720]  r8:dcfff6ce r7:c0c3c858 r6:dcf60fa8 r5:dc71a000 r4:dc71a000
+[    5.352490] [<c0c0113c>] (do_mount_root) from [<c0c01394>] (mount_block_root+0x118/0x280)
+[    5.360725]  r6:dcf60fa8 r5:dc71a000 r4:dc71a000
+[    5.365371] [<c0c0127c>] (mount_block_root) from [<c0c01824>] (prepare_namespace+0xa4/0x1cc)
+[    5.373924]  r10:00000008 r9:c0c3c834 r8:c0c3c854 r7:c0c004f0 r6:c0d49580 r5:c0c3c868
+[    5.381809]  r4:c0c3c858
+[    5.384371] [<c0c01780>] (prepare_namespace) from [<c0c00fd0>] (kernel_init_freeable+0x1d4/0x1e4)
+[    5.393326]  r6:c0d49580 r5:c0d49580 r4:c0b86e7c
+[    5.397980] [<c0c00dfc>] (kernel_init_freeable) from [<c08bdc38>] (kernel_init+0x10/0x11c)
+[    5.406314]  r10:00000000 r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:c08bdc28
+[    5.414217]  r4:00000000
+[    5.416780] [<c08bdc28>] (kernel_init) from [<c01010e8>] (ret_from_fork+0x14/0x2c)
+[    5.424445] Exception stack(0xdc061fb0 to 0xdc061ff8)
+[    5.429544] 1fa0:                                     00000000 00000000 00000000 00000000
+[    5.437772] 1fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    5.446029] 1fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    5.452700]  r5:c08bdc28 r4:00000000
+[    5.458629] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.464990] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.508491] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 4:4096, read only 126976 bytes, retry
+[    5.522165] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.528378] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.571812] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 4:4096, read only 126976 bytes, retry
+[    5.585448] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.591683] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.635085] ubi0 warning: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 4:4096, read only 126976 bytes, retry
+[    5.648703] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.654959] omap2-nand 8000000.nand: uncorrectable bit-flips found
+[    5.698348] ubi0 error: ubi_io_read: error -74 (ECC error) while reading 126976 bytes from PEB 4:4096, read 126976 bytes
+[    5.709343] CPU: 0 PID: 1 Comm: swapper Not tainted 4.19.38-g4dae378bbe #9
+[    5.716272] Hardware name: Generic AM33XX (Flattened Device Tree)
+[    5.722455] Backtrace: 
+[    5.724945] [<c010cb64>] (dump_backtrace) from [<c010ced4>] (show_stack+0x18/0x1c)
+[    5.732574]  r7:c0d03048 r6:0001f000 r5:ffffffb6 r4:dc05d000
+[    5.738268] [<c010cebc>] (show_stack) from [<c08a9954>] (dump_stack+0x24/0x28)
+[    5.745554] [<c08a9930>] (dump_stack) from [<c05efbc0>] (ubi_io_read+0x1bc/0x340)
+[    5.753118] [<c05efa04>] (ubi_io_read) from [<c05ed828>] (ubi_eba_read_leb+0xd4/0x414)
+[    5.761102]  r10:00000001 r9:00000000 r8:00000002 r7:00000004 r6:dc6f5000 r5:dc05d000
+[    5.768966]  r4:00000000
+[    5.771574] [<c05ed754>] (ubi_eba_read_leb) from [<c05ec324>] (ubi_leb_read+0x7c/0xbc)
+[    5.779580]  r10:00000001 r9:00000000 r8:dc05d000 r7:dc6f5000 r6:00000000 r5:0001f000
+[    5.787444]  r4:00000000
+[    5.790023] [<c05ec2a8>] (ubi_leb_read) from [<c03889b4>] (ubifs_leb_read+0x34/0x80)
+[    5.797807]  r9:00000002 r8:00000002 r7:00000000 r6:0001f000 r5:dc05e000 r4:dc7194c0
+[    5.805615] [<c0388980>] (ubifs_leb_read) from [<c0390294>] (ubifs_start_scan+0x80/0xd8)
+[    5.813784]  r8:e0a65000 r7:00000002 r6:dc05e000 r5:00000000 r4:dc7194c0
+[    5.820588] [<c0390214>] (ubifs_start_scan) from [<c039053c>] (ubifs_scan+0x2c/0x2cc)
+[    5.828458]  r8:dc719580 r7:dc05e000 r6:00000000 r5:e0a65000 r4:0001f000
+[    5.835215] [<c0390510>] (ubifs_scan) from [<c038f750>] (ubifs_read_master+0xac/0x8b8)
+[    5.843218]  r10:dc05e000 r9:dc762400 r8:dc719580 r7:00000002 r6:00000800 r5:dc7194c0
+[    5.851100]  r4:dc05e000
+[    5.853659] [<c038f6a4>] (ubifs_read_master) from [<c0386bf4>] (ubifs_mount+0xde4/0x1580)
+[    5.861895]  r10:dc05e000 r9:dc762400 r8:dc05e690 r7:dc719100 r6:00000000 r5:c0d03048
+[    5.869826]  r4:dc2c7600
+[    5.872387] [<c0385e10>] (ubifs_mount) from [<c0237e6c>] (mount_fs+0x1c/0xac)
+[    5.879579]  r10:00008000 r9:dc719080 r8:00000000 r7:c0d1cd7c r6:c0d1cd7c r5:dc719080
+[    5.887452]  r4:c0385e10
+[    5.890030] [<c0237e50>] (mount_fs) from [<c0257964>] (vfs_kern_mount.part.4+0x50/0x118)
+[    5.898158]  r6:00008000 r5:dc719080 r4:dc1ffa00
+[    5.902856] [<c0257914>] (vfs_kern_mount.part.4) from [<c025a2cc>] (do_mount+0x194/0xda4)
+[    5.911127]  r9:dc719080 r8:00000000 r7:00000000 r6:00000020 r5:c0d03048 r4:c0d1cd7c
+[    5.918922] [<c025a138>] (do_mount) from [<c025b288>] (ksys_mount+0xb4/0xcc)
+[    5.926075]  r10:c0c3c868 r9:00008000 r8:00000000 r7:00008000 r6:c0aaa8a8 r5:dc719080
+[    5.933967]  r4:dc719040
+[    5.936527] [<c025b1d4>] (ksys_mount) from [<c0c01164>] (do_mount_root+0x28/0xb0)
+[    5.944088]  r8:dcfff6ce r7:c0c3c858 r6:dcf60fa8 r5:dc71a000 r4:dc71a000
+[    5.950857] [<c0c0113c>] (do_mount_root) from [<c0c01394>] (mount_block_root+0x118/0x280)
+[    5.959073]  r6:dcf60fa8 r5:dc71a000 r4:dc71a000
+[    5.963736] [<c0c0127c>] (mount_block_root) from [<c0c01824>] (prepare_namespace+0xa4/0x1cc)
+[    5.972287]  r10:00000008 r9:c0c3c834 r8:c0c3c854 r7:c0c004f0 r6:c0d49580 r5:c0c3c868
+[    5.980171]  r4:c0c3c858
+[    5.982733] [<c0c01780>] (prepare_namespace) from [<c0c00fd0>] (kernel_init_freeable+0x1d4/0x1e4)
+[    5.991662]  r6:c0d49580 r5:c0d49580 r4:c0b86e7c
+[    5.996311] [<c0c00dfc>] (kernel_init_freeable) from [<c08bdc38>] (kernel_init+0x10/0x11c)
+[    6.004662]  r10:00000000 r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:c08bdc28
+[    6.012545]  r4:00000000
+[    6.015106] [<c08bdc28>] (kernel_init) from [<c01010e8>] (ret_from_fork+0x14/0x2c)
+[    6.022773] Exception stack(0xdc061fb0 to 0xdc061ff8)
+[    6.027853] 1fa0:                                     00000000 00000000 00000000 00000000
+[    6.036097] 1fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    6.044357] 1fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    6.051027]  r5:c08bdc28 r4:00000000
+[    6.055668] UBIFS (ubi0:0): recovery needed
+[    6.200231] UBIFS (ubi0:0): recovery completed
+[    6.205173] UBIFS (ubi0:0): UBIFS: mounted UBI device 0, volume 0, name "rootfs"
+[    6.212898] UBIFS (ubi0:0): LEB size: 126976 bytes (124 KiB), min./max. I/O unit sizes: 2048 bytes/2048 bytes
+[    6.223161] UBIFS (ubi0:0): FS size: 258523136 bytes (246 MiB, 2036 LEBs), journal size 9023488 bytes (8 MiB, 72 LEBs)
+[    6.234069] UBIFS (ubi0:0): reserved for root: 0 bytes (0 KiB)
+[    6.240063] UBIFS (ubi0:0): media format: w4/r0 (latest is w5/r0), UUID 79652455-BE97-4FDE-A58A-1C4C74D64C29, small LPT model
+[    6.253849] VFS: Mounted root (ubifs filesystem) on device 0:15.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
