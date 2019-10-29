@@ -81,6 +81,11 @@ static int destroy_socket(socket_info_t *sinfo)
 		close(sinfo->sockfd);
 		sinfo->sockfd = -1;
 	}
+
+	if(sinfo->acceptfd != -1) {
+		close(sinfo->acceptfd);
+		sinfo->acceptfd = -1;
+	}
 }
 
 static int oem_tcp_accept(socket_info_t *sinfo)
