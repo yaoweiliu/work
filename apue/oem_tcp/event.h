@@ -26,6 +26,12 @@
 /* According to earlier standards */
 #include <sys/time.h>
 
+#include "ECService.h"
+#include "CmErrorStruct.h"
+#include "ev_base.h"
+#include "EvCradle.h"
+#include "EvTiltElev.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,6 +39,12 @@ extern "C" {
 //#define BIND_IP		"172.20.20.1"
 #define BIND_IP		"127.0.0.1"
 #define MAXCONN		5
+
+#define ID_CRADLE    (0x1 << 0)
+#define ID_ELEV      (0x1 << 1)
+#define ID_ALL       (0x1 << 2)
+
+//#define DEBUG
 
 typedef int (*socket_handler_t)(void);
 
@@ -44,12 +56,14 @@ typedef struct socket_info {
 	socket_handler_t func;
 }socket_info_t;
 
+/*
 static int thread_start(socket_info_t *sinfo);
 static int create_socket(socket_info_t *sinfo);
 static int destroy_socket(socket_info_t *sinfo);
 static int bind_socket(socket_info_t *sinfo);
 static int tcp_listen(socket_info_t *sinfo);
 static void *tcp_process(void *sinfo);
+*/
 
 typedef enum {
 	EV_TBL_SS_START, //used when to setup table subsystem; the client send to the server
@@ -74,6 +88,7 @@ typedef enum {
 	COU, //couch, identify the identity of the server
 }ROLE_ID;
 
+#ifdef DEBUG
 enum
 {
     EV_CRADLE_BASE = 0,
@@ -280,8 +295,7 @@ enum
     EV_ELEV_OVER_CURRENT_TIMER,
     EV_FPGA_STATE_CHANGE_TIMER,
 };
-
-
+#endif
 
 typedef struct {
 	EVENT_TYPE code; // event code
