@@ -12,24 +12,24 @@ static socket_info_t sinfo = {
 */
 
 static int client_to_server_table[6][3] = {
-	{EV_TBL_SS_START, EV_SS_START, -1},	
-	{EV_TBL_QUERY_STATUS, EV_CRADLE_STATUS_QUERY, EV_ELEV_GET_HEIGHT},	
-	{EV_TBL_CRADLE_START_MV_CMD, EV_CRADLE_MOVE_CMD, -1},
-	{EV_TBL_ELEV_START_MV_CMD, EV_ELEV_MOVE_CMD, -1},
-	{EV_TBL_CRADLE_STOP_MV_CMD, EV_CRADLE_MOVE_STOP, -1},
-	{EV_TBL_ELEV_STOP_MV_CMD, EV_ELEV_STOP_CMD, -1},
+	{EV_TBL_SS_START, 12, -1},	
+	{EV_TBL_QUERY_STATUS, 12, 12},	
+	{EV_TBL_CRADLE_START_MV_CMD, 12, -1},
+	{EV_TBL_ELEV_START_MV_CMD, 12, -1},
+	{EV_TBL_CRADLE_STOP_MV_CMD, 12, -1},
+	{EV_TBL_ELEV_STOP_MV_CMD, 12, -1},
 };
 
 static int server_to_client_table[9][3] = {
-	{EV_SS_READY, EV_TBL_CRADLE_READY, -1},
-	{EV_SS_READY, EV_TBL_ELEV_READY, -1},
-	{EV_CRADLE_STATUS_RESP, EV_TBL_CRADLE_RESPONSE_STATUS, -1},
-	{EV_ELEV_RES_HEIGHT, EV_TBL_ELEV_RESPONSE_STATUS, -1},
-	{EV_CRADLE_POS_UPDATE, EV_TBL_CRADLE_POSITION_UPDATE, -1},
-	{EV_ELEV_RES_HEIGHT, EV_TBL_ELEV_POSITION_UPDATE, -1},
-	{EV_CRADLE_STOPED, EV_TBL_CRADLE_IS_STOPED, -1},
-	{EV_ELEV_STOPED, EV_TBL_ELEV_IS_STOPED, -1},
-	{EV_ERROR_REPORTING, EV_TBL_ERROR_REPORT, -1},
+	{11, EV_TBL_CRADLE_READY, -1},
+	{11, EV_TBL_ELEV_READY, -1},
+	{11, EV_TBL_CRADLE_RESPONSE_STATUS, -1},
+	{11, EV_TBL_ELEV_RESPONSE_STATUS, -1},
+	{11, EV_TBL_CRADLE_POSITION_UPDATE, -1},
+	{11, EV_TBL_ELEV_POSITION_UPDATE, -1},
+	{11, EV_TBL_CRADLE_IS_STOPED, -1},
+	{11, EV_TBL_ELEV_IS_STOPED, -1},
+	{11, EV_TBL_ERROR_REPORT, -1},
 };
 
 static int oem_tcp_listen(socket_info_t *sinfo)
@@ -41,12 +41,15 @@ static int oem_tcp_listen(socket_info_t *sinfo)
     sinfo->sockfd = socket(AF_INET, SOCK_STREAM, 0);
     assert(sinfo->sockfd >= 0 && "create tcp socket error");
 
+    FD_SET(sinfo->sockfd, &sinfo->readfds);
+    sinfo->maxFd = sinfo->sockfd;
+
     memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
-    //address.sin_addr.s_addr = inet_addr(BIND_IP); //client
-	address.sin_addr.s_addr = htonl(INADDR_ANY);
-	//address.sin_port = htons(7990);
-	address.sin_port = 7990;
+    address.sin_addr.s_addr = inet_addr(BIND_IP); //client
+	//address.sin_addr.s_addr = htonl(INADDR_ANY);
+	address.sin_port = htons(7990);
+	//address.sin_port = 7990;
 
     count = 1;
     setsockopt(sinfo->sockfd, SOL_SOCKET, SO_REUSEADDR, &count, sizeof(count));
@@ -100,6 +103,10 @@ static int oem_tcp_accept(socket_info_t *sinfo)
     sinfo->acceptfd = accept(sinfo->sockfd, (struct sockaddr *)&address, &addrlen);
 	printf("%s:socket acceptfd is %d, error msg is %s, errno is %d\n", __func__, sinfo->acceptfd, strerror(errno), errno);
     assert(sinfo->acceptfd >= 0 && "Accept of connection failed");
+
+    FD_SET(sinfo->acceptfd, &sinfo->readfds);
+    if(sinfo->acceptfd > sinfo->maxFd)
+    	sinfo->maxFd = sinfo->acceptfd;
     
     arg = 1;
     //set the socket to non block mode
@@ -147,7 +154,7 @@ void *oem_read_payload(int fd, char *buf, size_t lenth, size_t header_len)
 void *oem_tcp_process(void *arg)
 {
 	int ret, i;
-	fd_set readfds;
+	//fd_set readfds;
 	socket_info_t *sinfo = (socket_info_t *)arg;
 	char *buf = NULL;
 	char *new_buf = NULL;
@@ -158,16 +165,18 @@ void *oem_tcp_process(void *arg)
 	lenth = sizeof(EVENT_HEADER);
 	//buf = malloc(lenth);
 	
-	FD_ZERO(&readfds);
-	FD_SET(sinfo->acceptfd, &readfds);
+	//FD_ZERO(&readfds);
+	//FD_SET(sinfo->acceptfd, &readfds);
 	
 	while(1) {
-		ret = select(sinfo->acceptfd+1, &readfds, NULL, NULL, NULL);
+		ret = select(sinfo->maxFd+1, &sinfo->readfds, NULL, NULL, NULL);
 		if(ret < 0) {
 			if(errno == EBADF || errno == EINTR)
 				continue;
 		}
-		if(FD_ISSET(sinfo->acceptfd, &readfds)) {
+
+
+		if(FD_ISSET(sinfo->sockfd, &sinfo->readfds)) {
 			/*
 			rsize = read(sinfo->acceptfd, buf, lenth);
 			if(rsize < 0)
@@ -176,9 +185,12 @@ void *oem_tcp_process(void *arg)
 			header = (EVENT_HEADER *)buf;
 			if(header->length > lenth) //recalloc
 			*/
+
+			oem_tcp_accept(sinfo);
+
 			rsize = 0;
 			buf = (char *)oem_read_header(sinfo->acceptfd, lenth, &rsize);
-			printf("%s: %d buf is %p, rsize is %d\n", __func__, __LINE__, buf, rsize);
+			printf("%s: %d buf is %p, rsize is %ld\n", __func__, __LINE__, buf, rsize);
 			if(buf && rsize) {
 				header = (EVENT_HEADER *)buf;
 				//free(buf);
@@ -199,6 +211,10 @@ void *oem_tcp_process(void *arg)
 					for(i = 0; i < sizeof(client_to_server_table)/sizeof(client_to_server_table[0]); i++) {
 						if(header->code == client_to_server_table[i][0]) {
 							//sent code to ctl but how? TODO
+							EV_TBL_CRADLE_READY_TYPE ready;
+							ready.header.code = EV_TBL_CRADLE_READY;
+							ready.header.length = sizeof(EV_TBL_CRADLE_READY_TYPE);
+							write(sinfo->acceptfd, &ready, sizeof(EV_TBL_CRADLE_READY_TYPE));
 							printf("%s: %d event code is %d\n", __func__, __LINE__, header->code);
 							break;
 						}
@@ -233,8 +249,10 @@ int main(int argc, char *argv[])
 	socket_info_t *sinfo = (socket_info_t *)malloc(sizeof(socket_info_t));
 	assert(sinfo != NULL && "malloc error");
 	
+	FD_ZERO(&sinfo->readfds);
+
 	oem_tcp_listen(sinfo);
-	oem_tcp_accept(sinfo);
+	//oem_tcp_accept(sinfo);
 	thread_start(sinfo);
 	
 	free(sinfo);
