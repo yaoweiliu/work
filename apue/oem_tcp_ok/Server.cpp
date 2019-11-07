@@ -172,13 +172,15 @@ void *oem_tcp_process(void *arg)
 	
 	while(1) {
 		ret = select(sinfo->maxFd+1, &sinfo->readfds, NULL, NULL, NULL);
+		printf("%s: ret = %d\n", __func__, ret);
 		if(ret < 0) {
 			if(errno == EBADF || errno == EINTR)
 				continue;
 		}
 
-		for(fd = 0; fd <= sinfo->maxFd; fd++) {
+		for(fd = 0; ret > 0 && fd <= sinfo->maxFd; fd++) {
 			if(FD_ISSET(fd, &sinfo->readfds)) {
+				--ret;
 				/*
 				rsize = read(sinfo->acceptfd, buf, lenth);
 				if(rsize < 0)

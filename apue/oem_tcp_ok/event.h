@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 //#define BIND_IP		"172.20.20.1"
-#define BIND_IP		"192.168.0.108"
+#define BIND_IP		"192.168.0.109"
 #define MAXCONN		5
 
 #define ID_CRADLE    (0x1 << 0)
