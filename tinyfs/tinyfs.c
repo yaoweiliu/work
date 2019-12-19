@@ -8,9 +8,60 @@
 struct file_blk block[MAX_FILES+1];
 int curr_count = 0;
 
+static struct inode *tinyfs_iget(struct super_block *sb, int idx)
+{
+	struct inode *inode;
+	struct file_blk *blk;
+
+	inode = new_inode(sb);
+	inode->i_ino = idx;
+	inode->i_sb = sb;
+	inode->i_op = &tinyfs_inode_ops;
+
+	blk = &block[idx];
+
+	if(S_ISDIR(blk->mode))
+		inode->i_fop = &tinyfs_dir_operations;
+	else if(S_ISREG(blk->mode))
+		inode->i_fop = &tinyfs_file_operations;
+
+	inode->i_atime = inode->i_mtime = inode->i_ctime = CURRENT_TIME;
+	inode->i_private = blk;
+
+	return inode;
+}
+
+static struct dentry *tinyfs_lookup(struct inode *parent_inode, struct dentry *child_dentry, unsigned int flags)
+{
+	struct super_block *sb = parent_inode->i_sb;
+	struct file_blk *blk;
+	struct dir_entry *entry;
+	int i;
+
+	blk = (struct file_blk *)parent_inode->i_private;
+	entry = (struct dir_entry *)&blk->data[0];
+
+	for(i = 0; i < blk->dir_children; i++) {
+		if(!strcmp(entry[i].filename, child_dentry->d_name.name)) {
+			struct inode *inode = tinyfs_iget(sb, entry[i].idx);
+			struct file_blk *inner = (struct file_blk *)inode->i_private;
+			inode_init_owner(inode, parent_inode, inner->mode);
+			d_add(child_dentry, inode);
+			return NULL;
+		}
+	}
+
+	return NULL;
+}
+
 static int tinyfs_rmdir(struct inode *dir, struct dentry *dentry)
 {
-	
+	struct inode *inode = dentry->d_inode;
+	struct file_blk *blk = (struct file_blk *)inode->i_private;
+
+	blk->busy = 0;
+
+	return simple_rmdir(dir, dentry);
 }
 
 static int tinyfs_unlink(struct inode *dir, struct dentry *dentry)
