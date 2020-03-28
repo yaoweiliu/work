@@ -1,3 +1,5 @@
+/* from Linux阅码场 */
+
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/sched.h>
@@ -7,6 +9,99 @@
 
 struct file_blk block[MAX_FILES+1];
 int curr_count = 0;
+
+ssize_t tinyfs_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
+{
+	struct file_blk *blk;
+	char *buffer;
+
+	blk = filp->f_path.dentry->d_inode->i_private;
+
+	buffer = (char *)&blk->data[0];
+	buffer += *ppos;
+
+	if(copy_from_user(buffer, buf, len))
+		return -EFAULT;
+	*ppos += len;
+	blk->file_size = *ppos;
+
+	return len;
+}
+
+const struct file_operations tinyfs_file_operations = {
+	.read = tinyfs_read,
+	.write = tinyfs_write,
+};
+
+const struct file_operations tinyfs_dir_operations = {
+	.owner = THIS_MODULE,
+	.readdir = tinyfs_readdir,
+};
+
+static int tinyfs_do_create(struct inode *dir, struct dentry *dentry, umode_t mode)
+{
+	struct inode *inode;
+	struct super_block *sb;
+	struct dir_entry *entry;
+	struct file_blk *blk, *pblk;
+	int idx;
+
+	sb = dir->i_sb;
+
+	if(curr_count >= MAX_FILES)
+		return -ENOSPC;
+
+	if(!S_ISDIR(mode) && !S_ISREG(mode))
+		return -EINVAL;
+
+	inode = new_inode(sb);
+	if(!inode)
+		return -ENOMEM;
+
+	inode->i_sb = sb;
+	inode->i_op = &tinyfs_inode_ops;
+	inode->i_atime = inode->i_mtime = inode->i_ctime = CURRENT_TIME;
+
+	idx = get_block();
+	blk = &block[idx];
+	inode->i_ino = idx;
+	blk->mode = mode;
+	curr_count++;
+
+	if(S_ISDIR(mode)) {
+		blk->dir_children = 0;
+		inode->i_fop = &tinyfs_dir_operations;
+	}
+	else if(S_ISREG(mode)) {
+		blk->file_size = 0;
+		inode->i_fop = &tinyfs_file_operations;
+	}
+
+	inode->i_private = blk;
+	pblk = (struct file_blk *)dir->i_private;
+
+	entry = (struct dir_entry *)&pblk->data[0];
+	entry += pblk->dir_children;
+	pblk->dir_children++;
+
+	entry->idx = idx;
+	strcpy(entry->filename, dentry->d_name.name);
+
+	inode_init_owner(inode, dir, mode);
+	d_add(dentry, inode);
+
+	return 0;
+}
+
+static int tinyfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+{
+	return tinyfs_do_create(dir, dentry, S_IFDIR | mode);
+}
+
+static int tinyfs_create(struct inode *dir, struct dentry *dentry, umode_t mode, bool excl)
+{
+	return tinyfs_do_create(dir, dentry, mode);
+}
 
 static struct inode *tinyfs_iget(struct super_block *sb, int idx)
 {
