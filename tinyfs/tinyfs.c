@@ -11,7 +11,7 @@ struct file_blk block[MAX_FILES+1];
 int curr_count = 0;
 
 ssize_t tinyfs_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
-{
+{																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
 	struct file_blk *blk;
 	char *buffer;
 
